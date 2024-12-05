@@ -1,0 +1,22 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/moflis
+    username: moflis
+    password: wngus@5630
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 60
+      minimum-idle: 10
+      idle-timeout: 600000      # 10분
+      max-lifetime: 1800000     # 30분
+      connection-timeout: 30000
+      validation-timeout: 5000
+      leak-detection-threshold: 1795000 # (29분 55초)
+      pool-name: HikariPool
+      register-mbeans: true
+  jwt:
+    secretKey: a9sdjfkLSDk093asdf94fuls9juflokasjdf0odsjflkajdfsdsogldfmso9f
+
+
