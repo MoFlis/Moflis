@@ -29,7 +29,7 @@ jobs:
 
       # Checkstyle 실행
       - name: Run Checkstyle
-        run: ./gradlew checkstyleMain checkstyleTest
+        run: ./gradlew checkstyleMain checkstyleTest -Dcheckstyle.config.location=.idea/checkstyle.xml
 
       # reviewdog을 사용해 Checkstyle 결과를 PR 리뷰로 추가
       - name: Checkstyle for Java
