@@ -29,8 +29,8 @@ jobs:
         run: ./gradlew checkstyleMain checkstyleTest
 
       # reviewdog을 사용해 Checkstyle 결과를 PR 리뷰로 추가
-      - name: Run reviewdog with Checkstyle
-        uses: reviewdog/reviewdog@v0.13.0
+      - name: Checkstyle for Java
+        uses: dbelyaev/action-checkstyle@v1.16.8
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
           reporter: github-pr-review
