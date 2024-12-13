@@ -14,6 +14,15 @@ java {
 	}
 }
 
+checkstyle {
+	toolVersion = "10.12.0" // Checkstyle 플러그인 버전
+	configFile = file("config/checkstyle/checkstyle.xml") // 설정 파일 경로
+}
+
+tasks.withType(Checkstyle) {
+	classpath = files() // 클래스 경로를 비웁니다.
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
