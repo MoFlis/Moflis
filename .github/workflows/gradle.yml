@@ -30,7 +30,7 @@ jobs:
 
       # reviewdog을 사용해 Checkstyle 결과를 PR 리뷰로 추가
       - name: Run reviewdog with Checkstyle
-        uses: reviewdog/action-checkstyle@v1
+        uses: reviewdog/reviewdog@v0.13.0
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
           reporter: github-pr-review
