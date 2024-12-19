@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.0'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'checkstyle'
 }
 
 group = 'com.project'
@@ -11,6 +12,15 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+checkstyle {
+    toolVersion = "10.12.0" // Checkstyle 플러그인 버전
+    configFile = file("config/checkstyle/checkstyle.xml") // 설정 파일 경로
+}
+
+tasks.withType(Checkstyle) {
+    classpath = files() // 클래스 경로를 비웁니다.
 }
 
 configurations {
