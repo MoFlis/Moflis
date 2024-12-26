@@ -18,5 +18,7 @@ spring:
       register-mbeans: true
   jwt:
     secretKey: a9sdjfkLSDk093asdf94fuls9juflokasjdf0odsjflkajdfsdsogldfmso9f
+file:
+  upload-dir: D:/project/moflis/uploads/images
 
 

@@ -6,12 +6,14 @@ import com.project.moflis.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-19T17:26:26+0900",
+    date = "2024-12-25T17:32:54+0900",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.11.1.jar, environment: Java 17.0.2 (Oracle Corporation)"
 )
+@Component
 public class ProfileMapperImpl implements ProfileMapper {
 
     @Override
@@ -27,9 +29,7 @@ public class ProfileMapperImpl implements ProfileMapper {
         profilesDTO.setIntro( profiles.getIntro() );
         profilesDTO.setProfileImage( profiles.getProfileImage() );
         profilesDTO.setTrustScore( profiles.getTrustScore() );
-        if ( profiles.getLocationVerified() != null ) {
-            profilesDTO.setLocationVerified( profiles.getLocationVerified() );
-        }
+        profilesDTO.setLocationVerified( profiles.getLocationVerified() );
 
         return profilesDTO;
     }

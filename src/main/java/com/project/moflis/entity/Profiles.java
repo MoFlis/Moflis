@@ -8,16 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "Profiles")
 public class Profiles {
 
@@ -26,19 +22,17 @@ public class Profiles {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "user_id")
+    private User user; // 반드시 User 객체로 정의
 
-    @Column
     private String intro;
 
     @Column(name = "profile_image")
     private String profileImage;
 
     @Column(name = "trust_score")
-    private Float trustScore = 50f;
+    private Float trustScore;
 
     @Column(name = "location_verified")
-    private Integer locationVerified = 0;
-
+    private int locationVerified;
 }

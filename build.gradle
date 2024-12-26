@@ -15,12 +15,16 @@ java {
 }
 
 checkstyle {
-    toolVersion = "10.12.0" // Checkstyle 플러그인 버전
-    configFile = file("config/checkstyle/checkstyle.xml") // 설정 파일 경로
+    toolVersion = "10.12.0" // Checkstyle 버전
+    configFile = file("config/checkstyle/checkstyle.xml")
 }
 
 tasks.withType(Checkstyle) {
     classpath = files() // 클래스 경로를 비웁니다.
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorPath = configurations.annotationProcessor
 }
 
 configurations {
@@ -38,13 +42,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // MapStruct
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-    compileOnly 'org.projectlombok:lombok'
+
+    // Lombok-MapStruct Binding
+    implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

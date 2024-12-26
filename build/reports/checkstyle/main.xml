@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.12.0">
+<file name="D:\project\moflis\src\main\java\com\project\moflis\controller\ProfilesController.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\dto\ProfilesDTO.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\entity\Locations.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\entity\Profiles.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\entity\ProfileTag.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\entity\Tags.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\entity\User.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\mapper\ProfileMapper.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\MoflisApplication.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\repository\ProfileRepository.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\service\ProfileService.java">
+</file>
+<file name="D:\project\moflis\src\main\java\com\project\moflis\util\FileRenameUtil.java">
+</file>
+</checkstyle>
