@@ -6,7 +6,6 @@ import com.project.moflis.util.FileRenameUtil;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,34 +16,33 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class ProfilesController {
 
-    @Autowired
-    private ProfileService profileService;
+    private final ProfileService profileService;
+
+    public ProfilesController(ProfileService profileService) {
+        this.profileService = profileService;
+    }
 
     @Value("${file.upload-dir}")
     private String uploadDir;
 
     @GetMapping("profile")
-    public Map<String, Object> getProfile(@RequestParam("userId") int userId) {
-        Map<String, Object> map = new HashMap<>();
+    public ProfilesDTO getProfile(@RequestParam("userId") int userId) {
         ProfilesDTO profile = profileService.getProfiles(userId);
-        map.put("profile", profile);
-        return map;
+        return profile;
     }
 
     @PostMapping("add_profile")
-    public Map<String, Object> addProfile(ProfilesDTO profilesDTO) {
+    public ProfilesDTO addProfile(ProfilesDTO profilesDTO) {
         Map<String, Object> map = new HashMap<>();
         ProfilesDTO addResult = profileService.addProfile(profilesDTO);
-        map.put("addResult", addResult);
-        return map;
+        return addResult;
     }
 
     @PostMapping("update_profile")
-    public Map<String, Object> updateProfile(ProfilesDTO profileInfo) {
+    public ProfilesDTO updateProfile(ProfilesDTO profileInfo) {
         Map<String, Object> map = new HashMap<>();
         ProfilesDTO profile = profileService.updateProfiles(profileInfo);
-        map.put("result", profile);
-        return map;
+        return profile;
     }
 
     @PostMapping("add_profileImage")

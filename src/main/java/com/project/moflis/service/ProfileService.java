@@ -5,14 +5,16 @@ import com.project.moflis.entity.Profiles;
 import com.project.moflis.mapper.ProfileMapper;
 import com.project.moflis.repository.ProfileRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileService {
 
-    @Autowired
-    private ProfileRepository profileRepository;
+    private final ProfileRepository profileRepository;
+
+    public ProfileService(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
+    }
 
     public ProfilesDTO getProfiles(int userId) {
         return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.findByUserId(userId));

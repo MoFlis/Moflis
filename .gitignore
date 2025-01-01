@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+build/**/*.class
 
 ### IntelliJ IDEA ###
 .idea
@@ -27,3 +28,4 @@ node_modules/
 *.class
 *.jar
 *.war
+.gradle/**
