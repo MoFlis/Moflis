@@ -1,0 +1,31 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+build/**/*.class
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Node ###
+node_modules/
+
+### Environment Variables ###
+.env
+
+### Logs ###
+*.log
+
+### Compiled Files ###
+*.class
+*.jar
+*.war
+.gradle/**
