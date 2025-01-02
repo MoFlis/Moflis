@@ -49,8 +49,8 @@ public class User {
     @Column
     private String nickname;
 
-    @Column(length = 1)
-    private Character gender;
+    @Column
+    private boolean gender;
 
     @Column
     private int kakao;

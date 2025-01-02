@@ -18,7 +18,7 @@ public class UserDTO {
     private LocalDate birth;
     private String address;
     private String nickname;
-    private Character gender;
+    private boolean gender;
     private int kakao;
     private LocalDateTime joinDate;
     private UserStatus userStatus;
