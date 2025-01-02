@@ -2,13 +2,11 @@ package com.project.moflis.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserDTO {
 
     private Integer id; // 반드시 존재해야 함

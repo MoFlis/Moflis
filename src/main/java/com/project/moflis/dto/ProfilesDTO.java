@@ -1,13 +1,11 @@
 package com.project.moflis.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class ProfilesDTO {
 
     private Integer id;
