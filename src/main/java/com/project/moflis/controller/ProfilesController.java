@@ -6,7 +6,6 @@ import com.project.moflis.util.FileRenameUtil;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class ProfilesController {
 
-    @Autowired
-    private ProfileService profileService;
+    private final ProfileService profileService;
+
+    public ProfilesController(ProfileService profileService) {
+        this.profileService = profileService;
+    }
 
     @Value("${file.upload-dir}")
     private String uploadDir;
