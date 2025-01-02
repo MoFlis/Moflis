@@ -1,5 +1,6 @@
 package com.project.moflis.dto;
 
+import com.project.moflis.enums.UserStatus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class UserDTO {
     private Character gender;
     private int kakao;
     private LocalDateTime joinDate;
-    private boolean status;
+    private UserStatus userStatus;
     private String grade;
 
 }
