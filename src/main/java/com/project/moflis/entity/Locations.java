@@ -37,7 +37,7 @@ public class Locations {
     private Double longitude;
 
     @Column
-    private Boolean status = false;
+    private Boolean isVerified = false;
 
     @Column(name = "request_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime requestTime;
