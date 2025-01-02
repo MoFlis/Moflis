@@ -3,9 +3,9 @@ package com.project.moflis.controller;
 import com.project.moflis.dto.ProfilesDTO;
 import com.project.moflis.service.ProfileService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +33,7 @@ public class ProfilesController {
         return addResult;
     }
 
-    @PutMapping("/{userId}")
+    @PatchMapping("/{userId}")
     public ProfilesDTO updateProfile(@PathVariable int userId, ProfilesDTO profileInfo) {
         profileInfo.setUserId(userId);
         ProfilesDTO profile = profileService.updateProfiles(profileInfo);
