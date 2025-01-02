@@ -14,5 +14,5 @@ public class ProfilesDTO {
     private MultipartFile profileImage;
     private String profileImageName;
     private Float trustScore;
-    private int locationVerified;
+    private boolean locationVerified;
 }

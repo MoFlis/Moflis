@@ -34,5 +34,5 @@ public class Profiles {
     private Float trustScore;
 
     @Column(name = "location_verified")
-    private int locationVerified;
+    private boolean locationVerified;
 }
