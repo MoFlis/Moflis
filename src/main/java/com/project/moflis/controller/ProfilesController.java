@@ -26,27 +26,21 @@ public class ProfilesController {
     private String uploadDir;
 
     @GetMapping("profile")
-    public Map<String, Object> getProfile(@RequestParam("userId") int userId) {
-        Map<String, Object> map = new HashMap<>();
+    public ProfilesDTO getProfile(@RequestParam("userId") int userId) {
         ProfilesDTO profile = profileService.getProfiles(userId);
-        map.put("profile", profile);
-        return map;
+        return profile;
     }
 
     @PostMapping("add_profile")
-    public Map<String, Object> addProfile(ProfilesDTO profilesDTO) {
-        Map<String, Object> map = new HashMap<>();
+    public ProfilesDTO addProfile(ProfilesDTO profilesDTO) {
         ProfilesDTO addResult = profileService.addProfile(profilesDTO);
-        map.put("addResult", addResult);
-        return map;
+        return addResult;
     }
 
     @PostMapping("update_profile")
-    public Map<String, Object> updateProfile(ProfilesDTO profileInfo) {
-        Map<String, Object> map = new HashMap<>();
+    public ProfilesDTO updateProfile(ProfilesDTO profileInfo) {
         ProfilesDTO profile = profileService.updateProfiles(profileInfo);
-        map.put("result", profile);
-        return map;
+        return profile;
     }
 
     @PostMapping("add_profileImage")
