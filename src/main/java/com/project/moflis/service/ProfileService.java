@@ -4,7 +4,10 @@ import com.project.moflis.dto.ProfilesDTO;
 import com.project.moflis.entity.Profiles;
 import com.project.moflis.mapper.ProfileMapper;
 import com.project.moflis.repository.ProfileRepository;
+import com.project.moflis.util.FileRenameUtil;
 import jakarta.transaction.Transactional;
+import java.io.File;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +19,32 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
     public ProfilesDTO getProfiles(int userId) {
         return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.findByUserId(userId));
+    }
+
+    @Transactional
+    public ProfilesDTO addProfile(ProfilesDTO profileInfo) {
+        Profiles profile = ProfileMapper.INSTANCE.toProfiles(profileInfo);
+        if (profileInfo.getProfileImage() != null && !profileInfo.getProfileImage().isEmpty()) {
+            try {
+                File directory = new File(uploadDir);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
+                String safeFilename = FileRenameUtil.checkSameFileName(originalFilename, uploadDir);
+                String profileImageName = uploadDir + "/" + safeFilename;
+                profileInfo.getProfileImage().transferTo(new File(profileImageName));
+                profile.setProfileImageName(profileImageName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.save(profile));
     }
 
     @Transactional
@@ -28,33 +55,23 @@ public class ProfileService {
             throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다. " + profileInfo.getUserId());
         }
 
-        Profiles profile = ProfileMapper.INSTANCE.toProfiles(profileInfo);
-        existingProfile.setIntro(profileInfo.getIntro());
-        existingProfile.setProfileImage(profileInfo.getProfileImage());
+        if (profileInfo.getProfileImage() != null && !profileInfo.getProfileImage().isEmpty()) {
+            try {
+                File directory = new File(uploadDir);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
+                String safeFilename = FileRenameUtil.checkSameFileName(originalFilename, uploadDir);
+                String profileImageName = uploadDir + "/" + safeFilename;
+                profileInfo.getProfileImage().transferTo(new File(profileImageName));
+                existingProfile.setProfileImageName(profileImageName);
+                existingProfile.setIntro(profileInfo.getIntro());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.save(existingProfile));
     }
 
-    @Transactional
-    public ProfilesDTO addProfile(ProfilesDTO profilesDTO) {
-        Profiles profile = ProfileMapper.INSTANCE.toProfiles(profilesDTO);
-        return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.save(profile));
-    }
-
-    public void uploadImage(Integer userId, String profileImage) {
-        Profiles profile = profileRepository.findByUserId(userId);
-        if (profile == null) {
-            throw new RuntimeException("아이디가 존재하지 않습니다");
-        }
-        profile.setProfileImage(profileImage);
-        profileRepository.save(profile);
-    }
-
-    public void updateImage(Integer userId, String profileImage) {
-        Profiles profile = profileRepository.findByUserId(userId);
-        if (profile == null) {
-            throw new RuntimeException("아이디가 존재하지 않습니다");
-        }
-        profile.setProfileImage(profileImage);
-        profileRepository.save(profile);
-    }
 }

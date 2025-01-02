@@ -28,7 +28,7 @@ public class Profiles {
     private String intro;
 
     @Column(name = "profile_image")
-    private String profileImage;
+    private String profileImageName;
 
     @Column(name = "trust_score")
     private Float trustScore;
