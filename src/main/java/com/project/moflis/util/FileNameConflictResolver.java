@@ -2,7 +2,7 @@ package com.project.moflis.util;
 
 import java.io.File;
 
-public class FileRenameUtil {
+public class FileNameConflictResolver {
 
     public static String checkSameFileName(String fileName, String path) {
         int period = fileName.lastIndexOf(".");// test23.txt --> 6

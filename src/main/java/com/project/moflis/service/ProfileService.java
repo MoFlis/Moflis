@@ -4,7 +4,7 @@ import com.project.moflis.dto.ProfilesDTO;
 import com.project.moflis.entity.Profiles;
 import com.project.moflis.mapper.ProfileMapper;
 import com.project.moflis.repository.ProfileRepository;
-import com.project.moflis.util.FileRenameUtil;
+import com.project.moflis.util.FileNameConflictResolver;
 import jakarta.transaction.Transactional;
 import java.io.File;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +36,8 @@ public class ProfileService {
                     directory.mkdirs();
                 }
                 String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
-                String safeFilename = FileRenameUtil.checkSameFileName(originalFilename, uploadDir);
+                String safeFilename = FileNameConflictResolver.checkSameFileName(originalFilename,
+                    uploadDir);
                 String profileImageName = uploadDir + "/" + safeFilename;
                 profileInfo.getProfileImage().transferTo(new File(profileImageName));
                 profile.setProfileImageName(profileImageName);
@@ -62,7 +63,8 @@ public class ProfileService {
                     directory.mkdirs();
                 }
                 String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
-                String safeFilename = FileRenameUtil.checkSameFileName(originalFilename, uploadDir);
+                String safeFilename = FileNameConflictResolver.checkSameFileName(originalFilename,
+                    uploadDir);
                 String profileImageName = uploadDir + "/" + safeFilename;
                 profileInfo.getProfileImage().transferTo(new File(profileImageName));
                 existingProfile.setProfileImageName(profileImageName);
