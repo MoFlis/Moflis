@@ -6,9 +6,10 @@ import com.project.moflis.mapper.ProfileMapper;
 import com.project.moflis.repository.ProfileRepository;
 import com.project.moflis.util.FileNameConflictResolver;
 import jakarta.transaction.Transactional;
-import java.io.File;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
 
 @Service
 public class ProfileService {
@@ -28,6 +29,13 @@ public class ProfileService {
 
     @Transactional
     public ProfilesDTO addProfile(ProfilesDTO profileInfo) {
+
+        Profiles existingProfile = profileRepository.findByUserId(profileInfo.getUserId());
+
+        if (existingProfile != null) {
+            throw new RuntimeException("이미 등록되어있는 사용자 입니다 " + profileInfo.getUserId());
+        }
+
         Profiles profile = ProfileMapper.INSTANCE.toProfiles(profileInfo);
         if (profileInfo.getProfileImage() != null && !profileInfo.getProfileImage().isEmpty()) {
             try {
@@ -37,7 +45,7 @@ public class ProfileService {
                 }
                 String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
                 String safeFilename = FileNameConflictResolver.checkSameFileName(originalFilename,
-                    uploadDir);
+                        uploadDir);
                 String profileImageName = uploadDir + "/" + safeFilename;
                 profileInfo.getProfileImage().transferTo(new File(profileImageName));
                 profile.setProfileImageName(profileImageName);
@@ -64,15 +72,15 @@ public class ProfileService {
                 }
                 String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
                 String safeFilename = FileNameConflictResolver.checkSameFileName(originalFilename,
-                    uploadDir);
+                        uploadDir);
                 String profileImageName = uploadDir + "/" + safeFilename;
                 profileInfo.getProfileImage().transferTo(new File(profileImageName));
                 existingProfile.setProfileImageName(profileImageName);
-                existingProfile.setIntro(profileInfo.getIntro());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        existingProfile.setIntro(profileInfo.getIntro());
         return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.save(existingProfile));
     }
 
