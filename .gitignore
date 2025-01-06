@@ -1,6 +1,6 @@
 # Ignore everything in the build directory
 build/
-
+build/**
 # Include only .class files in the build directory
 !build/**/*.class
 
