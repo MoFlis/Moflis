@@ -44,11 +44,13 @@ public class ProfileService {
                     directory.mkdirs();
                 }
                 String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
-                String safeFilename = FileNameConflictResolver.checkSameFileName(originalFilename,
-                        uploadDir);
-                String profileImageName = uploadDir + "/" + safeFilename;
-                profileInfo.getProfileImage().transferTo(new File(profileImageName));
-                profile.setProfileImageName(profileImageName);
+                if (FileNameConflictResolver.isFileNameConflict(originalFilename, uploadDir)) {
+                    String safeFilename = FileNameConflictResolver.generateUniqueFileName(originalFilename,
+                            uploadDir);
+                    String profileImageName = uploadDir + "/" + safeFilename;
+                    profileInfo.getProfileImage().transferTo(new File(profileImageName));
+                    profile.setProfileImageName(profileImageName);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -71,11 +73,13 @@ public class ProfileService {
                     directory.mkdirs();
                 }
                 String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
-                String safeFilename = FileNameConflictResolver.checkSameFileName(originalFilename,
-                        uploadDir);
-                String profileImageName = uploadDir + "/" + safeFilename;
-                profileInfo.getProfileImage().transferTo(new File(profileImageName));
-                existingProfile.setProfileImageName(profileImageName);
+                if (FileNameConflictResolver.isFileNameConflict(originalFilename, uploadDir)) {
+                    String safeFilename = FileNameConflictResolver.generateUniqueFileName(originalFilename,
+                            uploadDir);
+                    String profileImageName = uploadDir + "/" + safeFilename;
+                    profileInfo.getProfileImage().transferTo(new File(profileImageName));
+                    existingProfile.setProfileImageName(profileImageName);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

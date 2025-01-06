@@ -4,29 +4,31 @@ import java.io.File;
 
 public class FileNameConflictResolver {
 
-    public static String checkSameFileName(String fileName, String path) {
-        int period = fileName.lastIndexOf(".");// test23.txt --> 6
+    public static boolean isFileNameConflict(String fileName, String path) {
+        String saveFilePath = path + "/" + fileName;
+        File file = new File(saveFilePath);
+        return file.exists();
+    }
 
-        String file = fileName.substring(0, period);// test23
-        String suffix = fileName.substring(period); // .txt
+    public static String generateUniqueFileName(String fileName, String path) {
+        int period = fileName.lastIndexOf(".");
+        String fileBaseName = fileName.substring(0, period); // 파일명 (확장자 제외)
+        String fileSuffix = fileName.substring(period); // 확장자
 
         String saveFilePath = path + "/" + fileName;
-
-        File f = new File(saveFilePath);
+        File file = new File(saveFilePath);
 
         int idx = 1;
 
-        while (f != null && f.exists()) {
-            StringBuffer sb = new StringBuffer();
-            sb.append(file);
-            sb.append(idx++);
-            sb.append(suffix);
+        while (file.exists()) {
+            StringBuilder newFileName = new StringBuilder();
+            newFileName.append(fileBaseName);
+            newFileName.append(idx++);
+            newFileName.append(fileSuffix);
 
-            fileName = sb.toString();// test231.txt
-
+            fileName = newFileName.toString();
             saveFilePath = path + "/" + fileName;
-
-            f = new File(saveFilePath);
+            file = new File(saveFilePath);
         }
         return fileName;
     }
