@@ -4,7 +4,7 @@ import com.project.moflis.dto.ProfilesDTO;
 import com.project.moflis.entity.Profiles;
 import com.project.moflis.mapper.ProfileMapper;
 import com.project.moflis.repository.ProfileRepository;
-import com.project.moflis.util.FileNameConflictResolver;
+import com.project.moflis.storage.FileStorageService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,11 @@ import java.io.File;
 public class ProfileService {
 
     private final ProfileRepository profileRepository;
+    private final FileStorageService fileStorageService;
 
-    public ProfileService(ProfileRepository profileRepository) {
+    public ProfileService(ProfileRepository profileRepository, FileStorageService fileStorageService) {
         this.profileRepository = profileRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     @Value("${file.upload-dir}")
@@ -44,8 +46,8 @@ public class ProfileService {
                     directory.mkdirs();
                 }
                 String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
-                if (FileNameConflictResolver.isFileNameConflict(originalFilename, uploadDir)) {
-                    String safeFilename = FileNameConflictResolver.generateUniqueFileName(originalFilename,
+                if (fileStorageService.isFileNameConflict(originalFilename, uploadDir)) {
+                    String safeFilename = fileStorageService.generateUniqueFileName(originalFilename,
                             uploadDir);
                     String profileImageName = uploadDir + "/" + safeFilename;
                     profileInfo.getProfileImage().transferTo(new File(profileImageName));
@@ -73,8 +75,8 @@ public class ProfileService {
                     directory.mkdirs();
                 }
                 String originalFilename = profileInfo.getProfileImage().getOriginalFilename();
-                if (FileNameConflictResolver.isFileNameConflict(originalFilename, uploadDir)) {
-                    String safeFilename = FileNameConflictResolver.generateUniqueFileName(originalFilename,
+                if (fileStorageService.isFileNameConflict(originalFilename, uploadDir)) {
+                    String safeFilename = fileStorageService.generateUniqueFileName(originalFilename,
                             uploadDir);
                     String profileImageName = uploadDir + "/" + safeFilename;
                     profileInfo.getProfileImage().transferTo(new File(profileImageName));

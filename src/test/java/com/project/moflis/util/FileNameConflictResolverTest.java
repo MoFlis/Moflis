@@ -1,8 +1,10 @@
 package com.project.moflis.util;
 
+import com.project.moflis.storage.FileStorageService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
@@ -12,6 +14,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class FileNameConflictResolverTest {
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     private String tempDir;
 
@@ -44,7 +49,7 @@ public class FileNameConflictResolverTest {
         String fileName = "test.txt";
 
         // When: 메서드 호출
-        String resolvedName = FileNameConflictResolver.generateUniqueFileName(fileName, tempDir);
+        String resolvedName = fileStorageService.generateUniqueFileName(fileName, tempDir);
 
         // Then: 반환된 이름이 입력한 이름과 동일해야 함
         assertThat(resolvedName).isEqualTo(fileName);
@@ -58,7 +63,7 @@ public class FileNameConflictResolverTest {
         existingFile.createNewFile(); //파일이 없으면 생성 true 반환 있으면 생성안하고 false반환
 
         // When: 메서드 호출
-        String resolvedName = FileNameConflictResolver.generateUniqueFileName(fileName, tempDir);
+        String resolvedName = fileStorageService.generateUniqueFileName(fileName, tempDir);
 
         // Then: resolvedName이 기존에 파일과 이름이 달라야함
         assertThat(resolvedName).isNotEqualTo(fileName);

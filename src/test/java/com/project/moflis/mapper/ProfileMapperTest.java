@@ -5,13 +5,11 @@ import com.project.moflis.entity.Profiles;
 import com.project.moflis.entity.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 public class ProfileMapperTest {
 
     private final ProfileMapper profileMapper = Mappers.getMapper(ProfileMapper.class);

@@ -1,35 +1,20 @@
 package com.project.moflis.util;
 
-import java.io.File;
+import com.project.moflis.storage.FileStorageService;
 
 public class FileNameConflictResolver {
 
-    public static boolean isFileNameConflict(String fileName, String path) {
-        String saveFilePath = path + "/" + fileName;
-        File file = new File(saveFilePath);
-        return file.exists();
+    private final FileStorageService fileStorageService;
+
+    public FileNameConflictResolver(FileStorageService fileStorageService) {
+        this.fileStorageService = fileStorageService;
     }
 
-    public static String generateUniqueFileName(String fileName, String path) {
-        int period = fileName.lastIndexOf(".");
-        String fileBaseName = fileName.substring(0, period); // 파일명 (확장자 제외)
-        String fileSuffix = fileName.substring(period); // 확장자
+    public boolean isFileNameConflict(String fileName, String path) {
+        return fileStorageService.isFileNameConflict(fileName, path);
+    }
 
-        String saveFilePath = path + "/" + fileName;
-        File file = new File(saveFilePath);
-
-        int idx = 1;
-
-        while (file.exists()) {
-            StringBuilder newFileName = new StringBuilder();
-            newFileName.append(fileBaseName);
-            newFileName.append(idx++);
-            newFileName.append(fileSuffix);
-
-            fileName = newFileName.toString();
-            saveFilePath = path + "/" + fileName;
-            file = new File(saveFilePath);
-        }
-        return fileName;
+    public String generateUniqueFileName(String fileName, String path) {
+        return fileStorageService.generateUniqueFileName(fileName, path);
     }
 }

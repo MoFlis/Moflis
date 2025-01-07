@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ProfilesControllerTest {
 
     @Autowired
-    private ProfilesController profilesController;
+    private ProfileController profilesController;
 
     @Autowired
     private ProfileService profileService;
