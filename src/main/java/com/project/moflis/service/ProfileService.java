@@ -26,7 +26,11 @@ public class ProfileService {
     private String uploadDir;
 
     public ProfilesDTO getProfiles(int userId) {
-        return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.findByUserId(userId));
+        Profiles profile = profileRepository.findByUserId(userId);
+        if (profile == null) {
+            throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다: " + userId);
+        }
+        return ProfileMapper.INSTANCE.toProfilesDto(profile);
     }
 
     @Transactional
@@ -65,7 +69,7 @@ public class ProfileService {
         Profiles existingProfile = profileRepository.findByUserId(profileInfo.getUserId());
 
         if (existingProfile == null) {
-            throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다. " + profileInfo.getUserId());
+            throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다." + profileInfo.getUserId());
         }
 
         if (profileInfo.getProfileImage() != null && !profileInfo.getProfileImage().isEmpty()) {
