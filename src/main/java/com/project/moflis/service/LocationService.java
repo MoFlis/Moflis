@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,11 +77,12 @@ public class LocationService {
         location.setLatitude(result.get("latitude"));
         location.setLongitude(result.get("longitude"));
         location.setVerified(false);
+        location.setRequestTime(LocalDateTime.now());
         return LocationMapper.INSTANCE.toLocationsDTO(locationRepository.save(location));
     }
 
     @Transactional
-    public boolean locationVerify(Integer userId) {
+    public boolean locationVerify(Integer userId, LocationDTO location) {
         Locations locationInfo = locationRepository.findByUserId(userId);
         System.out.println(locationInfo);
 
@@ -91,6 +93,9 @@ public class LocationService {
         // 기준 위치 위도, 경도
         double baseLatitude = 37.597466; // 예: 서울
         double baseLongitude = 127.094160; // 예: 서울
+
+        //double baseLatitude = location.getLatitude(); // 예: 서울
+        //double baseLongitude = location.getLongitude(); // 예: 서울
 
         // 저장된 위치 위도, 경도
         double userLatitude = locationInfo.getLatitude();
@@ -104,8 +109,15 @@ public class LocationService {
         // 인증 기준거리
         double verificationRadius = 1000;
 
+        boolean isVerified = distance <= verificationRadius;
+        if (isVerified) {
+            locationInfo.setVerified(isVerified);
+            locationInfo.setCompletedTime(LocalDateTime.now());
+            locationRepository.save(locationInfo);
+        }
+
         // 인증 결과 반환
-        return distance <= verificationRadius;
+        return isVerified;
     }
 
     public double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
@@ -122,4 +134,5 @@ public class LocationService {
 
         return EARTH_RADIUS * c;
     }
+
 }
