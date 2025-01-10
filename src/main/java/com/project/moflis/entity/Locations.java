@@ -10,13 +10,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "locations")
@@ -37,7 +33,7 @@ public class Locations {
     private Double longitude;
 
     @Column
-    private Boolean status = false;
+    private Boolean isVerified = false;
 
     @Column(name = "request_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime requestTime;

@@ -1,7 +1,10 @@
 package com.project.moflis.entity;
 
+import com.project.moflis.enums.UserStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,8 +49,8 @@ public class User {
     @Column
     private String nickname;
 
-    @Column(length = 1)
-    private Character gender;
+    @Column
+    private boolean gender;
 
     @Column
     private int kakao;
@@ -55,8 +58,9 @@ public class User {
     @Column
     private LocalDateTime joinDate;
 
-    @Column
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_status")
+    private UserStatus userStatus;
 
     @Column
     private String grade;
