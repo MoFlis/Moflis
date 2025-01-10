@@ -5,6 +5,8 @@ import com.project.moflis.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 
@@ -13,5 +15,9 @@ public interface UserMapper {
     UserDTO toUserDto(User users);
 
     User toUser(UserDTO userDTO);
+
+    List<UserDTO> toUserDtoList(List<User> userList);
+
+    List<User> toUserList(List<UserDTO> userDtoList);
 
 }

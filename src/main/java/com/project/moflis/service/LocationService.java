@@ -8,8 +8,6 @@ import com.project.moflis.entity.User;
 import com.project.moflis.mapper.LocationMapper;
 import com.project.moflis.repository.LocationRepository;
 import jakarta.transaction.Transactional;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +15,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class LocationService {
@@ -30,7 +31,7 @@ public class LocationService {
         try {
             // Kakao API URL
             String url =
-                "https://dapi.kakao.com/v2/local/search/address.json?query=" + address;
+                    "https://dapi.kakao.com/v2/local/search/address.json?query=" + address;
 
             // HTTP 헤더 설정
             HttpHeaders headers = new HttpHeaders();
@@ -40,7 +41,7 @@ public class LocationService {
             HttpEntity<String> entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity,
-                String.class);
+                    String.class);
 
             // JSON 응답 파싱
             ObjectMapper mapper = new ObjectMapper();
@@ -74,7 +75,7 @@ public class LocationService {
         location.setUser(user);
         location.setLatitude(result.get("latitude"));
         location.setLongitude(result.get("longitude"));
-        location.setStatus(false);
+        location.setVerified(false);
         return LocationMapper.INSTANCE.toLocationsDTO(locationRepository.save(location));
     }
 
@@ -98,7 +99,7 @@ public class LocationService {
         System.out.println("저장 경도" + userLongitude);
 
         double distance = calculateDistance(baseLatitude, baseLongitude, userLatitude,
-            userLongitude);
+                userLongitude);
 
         // 인증 기준거리
         double verificationRadius = 1000;
@@ -114,8 +115,8 @@ public class LocationService {
         double lonDiff = Math.toRadians(lon2 - lon1); // 경도 차이
 
         double a = Math.sin(latDiff / 2) * Math.sin(latDiff / 2) +
-            Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                Math.sin(lonDiff / 2) * Math.sin(lonDiff / 2);
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                        Math.sin(lonDiff / 2) * Math.sin(lonDiff / 2);
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
