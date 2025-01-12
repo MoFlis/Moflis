@@ -1,31 +1,29 @@
-HELP.md
-.gradle
+# Ignore everything in the build directory
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-build/**/*.class
+build/**
+# Include only .class files in the build directory
+!build/**/*.class
 
-### IntelliJ IDEA ###
-.idea
+# Ignore IntelliJ IDEA files
+.idea/
 *.iws
 *.iml
 *.ipr
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
-### Node ###
+# Ignore Node.js modules
 node_modules/
 
-### Environment Variables ###
+# Ignore environment variables
 .env
 
-### Logs ###
+# Ignore logs
 *.log
 
-### Compiled Files ###
+# Ignore compiled files
 *.class
 *.jar
 *.war
-.gradle/**
+
+# Ignore Gradle files
+.gradle/
