@@ -2,6 +2,7 @@ package com.project.moflis.service;
 
 import com.project.moflis.dto.ProfilesDTO;
 import com.project.moflis.entity.Profiles;
+import com.project.moflis.exception.ImageUploadException;
 import com.project.moflis.mapper.ProfileMapper;
 import com.project.moflis.repository.ProfileRepository;
 import com.project.moflis.storage.FileStorageService;
@@ -69,22 +70,34 @@ public class ProfileService {
         return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.save(existingProfile));
     }
 
-    public ProfilesDTO addProfileImage(int userId, MultipartFile file) {
+    @Transactional
+    public void addProfileImage(int userId, MultipartFile file) {
         Profiles existingProfile = profileRepository.findByUserId(userId);
         System.out.println(existingProfile);
-        return saveProfileImage(file, existingProfile);
+        try {
+            saveProfileImage(file, existingProfile);
+        } catch (Exception e) {
+            throw new ImageUploadException("프로필 이미지 업로드 실패: " + e.getMessage());
+        }
     }
 
-    public ProfilesDTO updateProfileImage(int userId, MultipartFile file) {
+    @Transactional
+    public void updateProfileImage(int userId, MultipartFile file) {
         Profiles existingProfile = profileRepository.findByUserId(userId);
 
         if (existingProfile == null) {
             throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다." + userId);
         }
-        return saveProfileImage(file, existingProfile);
+
+        try {
+            saveProfileImage(file, existingProfile);
+        } catch (Exception e) {
+            throw new ImageUploadException("프로필 이미지 업로드 실패: " + e.getMessage());
+
+        }
     }
 
-    private ProfilesDTO saveProfileImage(MultipartFile file, Profiles existingProfile) {
+    private void saveProfileImage(MultipartFile file, Profiles existingProfile) {
         if (file != null && !file.isEmpty()) {
             try {
                 fileStorageService.createDirectoryIfNotExists(file.getOriginalFilename(), uploadDir);
@@ -92,11 +105,12 @@ public class ProfileService {
                 String profileImageName = fileStorageService.saveFile(originalFilename, uploadDir, file);
                 existingProfile.setProfileImageName(profileImageName);
                 Profiles addResult = profileRepository.save(existingProfile);
-                return ProfileMapper.INSTANCE.toProfilesDto(addResult);
+                ProfileMapper.INSTANCE.toProfilesDto(addResult);
+                return;
             } catch (Exception e) {
-                throw new RuntimeException("프로필 이미지 저장 중 오류 발생: " + e.getMessage(), e);
+                throw new ImageUploadException("프로필 이미지 저장 중 오류 발생: " + e.getMessage());
             }
         }
-        throw new IllegalArgumentException("업로드된 파일이 비어 있습니다.");
+        throw new IllegalArgumentException("파일이 비어있습니다.");
     }
 }

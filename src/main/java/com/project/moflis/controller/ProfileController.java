@@ -2,6 +2,7 @@ package com.project.moflis.controller;
 
 import com.project.moflis.dto.ProfilesDTO;
 import com.project.moflis.service.ProfileService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,6 @@ public class ProfileController {
     public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
     }
-
 
     @GetMapping("/profile")
     public ProfilesDTO getProfile(@PathVariable int userId) {
@@ -30,15 +30,9 @@ public class ProfileController {
     }
 
     @PostMapping("/profileImage")
-    public int addProfileImage(@PathVariable int userId, MultipartFile file) {
-        ProfilesDTO profile = profileService.addProfileImage(userId, file);
-        int result = 0;
-        if (profile != null) {
-            result = 1;
-        } else {
-            result = 0;
-        }
-        return result;
+    public ResponseEntity<String> addProfileImage(@PathVariable int userId, MultipartFile file) {
+        profileService.addProfileImage(userId, file);
+        return ResponseEntity.ok("프로필이 성공적으로 업데이트 되었습니다.");
     }
 
     @PatchMapping("/profile")
@@ -49,15 +43,9 @@ public class ProfileController {
     }
 
     @PatchMapping("/profileImage")
-    public int updateProfileImage(@PathVariable int userId, MultipartFile file) {
-        ProfilesDTO profile = profileService.updateProfileImage(userId, file);
-        int result = 0;
-        if (profile != null) {
-            result = 1;
-        } else {
-            result = 0;
-        }
-        return result;
+    public ResponseEntity<String> updateProfileImage(@PathVariable int userId, MultipartFile file) {
+        profileService.updateProfileImage(userId, file);
+        return ResponseEntity.ok("프로필이 성공적으로 업데이트 되었습니다.");
     }
 
 }
