@@ -49,7 +49,7 @@ public class FileNameConflictResolverTest {
         String fileName = "test.txt";
 
         // When: 메서드 호출
-        String resolvedName = fileStorageService.generateUniqueFileName(fileName, tempDir);
+        String resolvedName = FileNameConflictResolver.generateUniqueFileName(fileName, tempDir);
 
         // Then: 반환된 이름이 입력한 이름과 동일해야 함
         assertThat(resolvedName).isEqualTo(fileName);
@@ -63,7 +63,7 @@ public class FileNameConflictResolverTest {
         existingFile.createNewFile(); //파일이 없으면 생성 true 반환 있으면 생성안하고 false반환
 
         // When: 메서드 호출
-        String resolvedName = fileStorageService.generateUniqueFileName(fileName, tempDir);
+        String resolvedName = FileNameConflictResolver.generateUniqueFileName(fileName, tempDir);
 
         // Then: resolvedName이 기존에 파일과 이름이 달라야함
         assertThat(resolvedName).isNotEqualTo(fileName);
