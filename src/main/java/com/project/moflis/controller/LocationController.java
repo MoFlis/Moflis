@@ -1,10 +1,12 @@
 package com.project.moflis.controller;
 
-import com.project.moflis.dto.LocationDTO;
-import com.project.moflis.dto.UserDTO;
+import com.project.moflis.command.LocationCommand;
+import com.project.moflis.dto.location.LocationDTO;
+import com.project.moflis.dto.location.VerifyLocationRequest;
+import com.project.moflis.dto.user.UserDTO;
 import com.project.moflis.service.LocationService;
 import com.project.moflis.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -13,24 +15,33 @@ import java.util.Map;
 @RequestMapping("/api/v1/users/{userId}")
 public class LocationController {
 
-    @Autowired
-    private LocationService locationService;
+    private final LocationService locationService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/location")
-    public LocationDTO getLocation(@PathVariable("userId") Integer userId) {
+    public LocationController(LocationService locationService, UserService userService) {
+        this.locationService = locationService;
+        this.userService = userService;
+    }
+
+    @PostMapping("/location")
+    public ResponseEntity<LocationDTO> saveLocation(@PathVariable("userId") Integer userId) {
         UserDTO userAddress = userService.getUserAddress(userId);
         System.out.println(userAddress.getAddress());
         Map<String, Double> result = locationService.getCoordinates(userAddress.getAddress());
         LocationDTO location = locationService.saveLocation(result, userId);
-        return location;
+        return ResponseEntity.ok(location);
     }
 
     @PostMapping("/location-verify")
-    public boolean locationVerify(@PathVariable("userId") Integer userId, LocationDTO location) {
-        boolean isVerify = locationService.locationVerify(userId, location);
+    public boolean locationVerify(@PathVariable("userId") Integer userId, @RequestBody VerifyLocationRequest request) {
+        request.setUserId(userId);
+        LocationCommand command = new LocationCommand(
+                request.getUserId(),
+                request.getLatitude(),
+                request.getLongitude()
+        );
+        boolean isVerify = locationService.locationVerify(command);
         return isVerify;
     }
 

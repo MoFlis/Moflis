@@ -1,4 +1,4 @@
-package com.project.moflis.dto;
+package com.project.moflis.dto.location;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

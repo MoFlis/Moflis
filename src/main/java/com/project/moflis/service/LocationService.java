@@ -2,13 +2,13 @@ package com.project.moflis.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.moflis.dto.LocationDTO;
+import com.project.moflis.command.LocationCommand;
+import com.project.moflis.dto.location.LocationDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
 import com.project.moflis.mapper.LocationMapper;
 import com.project.moflis.repository.LocationRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,8 +25,11 @@ public class LocationService {
 
     private static String KAKAO_API_KEY = "4cf3e1d70b6f7847b9079a4dabf3a6d5";
 
-    @Autowired
-    private LocationRepository locationRepository;
+    private final LocationRepository locationRepository;
+
+    public LocationService(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;
+    }
 
     public Map<String, Double> getCoordinates(String address) {
         try {
@@ -70,6 +73,9 @@ public class LocationService {
 
     @Transactional
     public LocationDTO saveLocation(Map<String, Double> result, Integer userId) {
+        if (locationRepository.existsByUserId(userId)) {
+            throw new RuntimeException("이미 저장된 유저 입니다");
+        }
         Locations location = new Locations();
         User user = new User();
         user.setId(userId);
@@ -82,8 +88,8 @@ public class LocationService {
     }
 
     @Transactional
-    public boolean locationVerify(Integer userId, LocationDTO location) {
-        Locations locationInfo = locationRepository.findByUserId(userId);
+    public boolean locationVerify(LocationCommand command) {
+        Locations locationInfo = locationRepository.findByUserId(command.getUserId());
         System.out.println(locationInfo);
 
         if (locationInfo == null) {

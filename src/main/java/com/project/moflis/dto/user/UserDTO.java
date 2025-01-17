@@ -1,10 +1,11 @@
-package com.project.moflis.dto;
+package com.project.moflis.dto.user;
 
 import com.project.moflis.enums.UserStatus;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor

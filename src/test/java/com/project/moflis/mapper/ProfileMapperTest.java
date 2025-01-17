@@ -1,6 +1,6 @@
 package com.project.moflis.mapper;
 
-import com.project.moflis.dto.ProfilesDTO;
+import com.project.moflis.dto.profile.ProfilesDTO;
 import com.project.moflis.entity.Profiles;
 import com.project.moflis.entity.User;
 import org.junit.jupiter.api.Test;

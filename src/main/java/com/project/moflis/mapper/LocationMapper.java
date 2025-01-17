@@ -1,11 +1,13 @@
 package com.project.moflis.mapper;
 
-import com.project.moflis.dto.LocationDTO;
+import com.project.moflis.command.LocationCommand;
+import com.project.moflis.dto.location.LocationDTO;
 import com.project.moflis.entity.Locations;
-import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper
 public interface LocationMapper {
@@ -17,6 +19,9 @@ public interface LocationMapper {
 
     @Mapping(source = "userId", target = "user.id")
     Locations toLocations(LocationDTO locationsDTO);
+
+    @Mapping(source = "userId", target = "user.id")
+    Locations toLocations(LocationCommand command);
 
     // 리스트 변환
     List<LocationDTO> toLocationsDTOList(List<Locations> locationsList);

@@ -25,7 +25,10 @@ spring:
         format_sql: true
   jwt:
     secretKey: a9sdjfkLSDk093asdf94fuls9juflokasjdf0odsjflkajdfsdsogldfmso9f
-file:
-  upload-dir: D:/project/moflis/uploads/images
-
-
+aws:
+  s3:
+    bucket: juhyunbucket
+    region: ap-southeast-2
+  credentials:
+    accessKey: ${AWS_ACCESS_KEY_ID}
+    secretKey: ${AWS_SECRET_ACCESS_KEY}

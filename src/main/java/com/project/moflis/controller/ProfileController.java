@@ -1,6 +1,9 @@
 package com.project.moflis.controller;
 
-import com.project.moflis.dto.ProfilesDTO;
+import com.project.moflis.command.ProfileCommand;
+import com.project.moflis.dto.profile.AddProfileRequest;
+import com.project.moflis.dto.profile.ProfilesDTO;
+import com.project.moflis.dto.profile.UpdateProfileReqeust;
 import com.project.moflis.service.ProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +20,20 @@ public class ProfileController {
     }
 
     @GetMapping("/profile")
-    public ProfilesDTO getProfile(@PathVariable int userId) {
+    public ResponseEntity<ProfilesDTO> getProfile(@PathVariable int userId) {
         ProfilesDTO profile = profileService.getProfiles(userId);
-        return profile;
+        return ResponseEntity.ok(profile);
     }
 
     @PostMapping("/profile")
-    public ProfilesDTO addProfile(@PathVariable int userId, ProfilesDTO profilesDTO) {
-        profilesDTO.setUserId(userId);
-        ProfilesDTO addResult = profileService.addProfile(profilesDTO);
-        return addResult;
+    public ResponseEntity<ProfilesDTO> addProfile(@PathVariable int userId, AddProfileRequest request) {
+        request.setUserId(userId);
+        ProfileCommand command = new ProfileCommand(
+                request.getUserId(),
+                request.getIntro()
+        );
+        ProfilesDTO addResult = profileService.addProfile(command);
+        return ResponseEntity.ok(addResult);
     }
 
     @PostMapping("/profileImage")
@@ -36,10 +43,14 @@ public class ProfileController {
     }
 
     @PatchMapping("/profile")
-    public ProfilesDTO updateProfile(@PathVariable int userId, ProfilesDTO profileInfo) {
-        profileInfo.setUserId(userId);
-        ProfilesDTO profile = profileService.updateProfiles(profileInfo);
-        return profile;
+    public ResponseEntity<ProfilesDTO> updateProfile(@PathVariable int userId, UpdateProfileReqeust reqeust) {
+        reqeust.setUserId(userId);
+        ProfileCommand command = new ProfileCommand(
+                reqeust.getUserId(),
+                reqeust.getIntro()
+        );
+        ProfilesDTO profile = profileService.updateProfiles(command);
+        return ResponseEntity.ok(profile);
     }
 
     @PatchMapping("/profileImage")

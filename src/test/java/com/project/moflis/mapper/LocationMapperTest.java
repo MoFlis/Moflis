@@ -1,6 +1,6 @@
 package com.project.moflis.mapper;
 
-import com.project.moflis.dto.LocationDTO;
+import com.project.moflis.dto.location.LocationDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
 import org.junit.jupiter.api.Test;
