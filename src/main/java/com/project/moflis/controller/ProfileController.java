@@ -27,9 +27,8 @@ public class ProfileController {
 
     @PostMapping("/profile")
     public ResponseEntity<ProfilesDTO> addProfile(@PathVariable int userId, AddProfileRequest request) {
-        request.setUserId(userId);
         ProfileCommand command = new ProfileCommand(
-                request.getUserId(),
+                userId,
                 request.getIntro()
         );
         ProfilesDTO addResult = profileService.addProfile(command);
@@ -44,9 +43,8 @@ public class ProfileController {
 
     @PatchMapping("/profile")
     public ResponseEntity<ProfilesDTO> updateProfile(@PathVariable int userId, UpdateProfileReqeust reqeust) {
-        reqeust.setUserId(userId);
         ProfileCommand command = new ProfileCommand(
-                reqeust.getUserId(),
+                userId,
                 reqeust.getIntro()
         );
         ProfilesDTO profile = profileService.updateProfiles(command);
