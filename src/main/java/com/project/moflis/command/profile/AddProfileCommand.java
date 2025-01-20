@@ -1,13 +1,13 @@
-package com.project.moflis.command;
+package com.project.moflis.command.profile;
 
 import lombok.Getter;
 
 @Getter
-public class ProfileCommand {
+public class AddProfileCommand {
     private final Integer userId;
     private final String intro;
 
-    public ProfileCommand(Integer userId, String intro) {
+    public AddProfileCommand(Integer userId, String intro) {
         this.userId = userId;
         this.intro = intro;
     }

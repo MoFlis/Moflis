@@ -1,10 +1,10 @@
-package com.project.moflis.command;
+package com.project.moflis.command.location;
 
 import lombok.Getter;
 
 @Getter
 public class LocationCommand {
-    
+
     private final Integer userId;
     private final double latitude;
     private final double longitude;

@@ -1,6 +1,6 @@
 package com.project.moflis.mapper;
 
-import com.project.moflis.command.LocationCommand;
+import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.dto.location.LocationDTO;
 import com.project.moflis.entity.Locations;
 import org.mapstruct.Mapper;

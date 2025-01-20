@@ -1,6 +1,7 @@
 package com.project.moflis.controller;
 
-import com.project.moflis.command.ProfileCommand;
+import com.project.moflis.command.profile.AddProfileCommand;
+import com.project.moflis.command.profile.UpdateProfileCommand;
 import com.project.moflis.dto.profile.AddProfileRequest;
 import com.project.moflis.dto.profile.ProfilesDTO;
 import com.project.moflis.dto.profile.UpdateProfileReqeust;
@@ -27,7 +28,7 @@ public class ProfileController {
 
     @PostMapping("/profile")
     public ResponseEntity<ProfilesDTO> addProfile(@PathVariable int userId, AddProfileRequest request) {
-        ProfileCommand command = new ProfileCommand(
+        AddProfileCommand command = new AddProfileCommand(
                 userId,
                 request.getIntro()
         );
@@ -43,7 +44,7 @@ public class ProfileController {
 
     @PatchMapping("/profile")
     public ResponseEntity<ProfilesDTO> updateProfile(@PathVariable int userId, UpdateProfileReqeust reqeust) {
-        ProfileCommand command = new ProfileCommand(
+        UpdateProfileCommand command = new UpdateProfileCommand(
                 userId,
                 reqeust.getIntro()
         );

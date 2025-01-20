@@ -2,7 +2,7 @@ package com.project.moflis.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.moflis.command.LocationCommand;
+import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.dto.location.LocationDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;

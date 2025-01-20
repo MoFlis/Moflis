@@ -1,6 +1,7 @@
 package com.project.moflis.service;
 
-import com.project.moflis.command.ProfileCommand;
+import com.project.moflis.command.profile.AddProfileCommand;
+import com.project.moflis.command.profile.UpdateProfileCommand;
 import com.project.moflis.dto.profile.ProfilesDTO;
 import com.project.moflis.entity.Profiles;
 import com.project.moflis.exception.ImageUploadException;
@@ -32,7 +33,7 @@ public class ProfileService {
     }
 
     @Transactional
-    public ProfilesDTO addProfile(ProfileCommand command) {
+    public ProfilesDTO addProfile(AddProfileCommand command) {
 
         Profiles existingProfile = profileRepository.findByUserId(command.getUserId());
 
@@ -44,7 +45,7 @@ public class ProfileService {
     }
 
     @Transactional
-    public ProfilesDTO updateProfiles(ProfileCommand command) {
+    public ProfilesDTO updateProfiles(UpdateProfileCommand command) {
         Profiles existingProfile = profileRepository.findByUserId(command.getUserId());
 
         if (existingProfile == null) {
