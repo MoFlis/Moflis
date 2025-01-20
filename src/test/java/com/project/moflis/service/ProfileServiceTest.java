@@ -1,7 +1,8 @@
 package com.project.moflis.service;
 
-import com.project.moflis.command.ProfileCommand;
-import com.project.moflis.dto.profile.ProfilesDTO;
+import com.project.moflis.command.profile.AddProfileCommand;
+import com.project.moflis.command.profile.UpdateProfileCommand;
+import com.project.moflis.dto.profile.ProfileResponseDTO;
 import com.project.moflis.entity.Profiles;
 import com.project.moflis.entity.User;
 import com.project.moflis.repository.ProfileRepository;
@@ -36,7 +37,7 @@ class ProfileServiceTest {
         Mockito.when(profileRepository.findByUserId(userId)).thenReturn(profile);
 
         // when
-        ProfilesDTO result = profileService.getProfiles(userId);
+        ProfileResponseDTO result = profileService.getProfiles(userId);
 
         // then
         assertNotNull(result);
@@ -58,7 +59,7 @@ class ProfileServiceTest {
     @Test
     void addProfileSuccess() {
         // given
-        ProfileCommand command = new ProfileCommand(9999, "성공프로필");
+        AddProfileCommand command = new AddProfileCommand(9999, "성공프로필");
 
         Profiles savedProfile = new Profiles();
         User user = new User();
@@ -70,7 +71,7 @@ class ProfileServiceTest {
         Mockito.when(profileRepository.save(Mockito.any(Profiles.class))).thenReturn(savedProfile);
 
         // when
-        ProfilesDTO result = profileService.addProfile(command);
+        ProfileResponseDTO result = profileService.addProfile(command);
 
         // then
         assertNotNull(result);
@@ -80,7 +81,7 @@ class ProfileServiceTest {
     @Test
     void addProfileExistingProfile() {
         // given
-        ProfileCommand command = new ProfileCommand(9999, "이미 있는 프로필");
+        AddProfileCommand command = new AddProfileCommand(9999, "이미 있는 프로필");
 
         Profiles existingProfile = new Profiles();
         User user = new User();
@@ -98,7 +99,7 @@ class ProfileServiceTest {
     @Test
     void updateProfileSuccess() {
         // given
-        ProfileCommand command = new ProfileCommand(9999, "업데이트된 프로필");
+        UpdateProfileCommand command = new UpdateProfileCommand(9999, "업데이트된 프로필");
 
         Profiles existingProfile = new Profiles();
         User user = new User();
@@ -110,7 +111,7 @@ class ProfileServiceTest {
         Mockito.when(profileRepository.save(Mockito.any(Profiles.class))).thenReturn(existingProfile);
 
         // when
-        ProfilesDTO result = profileService.updateProfiles(command);
+        ProfileResponseDTO result = profileService.updateProfiles(command);
 
         // then
         assertNotNull(result);
@@ -120,7 +121,7 @@ class ProfileServiceTest {
     @Test
     void updateProfileFail() {
         // given
-        ProfileCommand command = new ProfileCommand(9999, "업데이트된 프로필");
+        UpdateProfileCommand command = new UpdateProfileCommand(9999, "업데이트된 프로필");
 
         Mockito.when(profileRepository.findByUserId(command.getUserId())).thenReturn(null);
 

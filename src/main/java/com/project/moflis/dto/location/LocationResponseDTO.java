@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class LocationDTO {
+public class LocationResponseDTO {
 
     private Integer id;
     private Integer userId;

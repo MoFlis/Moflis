@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
-public class ProfilesDTO {
+public class ProfileResponseDTO {
 
     private Integer id;
     private Integer userId;

@@ -2,7 +2,7 @@ package com.project.moflis.service;
 
 import com.project.moflis.command.profile.AddProfileCommand;
 import com.project.moflis.command.profile.UpdateProfileCommand;
-import com.project.moflis.dto.profile.ProfilesDTO;
+import com.project.moflis.dto.profile.ProfileResponseDTO;
 import com.project.moflis.entity.Profiles;
 import com.project.moflis.exception.ImageUploadException;
 import com.project.moflis.mapper.ProfileMapper;
@@ -24,7 +24,7 @@ public class ProfileService {
         this.fileStorageService = fileStorageService;
     }
 
-    public ProfilesDTO getProfiles(int userId) {
+    public ProfileResponseDTO getProfiles(int userId) {
         Profiles profile = profileRepository.findByUserId(userId);
         if (profile == null) {
             throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다: " + userId);
@@ -33,7 +33,7 @@ public class ProfileService {
     }
 
     @Transactional
-    public ProfilesDTO addProfile(AddProfileCommand command) {
+    public ProfileResponseDTO addProfile(AddProfileCommand command) {
 
         Profiles existingProfile = profileRepository.findByUserId(command.getUserId());
 
@@ -45,7 +45,7 @@ public class ProfileService {
     }
 
     @Transactional
-    public ProfilesDTO updateProfiles(UpdateProfileCommand command) {
+    public ProfileResponseDTO updateProfiles(UpdateProfileCommand command) {
         Profiles existingProfile = profileRepository.findByUserId(command.getUserId());
 
         if (existingProfile == null) {

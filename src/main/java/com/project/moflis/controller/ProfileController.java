@@ -3,7 +3,7 @@ package com.project.moflis.controller;
 import com.project.moflis.command.profile.AddProfileCommand;
 import com.project.moflis.command.profile.UpdateProfileCommand;
 import com.project.moflis.dto.profile.AddProfileRequest;
-import com.project.moflis.dto.profile.ProfilesDTO;
+import com.project.moflis.dto.profile.ProfileResponseDTO;
 import com.project.moflis.dto.profile.UpdateProfileReqeust;
 import com.project.moflis.service.ProfileService;
 import org.springframework.http.ResponseEntity;
@@ -21,18 +21,18 @@ public class ProfileController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<ProfilesDTO> getProfile(@PathVariable int userId) {
-        ProfilesDTO profile = profileService.getProfiles(userId);
+    public ResponseEntity<ProfileResponseDTO> getProfile(@PathVariable int userId) {
+        ProfileResponseDTO profile = profileService.getProfiles(userId);
         return ResponseEntity.ok(profile);
     }
 
     @PostMapping("/profile")
-    public ResponseEntity<ProfilesDTO> addProfile(@PathVariable int userId, AddProfileRequest request) {
+    public ResponseEntity<ProfileResponseDTO> addProfile(@PathVariable int userId, AddProfileRequest request) {
         AddProfileCommand command = new AddProfileCommand(
                 userId,
                 request.getIntro()
         );
-        ProfilesDTO addResult = profileService.addProfile(command);
+        ProfileResponseDTO addResult = profileService.addProfile(command);
         return ResponseEntity.ok(addResult);
     }
 
@@ -43,12 +43,12 @@ public class ProfileController {
     }
 
     @PatchMapping("/profile")
-    public ResponseEntity<ProfilesDTO> updateProfile(@PathVariable int userId, UpdateProfileReqeust reqeust) {
+    public ResponseEntity<ProfileResponseDTO> updateProfile(@PathVariable int userId, UpdateProfileReqeust reqeust) {
         UpdateProfileCommand command = new UpdateProfileCommand(
                 userId,
                 reqeust.getIntro()
         );
-        ProfilesDTO profile = profileService.updateProfiles(command);
+        ProfileResponseDTO profile = profileService.updateProfiles(command);
         return ResponseEntity.ok(profile);
     }
 
