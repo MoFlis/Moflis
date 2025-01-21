@@ -1,7 +1,7 @@
 package com.project.moflis.application;
 
 import com.project.moflis.command.location.LocationCommand;
-import com.project.moflis.dto.location.LocationDTO;
+import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.dto.location.VerifyLocationRequest;
 import com.project.moflis.dto.user.UserDTO;
 import com.project.moflis.service.LocationService;
@@ -20,7 +20,7 @@ public class LocationApplicationService {
         this.locationService = locationService;
     }
 
-    public LocationDTO processAndSaveLocation(Integer userId) {
+    public LocationResponseDTO processAndSaveLocation(Integer userId) {
         UserDTO userAddress = userService.getUserAddress(userId);
         Map<String, Double> coordinates = locationService.getCoordinates(userAddress.getAddress());
         return locationService.saveLocation(coordinates, userId);

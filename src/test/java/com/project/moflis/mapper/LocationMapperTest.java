@@ -1,6 +1,6 @@
 package com.project.moflis.mapper;
 
-import com.project.moflis.dto.location.LocationDTO;
+import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class LocationMapperTest {
         location.setLongitude(127.09416);
         location.setLatitude(37.597466);
 
-        LocationDTO locationDTO = locationMapper.toLocationsDTO(location);
+        LocationResponseDTO locationDTO = locationMapper.toLocationsDTO(location);
 
         assertThat(locationDTO.getId()).isEqualTo(1);
         assertThat(locationDTO.getUserId()).isEqualTo(1);
@@ -50,7 +50,7 @@ class LocationMapperTest {
         LocalDateTime now = LocalDateTime.of(2025, 1, 10, 15, 16, 4);
         LocalDateTime tomorrow = now.plusDays(1);
         //Given
-        LocationDTO locationDTO = new LocationDTO();
+        LocationResponseDTO locationDTO = new LocationResponseDTO();
         locationDTO.setId(1);
         locationDTO.setUserId(1);
         locationDTO.setVerified(false);
@@ -98,7 +98,7 @@ class LocationMapperTest {
         location2.setLongitude(127.09416);
         location2.setLatitude(37.597466);
 
-        List<LocationDTO> locationDTOList = new ArrayList<>();
+        List<LocationResponseDTO> locationDTOList = new ArrayList<>();
         locationDTOList.add(locationMapper.toLocationsDTO(location1));
         locationDTOList.add(locationMapper.toLocationsDTO(location2));
         assertThat(locationDTOList).hasSize(2);
@@ -114,7 +114,7 @@ class LocationMapperTest {
         LocalDateTime now = LocalDateTime.of(2025, 1, 10, 15, 16, 4);
         LocalDateTime tomorrow = now.plusDays(1);
 
-        LocationDTO locationDTO1 = new LocationDTO();
+        LocationResponseDTO locationDTO1 = new LocationResponseDTO();
         locationDTO1.setId(1);
         locationDTO1.setUserId(1);
         locationDTO1.setVerified(false);
@@ -123,7 +123,7 @@ class LocationMapperTest {
         locationDTO1.setLongitude(127.09416);
         locationDTO1.setLatitude(37.597466);
 
-        LocationDTO locationDTO2 = new LocationDTO();
+        LocationResponseDTO locationDTO2 = new LocationResponseDTO();
         locationDTO2.setId(2);
         locationDTO2.setUserId(2);
         locationDTO2.setVerified(false);

@@ -1,7 +1,7 @@
 package com.project.moflis.controller;
 
 import com.project.moflis.dto.profile.AddProfileRequest;
-import com.project.moflis.dto.profile.ProfilesDTO;
+import com.project.moflis.dto.profile.ProfileResponseDTO;
 import com.project.moflis.dto.profile.UpdateProfileReqeust;
 import com.project.moflis.entity.Profiles;
 import com.project.moflis.entity.User;
@@ -91,7 +91,7 @@ class ProfileControllerTest {
     void updateProfile() throws Exception {
         //given
         int userId = 9999;
-        ProfilesDTO requestProfilesDTO = new ProfilesDTO();
+        ProfileResponseDTO requestProfilesDTO = new ProfileResponseDTO();
         requestProfilesDTO.setUserId(userId);
         requestProfilesDTO.setIntro("안녕 나는 테스트 유저9999");
 

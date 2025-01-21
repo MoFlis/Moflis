@@ -3,7 +3,7 @@ package com.project.moflis.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.moflis.command.location.LocationCommand;
-import com.project.moflis.dto.location.LocationDTO;
+import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
 import com.project.moflis.mapper.LocationMapper;
@@ -72,7 +72,7 @@ public class LocationService {
     }
 
     @Transactional
-    public LocationDTO saveLocation(Map<String, Double> result, Integer userId) {
+    public LocationResponseDTO saveLocation(Map<String, Double> result, Integer userId) {
         if (locationRepository.existsByUserId(userId)) {
             throw new RuntimeException("이미 저장된 유저 입니다");
         }
