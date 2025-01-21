@@ -6,9 +6,11 @@ import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
+import com.project.moflis.exception.AddressNotFoundException;
 import com.project.moflis.mapper.LocationMapper;
 import com.project.moflis.repository.LocationRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,7 +35,7 @@ public class LocationService {
             JsonNode documents = root.path("documents");
 
             if (documents.isEmpty()) {
-                throw new RuntimeException("주소에 대한 데이터를 찾을 수 없습니다.");
+                throw new AddressNotFoundException("주소에 대한 데이터를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
             }
 
             JsonNode location = documents.get(0);
