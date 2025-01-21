@@ -8,6 +8,7 @@ import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
 import com.project.moflis.exception.AddressNotFoundException;
+import com.project.moflis.exception.UserLocationAlreadyExistsException;
 import com.project.moflis.mapper.LocationMapper;
 import com.project.moflis.repository.LocationRepository;
 import jakarta.transaction.Transactional;
@@ -54,8 +55,9 @@ public class LocationService {
         User user = userService.getUserById(userId);
 
         if (locationRepository.existsByUserId(userId)) {
-            throw new RuntimeException("이미 저장된 위치 정보가 존재합니다.");
+            throw new UserLocationAlreadyExistsException("이미 저장된 위치 정보가 존재합니다.");
         }
+
         Locations location = new Locations();
         location.setUser(user);
         location.setLatitude(coordinates.getLatitude());
