@@ -90,7 +90,6 @@ public class LocationService {
     @Transactional
     public boolean locationVerify(LocationCommand command) {
         Locations locationInfo = locationRepository.findByUserId(command.getUserId());
-        System.out.println(locationInfo);
 
         if (locationInfo == null) {
             throw new RuntimeException("해당 유저의 위치정보가 없습니다");
@@ -106,8 +105,6 @@ public class LocationService {
         // 저장된 위치 위도, 경도
         double userLatitude = locationInfo.getLatitude();
         double userLongitude = locationInfo.getLongitude();
-        System.out.println("저장 위도" + userLatitude);
-        System.out.println("저장 경도" + userLongitude);
 
         double distance = calculateDistance(baseLatitude, baseLongitude, userLatitude,
                 userLongitude);
