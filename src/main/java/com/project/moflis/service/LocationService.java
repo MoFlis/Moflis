@@ -1,7 +1,7 @@
 package com.project.moflis.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.moflis.client.KakaoApiClient;
 import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.entity.Locations;
@@ -9,12 +9,7 @@ import com.project.moflis.entity.User;
 import com.project.moflis.mapper.LocationMapper;
 import com.project.moflis.repository.LocationRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -23,41 +18,24 @@ import java.util.Map;
 @Service
 public class LocationService {
 
-    private static String KAKAO_API_KEY = "4cf3e1d70b6f7847b9079a4dabf3a6d5";
+    private final KakaoApiClient kakaoApiClient;
 
     private final LocationRepository locationRepository;
 
-    public LocationService(LocationRepository locationRepository) {
+    public LocationService(KakaoApiClient kakaoApiClient, LocationRepository locationRepository) {
+        this.kakaoApiClient = kakaoApiClient;
         this.locationRepository = locationRepository;
     }
 
     public Map<String, Double> getCoordinates(String address) {
         try {
-            // Kakao API URL
-            String url =
-                    "https://dapi.kakao.com/v2/local/search/address.json?query=" + address;
-
-            // HTTP 헤더 설정
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", "KakaoAK " + KAKAO_API_KEY);
-
-            // HTTP 요청
-            HttpEntity<String> entity = new HttpEntity<>(headers);
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity,
-                    String.class);
-
-            // JSON 응답 파싱
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(response.getBody());
+            JsonNode root = kakaoApiClient.getAddressData(address);
             JsonNode documents = root.path("documents");
 
-            // documents 배열이 비어있는지 확인
             if (documents.isEmpty()) {
                 throw new RuntimeException("주소에 대한 데이터를 찾을 수 없습니다.");
             }
 
-            // 첫 번째 문서에서 위도와 경도 가져오기
             JsonNode location = documents.get(0);
             Double latitude = Double.valueOf(location.get("y").asText());  // 위도
             Double longitude = Double.valueOf(location.get("x").asText()); // 경도
