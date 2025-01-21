@@ -22,4 +22,5 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(e.getStatus())
                 .body("주소검색 실패" + e.getMessage());
     }
+
 }

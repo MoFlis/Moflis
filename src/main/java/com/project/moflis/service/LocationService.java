@@ -22,10 +22,12 @@ public class LocationService {
     private final KakaoApiClient kakaoApiClient;
 
     private final LocationRepository locationRepository;
+    private final UserService userService;
 
-    public LocationService(KakaoApiClient kakaoApiClient, LocationRepository locationRepository) {
+    public LocationService(KakaoApiClient kakaoApiClient, LocationRepository locationRepository, UserService userService) {
         this.kakaoApiClient = kakaoApiClient;
         this.locationRepository = locationRepository;
+        this.userService = userService;
     }
 
     public CoordinatesDTO getCoordinates(String address) {
@@ -49,12 +51,12 @@ public class LocationService {
 
     @Transactional
     public LocationResponseDTO saveLocation(CoordinatesDTO coordinates, Integer userId) {
+        User user = userService.getUserById(userId);
+
         if (locationRepository.existsByUserId(userId)) {
-            throw new RuntimeException("이미 저장된 유저 입니다");
+            throw new RuntimeException("이미 저장된 위치 정보가 존재합니다.");
         }
         Locations location = new Locations();
-        User user = new User();
-        user.setId(userId);
         location.setUser(user);
         location.setLatitude(coordinates.getLatitude());
         location.setLongitude(coordinates.getLongitude());
