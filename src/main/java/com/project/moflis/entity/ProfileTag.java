@@ -16,7 +16,7 @@ public class ProfileTag {
 
     @ManyToOne
     @JoinColumn(name = "profile_id", nullable = false)
-    private Profiles profile;
+    private Profile profile;
 
     @ManyToOne
     @JoinColumn(name = "tag_id", nullable = false)

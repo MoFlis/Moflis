@@ -3,7 +3,7 @@ package com.project.moflis.mapper;
 import com.project.moflis.command.profile.AddProfileCommand;
 import com.project.moflis.command.profile.UpdateProfileCommand;
 import com.project.moflis.dto.profile.ProfileResponseDTO;
-import com.project.moflis.entity.Profiles;
+import com.project.moflis.entity.Profile;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -16,19 +16,19 @@ public interface ProfileMapper {
     ProfileMapper INSTANCE = Mappers.getMapper(ProfileMapper.class);
 
     @Mapping(source = "user.id", target = "userId")
-    ProfileResponseDTO toProfilesDto(Profiles profiles);
+    ProfileResponseDTO toProfilesDto(Profile profile);
 
     @Mapping(source = "userId", target = "user.id")
-    Profiles toProfiles(ProfileResponseDTO profilesDto);
+    Profile toProfiles(ProfileResponseDTO profilesDto);
 
     @Mapping(source = "userId", target = "user.id")
-    Profiles toProfiles(AddProfileCommand command);
+    Profile toProfiles(AddProfileCommand command);
 
     @Mapping(source = "userId", target = "user.id")
-    Profiles toProfiles(UpdateProfileCommand command);
+    Profile toProfiles(UpdateProfileCommand command);
 
-    List<ProfileResponseDTO> toProfilesDtoList(List<Profiles> profilesList);
+    List<ProfileResponseDTO> toProfilesDtoList(List<Profile> profilesList);
 
-    List<Profiles> toProfilesList(List<ProfileResponseDTO> profilesDtoList);
+    List<Profile> toProfilesList(List<ProfileResponseDTO> profilesDtoList);
 
 }

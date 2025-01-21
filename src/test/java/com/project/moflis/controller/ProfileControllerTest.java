@@ -3,7 +3,7 @@ package com.project.moflis.controller;
 import com.project.moflis.dto.profile.AddProfileRequest;
 import com.project.moflis.dto.profile.ProfileResponseDTO;
 import com.project.moflis.dto.profile.UpdateProfileReqeust;
-import com.project.moflis.entity.Profiles;
+import com.project.moflis.entity.Profile;
 import com.project.moflis.entity.User;
 import com.project.moflis.repository.ProfileRepository;
 import jakarta.transaction.Transactional;
@@ -38,7 +38,7 @@ class ProfileControllerTest {
     @BeforeEach
     void setUp() {
         profileRepository.deleteAll();
-        Profiles testProfile = new Profiles();
+        Profile testProfile = new Profile();
         User user = new User();
         user.setId(9999);
         testProfile.setUser(user); // 테스트용 userId
@@ -82,7 +82,7 @@ class ProfileControllerTest {
         // then
         assertEquals(200, mockResult.getResponse().getStatus());
 
-        Profiles saveProfile = profileRepository.findByUserId(userId);
+        Profile saveProfile = profileRepository.findByUserId(userId);
         assertNotNull(saveProfile);
         assertEquals("안녕 나는 유저1", saveProfile.getIntro());
     }
@@ -106,7 +106,7 @@ class ProfileControllerTest {
 
         //then
         assertEquals(200, result.getResponse().getStatus());
-        Profiles updateProfile = profileRepository.findByUserId(userId);
+        Profile updateProfile = profileRepository.findByUserId(userId);
         assertEquals(requestProfilesDTO.getIntro(), updateProfile.getIntro());
     }
 

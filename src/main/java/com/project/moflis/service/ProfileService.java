@@ -3,7 +3,7 @@ package com.project.moflis.service;
 import com.project.moflis.command.profile.AddProfileCommand;
 import com.project.moflis.command.profile.UpdateProfileCommand;
 import com.project.moflis.dto.profile.ProfileResponseDTO;
-import com.project.moflis.entity.Profiles;
+import com.project.moflis.entity.Profile;
 import com.project.moflis.exception.ImageUploadException;
 import com.project.moflis.mapper.ProfileMapper;
 import com.project.moflis.repository.ProfileRepository;
@@ -25,7 +25,7 @@ public class ProfileService {
     }
 
     public ProfileResponseDTO getProfiles(int userId) {
-        Profiles profile = profileRepository.findByUserId(userId);
+        Profile profile = profileRepository.findByUserId(userId);
         if (profile == null) {
             throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다: " + userId);
         }
@@ -35,18 +35,18 @@ public class ProfileService {
     @Transactional
     public ProfileResponseDTO addProfile(AddProfileCommand command) {
 
-        Profiles existingProfile = profileRepository.findByUserId(command.getUserId());
+        Profile existingProfile = profileRepository.findByUserId(command.getUserId());
 
         if (existingProfile != null) {
             throw new RuntimeException("이미 등록되어있는 사용자 입니다 " + command.getUserId());
         }
-        Profiles profile = ProfileMapper.INSTANCE.toProfiles(command);
+        Profile profile = ProfileMapper.INSTANCE.toProfiles(command);
         return ProfileMapper.INSTANCE.toProfilesDto(profileRepository.save(profile));
     }
 
     @Transactional
     public ProfileResponseDTO updateProfiles(UpdateProfileCommand command) {
-        Profiles existingProfile = profileRepository.findByUserId(command.getUserId());
+        Profile existingProfile = profileRepository.findByUserId(command.getUserId());
 
         if (existingProfile == null) {
             throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다." + command.getUserId());
@@ -57,7 +57,7 @@ public class ProfileService {
 
     @Transactional
     public void addProfileImage(int userId, MultipartFile file) {
-        Profiles existingProfile = profileRepository.findByUserId(userId);
+        Profile existingProfile = profileRepository.findByUserId(userId);
         System.out.println(existingProfile);
         try {
             saveProfileImage(file, existingProfile);
@@ -68,7 +68,7 @@ public class ProfileService {
 
     @Transactional
     public void updateProfileImage(int userId, MultipartFile file) {
-        Profiles existingProfile = profileRepository.findByUserId(userId);
+        Profile existingProfile = profileRepository.findByUserId(userId);
 
         if (existingProfile == null) {
             throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다." + userId);
@@ -82,12 +82,12 @@ public class ProfileService {
         }
     }
 
-    private void saveProfileImage(MultipartFile file, Profiles existingProfile) {
+    private void saveProfileImage(MultipartFile file, Profile existingProfile) {
         if (file != null && !file.isEmpty()) {
             try {
                 String s3Url = fileStorageService.uploadToS3(file.getOriginalFilename(), file);
                 existingProfile.setProfileImageName(s3Url);
-                Profiles addResult = profileRepository.save(existingProfile);
+                Profile addResult = profileRepository.save(existingProfile);
                 ProfileMapper.INSTANCE.toProfilesDto(addResult);
                 return;
             } catch (Exception e) {

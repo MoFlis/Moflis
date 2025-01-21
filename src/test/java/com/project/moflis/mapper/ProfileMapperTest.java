@@ -1,7 +1,7 @@
 package com.project.moflis.mapper;
 
 import com.project.moflis.dto.profile.ProfileResponseDTO;
-import com.project.moflis.entity.Profiles;
+import com.project.moflis.entity.Profile;
 import com.project.moflis.entity.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -17,7 +17,7 @@ public class ProfileMapperTest {
     @Test
     public void testToProfileDto() {
         //Given
-        Profiles profile = new Profiles();
+        Profile profile = new Profile();
         profile.setId(1);
         profile.setIntro("테스트");
         profile.setProfileImageName("text_image");
@@ -47,7 +47,7 @@ public class ProfileMapperTest {
         profilesDTO.setUserId(1);
 
         //when
-        Profiles profiles = profileMapper.toProfiles(profilesDTO);
+        Profile profiles = profileMapper.toProfiles(profilesDTO);
 
         //then
         assertThat(profiles.getId()).isEqualTo(1);
@@ -60,17 +60,17 @@ public class ProfileMapperTest {
     @Test
     public void testToProfilesDtoList() {
         // Given
-        Profiles profiles1 = new Profiles();
+        Profile profiles1 = new Profile();
         profiles1.setId(1);
         profiles1.setIntro("소개1");
         profiles1.setTrustScore(50f);
 
-        Profiles profiles2 = new Profiles();
+        Profile profiles2 = new Profile();
         profiles2.setId(2);
         profiles2.setIntro("소개2");
         profiles2.setTrustScore(70f);
 
-        List<Profiles> profilesList = List.of(profiles1, profiles2);
+        List<Profile> profilesList = List.of(profiles1, profiles2);
 
         // When
         List<ProfileResponseDTO> profilesDTOList = profileMapper.toProfilesDtoList(profilesList);
@@ -97,7 +97,7 @@ public class ProfileMapperTest {
         List<ProfileResponseDTO> profilesDTOList = List.of(profilesDTO1, profilesDTO2);
 
         // When
-        List<Profiles> profilesList = profileMapper.toProfilesList(profilesDTOList);
+        List<Profile> profilesList = profileMapper.toProfilesList(profilesDTOList);
 
         // Then
         assertThat(profilesList).hasSize(2);
