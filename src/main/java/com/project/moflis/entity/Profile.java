@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "Profiles")
+@Table(name = "Profile")
 public class Profile {
 
     @Id
@@ -24,8 +24,6 @@ public class Profile {
     private String profileImageName;
 
     @Column(name = "trust_score")
-    private Float trustScore = 50f;
+    private Float trustScore;
 
-    @Column(name = "location_verified")
-    private boolean locationVerified;
 }
