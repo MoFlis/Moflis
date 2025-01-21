@@ -58,12 +58,15 @@ public class LocationService {
             throw new UserLocationAlreadyExistsException("이미 저장된 위치 정보가 존재합니다.");
         }
 
-        Locations location = new Locations();
-        location.setUser(user);
-        location.setLatitude(coordinates.getLatitude());
-        location.setLongitude(coordinates.getLongitude());
-        location.setVerified(false);
-        location.setRequestTime(LocalDateTime.now());
+        Locations location = new Locations(
+                null,
+                user,
+                coordinates.getLatitude(),
+                coordinates.getLongitude(),
+                false,
+                LocalDateTime.now(),
+                null
+        );
         return LocationMapper.INSTANCE.toLocationsDTO(locationRepository.save(location));
     }
 

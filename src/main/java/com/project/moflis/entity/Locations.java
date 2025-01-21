@@ -1,7 +1,9 @@
 package com.project.moflis.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,6 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "locations")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Locations {
 
     @Id
