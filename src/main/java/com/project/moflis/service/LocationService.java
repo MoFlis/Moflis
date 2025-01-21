@@ -3,6 +3,7 @@ package com.project.moflis.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.project.moflis.client.KakaoApiClient;
 import com.project.moflis.command.location.LocationCommand;
+import com.project.moflis.dto.location.CoordinatesDTO;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
@@ -14,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class LocationService {
@@ -29,7 +28,7 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
-    public Map<String, Double> getCoordinates(String address) {
+    public CoordinatesDTO getCoordinates(String address) {
         try {
             JsonNode root = kakaoApiClient.getAddressData(address);
             JsonNode documents = root.path("documents");
@@ -41,10 +40,7 @@ public class LocationService {
             JsonNode location = documents.get(0);
             Double latitude = Double.valueOf(location.get("y").asText());  // 위도
             Double longitude = Double.valueOf(location.get("x").asText()); // 경도
-            Map<String, Double> map = new HashMap<>();
-            map.put("latitude", latitude);
-            map.put("longitude", longitude);
-            return map;
+            return new CoordinatesDTO(latitude, longitude);
 
         } catch (Exception e) {
             throw new RuntimeException("주소 변환 중 오류 발생: " + e.getMessage(), e);
@@ -52,7 +48,7 @@ public class LocationService {
     }
 
     @Transactional
-    public LocationResponseDTO saveLocation(Map<String, Double> result, Integer userId) {
+    public LocationResponseDTO saveLocation(CoordinatesDTO coordinates, Integer userId) {
         if (locationRepository.existsByUserId(userId)) {
             throw new RuntimeException("이미 저장된 유저 입니다");
         }
@@ -60,8 +56,8 @@ public class LocationService {
         User user = new User();
         user.setId(userId);
         location.setUser(user);
-        location.setLatitude(result.get("latitude"));
-        location.setLongitude(result.get("longitude"));
+        location.setLatitude(coordinates.getLatitude());
+        location.setLongitude(coordinates.getLongitude());
         location.setVerified(false);
         location.setRequestTime(LocalDateTime.now());
         return LocationMapper.INSTANCE.toLocationsDTO(locationRepository.save(location));

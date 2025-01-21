@@ -1,14 +1,13 @@
 package com.project.moflis.application;
 
 import com.project.moflis.command.location.LocationCommand;
+import com.project.moflis.dto.location.CoordinatesDTO;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.dto.location.VerifyLocationRequest;
 import com.project.moflis.dto.user.UserDTO;
 import com.project.moflis.service.LocationService;
 import com.project.moflis.service.UserService;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class LocationApplicationService {
@@ -22,7 +21,7 @@ public class LocationApplicationService {
 
     public LocationResponseDTO processAndSaveLocation(Integer userId) {
         UserDTO userAddress = userService.getUserAddress(userId);
-        Map<String, Double> coordinates = locationService.getCoordinates(userAddress.getAddress());
+        CoordinatesDTO coordinates = locationService.getCoordinates(userAddress.getAddress());
         return locationService.saveLocation(coordinates, userId);
     }
 
