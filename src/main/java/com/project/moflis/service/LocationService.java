@@ -79,8 +79,8 @@ public class LocationService {
         }
 
         // 기준 위치 위도, 경도
-        double baseLatitude = 37.597466; // 예: 서울
-        double baseLongitude = 127.094160; // 예: 서울
+        double baseLatitude = 37.603246; // 예: 부산
+        double baseLongitude = 127.143674; // 예: 서울
 
         //double baseLatitude = location.getLatitude(); // 예: 서울
         //double baseLongitude = location.getLongitude(); // 예: 서울

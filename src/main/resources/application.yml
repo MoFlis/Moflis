@@ -16,6 +16,9 @@ spring:
       leak-detection-threshold: 1795000 # (29분 55초)
       pool-name: HikariPool
       register-mbeans: true
+  devtools:
+    restart:
+      enabled: false
   jpa:
     hibernate:
       ddl-auto: none
@@ -23,8 +26,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  jwt:
-    secretKey: a9sdjfkLSDk093asdf94fuls9juflokasjdf0odsjflkajdfsdsogldfmso9f
+kakao:
+  api-key: ${KAKAO_API_KEY}
 aws:
   s3:
     bucket: juhyunbucket

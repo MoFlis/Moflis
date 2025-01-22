@@ -23,7 +23,7 @@ public class Profile {
     @Column(name = "profile_image")
     private String profileImageName;
 
-    @Column(name = "trust_score")
+    @Column(insertable = false, name = "trust_score")
     private Float trustScore;
 
 }

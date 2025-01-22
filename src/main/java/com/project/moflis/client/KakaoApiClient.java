@@ -2,6 +2,7 @@ package com.project.moflis.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,7 +14,9 @@ import org.springframework.web.client.RestTemplate;
 public class KakaoApiClient {
 
     private static final String KAKAO_API_URL = "https://dapi.kakao.com/v2/local/search/address.json";
-    private final String KAKAO_API_KEY = "KakaoAK " + "4cf3e1d70b6f7847b9079a4dabf3a6d5";
+
+    @Value("${kakao.api-key}")
+    private String KAKAO_API_KEY;
 
     public JsonNode getAddressData(String address) {
         try {

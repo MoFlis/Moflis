@@ -58,7 +58,6 @@ public class ProfileService {
     @Transactional
     public void addProfileImage(int userId, MultipartFile file) {
         Profile existingProfile = profileRepository.findByUserId(userId);
-        System.out.println(existingProfile);
         try {
             saveProfileImage(file, existingProfile);
         } catch (Exception e) {
