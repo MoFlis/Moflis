@@ -3,7 +3,6 @@ package com.project.moflis.application;
 import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.dto.location.CoordinatesDTO;
 import com.project.moflis.dto.location.LocationResponseDTO;
-import com.project.moflis.dto.location.VerifyLocationRequest;
 import com.project.moflis.dto.user.UserDTO;
 import com.project.moflis.service.LocationService;
 import com.project.moflis.service.UserService;
@@ -25,12 +24,7 @@ public class LocationApplicationService {
         return locationService.saveLocation(coordinates, userId);
     }
 
-    public boolean verifyLocation(Integer userId, VerifyLocationRequest request) {
-        LocationCommand command = new LocationCommand(
-                userId,
-                request.getLatitude(),
-                request.getLongitude()
-        );
+    public boolean verifyLocation(LocationCommand command) {
         return locationService.locationVerify(command);
     }
 

@@ -1,6 +1,7 @@
 package com.project.moflis.controller;
 
 import com.project.moflis.application.LocationApplicationService;
+import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.dto.location.VerifyLocationRequest;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,8 @@ public class LocationController {
 
     @PostMapping("/location-verify")
     public ResponseEntity<Boolean> checkLocation(@PathVariable("userId") Integer userId, @RequestBody VerifyLocationRequest request) {
-        boolean isVerify = locationApplicationService.verifyLocation(userId, request);
+        LocationCommand command = new LocationCommand(userId, request.getLatitude(), request.getLongitude());
+        boolean isVerify = locationApplicationService.verifyLocation(command);
         return ResponseEntity.ok(isVerify);
     }
 
