@@ -18,6 +18,12 @@ public class KakaoApiClient {
     @Value("${kakao.api-key}")
     private String KAKAO_API_KEY;
 
+    private final RestTemplate restTemplate;
+
+    public KakaoApiClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     public JsonNode getAddressData(String address) {
         try {
             HttpHeaders headers = new HttpHeaders();
@@ -26,7 +32,6 @@ public class KakaoApiClient {
             String url = KAKAO_API_URL + "?query=" + address;
 
             HttpEntity<String> entity = new HttpEntity<>(headers);
-            RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
             ObjectMapper mapper = new ObjectMapper();
 
