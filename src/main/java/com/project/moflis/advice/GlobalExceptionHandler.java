@@ -34,8 +34,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserLocationAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserLocationAlreadyExistsException(UserLocationAlreadyExistsException e) {
-        return buildErrorResponse("이미 해당 위치가 등록되어 있습니다.", e.getStatus(), e);
+        return buildErrorResponse("이미 해당 위치가 등록되어 있습니다.", HttpStatus.CONFLICT, e);
     }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleUnexpectedException(Exception e) {
