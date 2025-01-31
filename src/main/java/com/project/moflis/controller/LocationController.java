@@ -17,7 +17,7 @@ public class LocationController {
         this.locationApplicationService = locationApplicationService;
     }
 
-    @PostMapping("/location")
+    @PostMapping("/locations")
     public ResponseEntity<LocationResponseDTO> saveLocation(@PathVariable("userId") Integer userId) {
         LocationResponseDTO location = locationApplicationService.processAndSaveLocation(userId);
         return ResponseEntity.ok(location);
