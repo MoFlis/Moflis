@@ -44,7 +44,6 @@ class ProfileControllerTest {
         testProfile.setUser(user); // 테스트용 userId
         testProfile.setIntro("테스트 프로필");
         testProfile.setTrustScore(50f);
-        testProfile.setLocationVerified(false);
         profileRepository.save(testProfile); // 프로필 데이터 저장
         assertEquals(1, profileRepository.count()); // 초기 상태 확인
     }

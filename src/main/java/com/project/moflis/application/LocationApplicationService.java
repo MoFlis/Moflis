@@ -1,27 +1,21 @@
 package com.project.moflis.application;
 
 import com.project.moflis.command.location.LocationCommand;
-import com.project.moflis.dto.location.CoordinatesDTO;
+import com.project.moflis.dto.location.CoordinatesRequest;
 import com.project.moflis.dto.location.LocationResponseDTO;
-import com.project.moflis.dto.user.UserDTO;
 import com.project.moflis.service.LocationService;
-import com.project.moflis.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LocationApplicationService {
-    private final UserService userService;
     private final LocationService locationService;
 
-    public LocationApplicationService(UserService userService, LocationService locationService) {
-        this.userService = userService;
+    public LocationApplicationService(LocationService locationService) {
         this.locationService = locationService;
     }
 
-    public LocationResponseDTO processAndSaveLocation(Integer userId) {
-        UserDTO userAddress = userService.getUserAddress(userId);
-        CoordinatesDTO coordinates = locationService.getCoordinates(userAddress.getAddress());
-        return locationService.saveLocation(coordinates, userId);
+    public LocationResponseDTO processAndSaveLocation(Integer userId, CoordinatesRequest coordinatesRequest) {
+        return locationService.saveLocation(userId, coordinatesRequest);
     }
 
     public boolean verifyLocation(LocationCommand command) {

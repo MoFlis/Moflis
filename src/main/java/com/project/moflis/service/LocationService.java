@@ -1,18 +1,14 @@
 package com.project.moflis.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.project.moflis.client.KakaoApiClient;
 import com.project.moflis.command.location.LocationCommand;
-import com.project.moflis.dto.location.CoordinatesDTO;
+import com.project.moflis.dto.location.CoordinatesRequest;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
-import com.project.moflis.exception.AddressNotFoundException;
 import com.project.moflis.exception.UserLocationAlreadyExistsException;
 import com.project.moflis.mapper.LocationMapper;
 import com.project.moflis.repository.LocationRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,38 +16,17 @@ import java.time.LocalDateTime;
 @Service
 public class LocationService {
 
-    private final KakaoApiClient kakaoApiClient;
 
     private final LocationRepository locationRepository;
     private final UserService userService;
 
-    public LocationService(KakaoApiClient kakaoApiClient, LocationRepository locationRepository, UserService userService) {
-        this.kakaoApiClient = kakaoApiClient;
+    public LocationService(LocationRepository locationRepository, UserService userService) {
         this.locationRepository = locationRepository;
         this.userService = userService;
     }
 
-    public CoordinatesDTO getCoordinates(String address) {
-        try {
-            JsonNode root = kakaoApiClient.getAddressData(address);
-            JsonNode documents = root.path("documents");
-
-            if (documents.isEmpty()) {
-                throw new AddressNotFoundException("주소에 대한 데이터를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
-            }
-
-            JsonNode location = documents.get(0);
-            Double latitude = Double.valueOf(location.get("y").asText());  // 위도
-            Double longitude = Double.valueOf(location.get("x").asText()); // 경도
-            return new CoordinatesDTO(latitude, longitude);
-
-        } catch (Exception e) {
-            throw new RuntimeException("주소 변환 중 오류 발생: " + e.getMessage(), e);
-        }
-    }
-
     @Transactional
-    public LocationResponseDTO saveLocation(CoordinatesDTO coordinates, Integer userId) {
+    public LocationResponseDTO saveLocation(Integer userId, CoordinatesRequest coordinates) {
         User user = userService.getUserById(userId);
 
         if (locationRepository.existsByUserId(userId)) {
@@ -79,8 +54,8 @@ public class LocationService {
         }
 
         // 기준 위치 위도, 경도
-        double baseLatitude = 37.603246; // 예: 부산
-        double baseLongitude = 127.143674; // 예: 서울
+        double baseLatitude = 35.1797865; // 예: 부산
+        double baseLongitude = 129.0750194; // 예: 서울
 
         //double baseLatitude = location.getLatitude(); // 예: 서울
         //double baseLongitude = location.getLongitude(); // 예: 서울

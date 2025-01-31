@@ -2,6 +2,7 @@ package com.project.moflis.controller;
 
 import com.project.moflis.application.LocationApplicationService;
 import com.project.moflis.command.location.LocationCommand;
+import com.project.moflis.dto.location.CoordinatesRequest;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.dto.location.VerifyLocationRequest;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class LocationController {
     }
 
     @PostMapping("/locations")
-    public ResponseEntity<LocationResponseDTO> saveLocation(@PathVariable("userId") Integer userId) {
-        LocationResponseDTO location = locationApplicationService.processAndSaveLocation(userId);
+    public ResponseEntity<LocationResponseDTO> saveLocation(@PathVariable("userId") Integer userId, @RequestBody CoordinatesRequest coordinatesRequest) {
+        LocationResponseDTO location = locationApplicationService.processAndSaveLocation(userId, coordinatesRequest);
         return ResponseEntity.ok(location);
     }
 
