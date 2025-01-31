@@ -1,7 +1,6 @@
 package com.project.moflis.controller;
 
 import com.project.moflis.application.LocationApplicationService;
-import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.dto.location.CoordinatesRequest;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.dto.location.VerifyLocationRequest;
@@ -26,8 +25,7 @@ public class LocationController {
 
     @PostMapping("/locations/verify")
     public ResponseEntity<Boolean> verifyLocation(@PathVariable("userId") Integer userId, @RequestBody VerifyLocationRequest request) {
-        LocationCommand command = new LocationCommand(userId, request.getLatitude(), request.getLongitude());
-        boolean isVerify = locationApplicationService.verifyLocation(command);
+        boolean isVerify = locationApplicationService.verifyLocation(userId, request);
         return ResponseEntity.ok(isVerify);
     }
 

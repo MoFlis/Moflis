@@ -2,12 +2,8 @@ package com.project.moflis.storage;
 
 import com.project.moflis.config.FileConfig;
 import com.project.moflis.util.FileNameConflictResolver;
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -22,21 +18,6 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     public FileStorageServiceImpl(FileConfig config) {
         this.config = config;
-    }
-
-    @PostConstruct
-    public void init() {
-        System.out.println("Bucket Name: " + config.getBucketName());
-        System.out.println("Region: " + config.getRegion());
-        System.out.println("Access Key: " + config.getAccessKey());
-        System.out.println("Secret Key: " + config.getSecretKey());
-        System.out.println("baseUrl: " + config.getBaseUrl());
-
-        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(config.getAccessKey(), config.getSecretKey());
-        this.s3Client = S3Client.builder()
-                .region(Region.of(config.getRegion()))
-                .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
-                .build();
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.project.moflis.service;
 
-import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.config.LocationConfig;
 import com.project.moflis.dto.location.CoordinatesRequest;
 import com.project.moflis.dto.location.LocationResponseDTO;
+import com.project.moflis.dto.location.VerifyLocationRequest;
 import com.project.moflis.entity.Locations;
 import com.project.moflis.entity.User;
 import com.project.moflis.exception.UserLocationAlreadyExistsException;
@@ -49,8 +49,8 @@ public class LocationService {
     }
 
     @Transactional
-    public boolean locationVerify(LocationCommand command) {
-        Locations locationInfo = locationRepository.findByUserId(command.getUserId());
+    public boolean locationVerify(Integer userId, VerifyLocationRequest verifyLocationRequest) {
+        Locations locationInfo = locationRepository.findByUserId(userId);
 
         if (locationInfo == null) {
             throw new RuntimeException("해당 유저의 위치정보가 없습니다");
@@ -60,8 +60,8 @@ public class LocationService {
         double baseLatitude = locationConfig.getBaseLatitude();
         double baseLongitude = locationConfig.getBaseLongitude();
 
-        //double baseLatitude = location.getLatitude(); // 예: 서울
-        //double baseLongitude = location.getLongitude(); // 예: 서울
+        //double baseLatitude = verifyLocationRequest.getLatitude(); // 예: 서울
+        //double baseLongitude = verifyLocationRequest.getLongitude(); // 예: 서울
 
         // 저장된 위치 위도, 경도
         double userLatitude = locationInfo.getLatitude();

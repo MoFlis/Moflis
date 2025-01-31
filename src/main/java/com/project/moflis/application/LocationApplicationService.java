@@ -1,8 +1,8 @@
 package com.project.moflis.application;
 
-import com.project.moflis.command.location.LocationCommand;
 import com.project.moflis.dto.location.CoordinatesRequest;
 import com.project.moflis.dto.location.LocationResponseDTO;
+import com.project.moflis.dto.location.VerifyLocationRequest;
 import com.project.moflis.service.LocationService;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +18,8 @@ public class LocationApplicationService {
         return locationService.saveLocation(userId, coordinatesRequest);
     }
 
-    public boolean verifyLocation(LocationCommand command) {
-        return locationService.locationVerify(command);
+    public boolean verifyLocation(Integer userId, VerifyLocationRequest verifyLocationRequest) {
+        return locationService.locationVerify(userId, verifyLocationRequest);
     }
 
 
