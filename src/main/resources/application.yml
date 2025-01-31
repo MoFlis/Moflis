@@ -32,6 +32,12 @@ aws:
   s3:
     bucket: juhyunbucket
     region: ap-southeast-2
+    base-url: "https://juhyunbucket.s3.ap-southeast-2.amazonaws.com"
   credentials:
     accessKey: ${AWS_ACCESS_KEY_ID}
     secretKey: ${AWS_SECRET_ACCESS_KEY}
+location:
+  base-latitude: ${LOCATION_BASE_LATITUDE}
+  base-longitude: ${LOCATION_BASE_LONGITUDE}
+  verification-radius: ${LOCATION_VERIFICATION_RADIUS}
+  earth-ladius: ${LOCATION_EARTH_RADIUS}

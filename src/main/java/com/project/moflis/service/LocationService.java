@@ -1,6 +1,7 @@
 package com.project.moflis.service;
 
 import com.project.moflis.command.location.LocationCommand;
+import com.project.moflis.config.LocationConfig;
 import com.project.moflis.dto.location.CoordinatesRequest;
 import com.project.moflis.dto.location.LocationResponseDTO;
 import com.project.moflis.entity.Locations;
@@ -19,10 +20,12 @@ public class LocationService {
 
     private final LocationRepository locationRepository;
     private final UserService userService;
+    private final LocationConfig locationConfig;
 
-    public LocationService(LocationRepository locationRepository, UserService userService) {
+    public LocationService(LocationRepository locationRepository, UserService userService, LocationConfig locationConfig) {
         this.locationRepository = locationRepository;
         this.userService = userService;
+        this.locationConfig = locationConfig;
     }
 
     @Transactional
@@ -54,8 +57,8 @@ public class LocationService {
         }
 
         // 기준 위치 위도, 경도
-        double baseLatitude = 35.1797865; // 예: 부산
-        double baseLongitude = 129.0750194; // 예: 서울
+        double baseLatitude = locationConfig.getBaseLatitude();
+        double baseLongitude = locationConfig.getBaseLongitude();
 
         //double baseLatitude = location.getLatitude(); // 예: 서울
         //double baseLongitude = location.getLongitude(); // 예: 서울
@@ -68,7 +71,7 @@ public class LocationService {
                 userLongitude);
 
         // 인증 기준거리
-        double verificationRadius = 1000;
+        double verificationRadius = locationConfig.getVerificationRadius();
 
         boolean isVerified = distance <= verificationRadius;
         if (isVerified) {
@@ -82,7 +85,7 @@ public class LocationService {
     }
 
     public double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        final double EARTH_RADIUS = 6371000; // 지구 반지름 (미터)
+        final double EARTH_RADIUS = locationConfig.getEarthRadius(); // 지구 반지름 (미터)
 
         double latDiff = Math.toRadians(lat2 - lat1); // 위도 차이
         double lonDiff = Math.toRadians(lon2 - lon1); // 경도 차이
