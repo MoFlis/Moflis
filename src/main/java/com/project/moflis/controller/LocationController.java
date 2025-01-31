@@ -23,7 +23,7 @@ public class LocationController {
         return ResponseEntity.ok(location);
     }
 
-    @PostMapping("/location-verify")
+    @PostMapping("/locations/verify")
     public ResponseEntity<Boolean> checkLocation(@PathVariable("userId") Integer userId, @RequestBody VerifyLocationRequest request) {
         LocationCommand command = new LocationCommand(userId, request.getLatitude(), request.getLongitude());
         boolean isVerify = locationApplicationService.verifyLocation(command);
