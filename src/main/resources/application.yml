@@ -16,6 +16,9 @@ spring:
       leak-detection-threshold: 1795000 # (29분 55초)
       pool-name: HikariPool
       register-mbeans: true
+  devtools:
+    restart:
+      enabled: false
   jpa:
     hibernate:
       ddl-auto: none
@@ -23,9 +26,18 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  jwt:
-    secretKey: a9sdjfkLSDk093asdf94fuls9juflokasjdf0odsjflkajdfsdsogldfmso9f
-file:
-  upload-dir: D:/project/moflis/uploads/images
-
-
+kakao:
+  api-key: ${KAKAO_API_KEY}
+aws:
+  s3:
+    bucket: juhyunbucket
+    region: ap-southeast-2
+    base-url: "https://juhyunbucket.s3.ap-southeast-2.amazonaws.com"
+  credentials:
+    accessKey: ${AWS_ACCESS_KEY_ID}
+    secretKey: ${AWS_SECRET_ACCESS_KEY}
+location:
+  base-latitude: ${LOCATION_BASE_LATITUDE}
+  base-longitude: ${LOCATION_BASE_LONGITUDE}
+  verification-radius: ${LOCATION_VERIFICATION_RADIUS}
+  earth-ladius: ${LOCATION_EARTH_RADIUS}

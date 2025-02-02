@@ -1,12 +1,12 @@
-package com.project.moflis.dto;
+package com.project.moflis.dto.profile;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-@Data
-@NoArgsConstructor
-public class ProfilesDTO {
+@Setter
+@Getter
+public class ProfileResponseDTO {
 
     private Integer id;
     private Integer userId;

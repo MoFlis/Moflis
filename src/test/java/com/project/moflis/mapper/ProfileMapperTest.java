@@ -1,7 +1,7 @@
 package com.project.moflis.mapper;
 
-import com.project.moflis.dto.ProfilesDTO;
-import com.project.moflis.entity.Profiles;
+import com.project.moflis.dto.profile.ProfileResponseDTO;
+import com.project.moflis.entity.Profile;
 import com.project.moflis.entity.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -17,7 +17,7 @@ public class ProfileMapperTest {
     @Test
     public void testToProfileDto() {
         //Given
-        Profiles profile = new Profiles();
+        Profile profile = new Profile();
         profile.setId(1);
         profile.setIntro("테스트");
         profile.setProfileImageName("text_image");
@@ -26,7 +26,7 @@ public class ProfileMapperTest {
         user.setId(1);
         profile.setUser(user);
 
-        ProfilesDTO profilesDTO = profileMapper.toProfilesDto(profile);
+        ProfileResponseDTO profilesDTO = profileMapper.toProfilesDto(profile);
 
         assertThat(profilesDTO.getId()).isEqualTo(1);
         assertThat(profilesDTO.getIntro()).isEqualTo("테스트");
@@ -39,7 +39,7 @@ public class ProfileMapperTest {
     @Test
     public void testToProfile() {
         //Given
-        ProfilesDTO profilesDTO = new ProfilesDTO();
+        ProfileResponseDTO profilesDTO = new ProfileResponseDTO();
         profilesDTO.setId(1);
         profilesDTO.setIntro("테스트");
         profilesDTO.setProfileImageName("text_image");
@@ -47,7 +47,7 @@ public class ProfileMapperTest {
         profilesDTO.setUserId(1);
 
         //when
-        Profiles profiles = profileMapper.toProfiles(profilesDTO);
+        Profile profiles = profileMapper.toProfiles(profilesDTO);
 
         //then
         assertThat(profiles.getId()).isEqualTo(1);
@@ -60,20 +60,20 @@ public class ProfileMapperTest {
     @Test
     public void testToProfilesDtoList() {
         // Given
-        Profiles profiles1 = new Profiles();
+        Profile profiles1 = new Profile();
         profiles1.setId(1);
         profiles1.setIntro("소개1");
         profiles1.setTrustScore(50f);
 
-        Profiles profiles2 = new Profiles();
+        Profile profiles2 = new Profile();
         profiles2.setId(2);
         profiles2.setIntro("소개2");
         profiles2.setTrustScore(70f);
 
-        List<Profiles> profilesList = List.of(profiles1, profiles2);
+        List<Profile> profilesList = List.of(profiles1, profiles2);
 
         // When
-        List<ProfilesDTO> profilesDTOList = profileMapper.toProfilesDtoList(profilesList);
+        List<ProfileResponseDTO> profilesDTOList = profileMapper.toProfilesDtoList(profilesList);
 
         // Then
         assertThat(profilesDTOList).hasSize(2);
@@ -84,20 +84,20 @@ public class ProfileMapperTest {
     @Test
     public void testToProfilesList() {
         // Given
-        ProfilesDTO profilesDTO1 = new ProfilesDTO();
+        ProfileResponseDTO profilesDTO1 = new ProfileResponseDTO();
         profilesDTO1.setId(1);
         profilesDTO1.setIntro("소개1");
         profilesDTO1.setTrustScore(50f);
 
-        ProfilesDTO profilesDTO2 = new ProfilesDTO();
+        ProfileResponseDTO profilesDTO2 = new ProfileResponseDTO();
         profilesDTO2.setId(2);
         profilesDTO2.setIntro("소개2");
         profilesDTO2.setTrustScore(70f);
 
-        List<ProfilesDTO> profilesDTOList = List.of(profilesDTO1, profilesDTO2);
+        List<ProfileResponseDTO> profilesDTOList = List.of(profilesDTO1, profilesDTO2);
 
         // When
-        List<Profiles> profilesList = profileMapper.toProfilesList(profilesDTOList);
+        List<Profile> profilesList = profileMapper.toProfilesList(profilesDTOList);
 
         // Then
         assertThat(profilesList).hasSize(2);

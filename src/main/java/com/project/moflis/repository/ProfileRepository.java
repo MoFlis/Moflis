@@ -1,10 +1,10 @@
 package com.project.moflis.repository;
 
-import com.project.moflis.entity.Profiles;
+import com.project.moflis.entity.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProfileRepository extends JpaRepository<Profiles, Integer> {
+public interface ProfileRepository extends JpaRepository<Profile, Integer> {
 
-    Profiles findByUserId(Integer userId);
+    Profile findByUserId(Integer userId);
 
 }

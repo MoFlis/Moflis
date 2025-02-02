@@ -1,6 +1,6 @@
 package com.project.moflis.repository;
 
-import com.project.moflis.entity.Profiles;
+import com.project.moflis.entity.Profile;
 import com.project.moflis.entity.User;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,13 +27,13 @@ public class ProfileRepositoryTest {
 
     @Test
     public void testFindByUserId() {
-        Profiles profile = new Profiles();
+        Profile profile = new Profile();
         User user = new User();
         user.setId(1);
         profile.setUser(user);
         profileRepository.save(profile);
 
-        Profiles result = profileRepository.findByUserId(1);
+        Profile result = profileRepository.findByUserId(1);
 
         assertNotNull(result);
         assertEquals(1, result.getUser().getId());

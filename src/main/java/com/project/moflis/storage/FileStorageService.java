@@ -9,4 +9,5 @@ public interface FileStorageService {
 
     String saveFile(String fileName, String path, MultipartFile file) throws IOException;
 
+    String uploadToS3(String fileName, MultipartFile file) throws IOException;
 }

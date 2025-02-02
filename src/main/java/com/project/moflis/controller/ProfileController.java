@@ -1,7 +1,12 @@
 package com.project.moflis.controller;
 
-import com.project.moflis.dto.ProfilesDTO;
+import com.project.moflis.command.profile.AddProfileCommand;
+import com.project.moflis.command.profile.UpdateProfileCommand;
+import com.project.moflis.dto.profile.AddProfileRequest;
+import com.project.moflis.dto.profile.ProfileResponseDTO;
+import com.project.moflis.dto.profile.UpdateProfileReqeust;
 import com.project.moflis.service.ProfileService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,49 +20,42 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
-
     @GetMapping("/profile")
-    public ProfilesDTO getProfile(@PathVariable int userId) {
-        ProfilesDTO profile = profileService.getProfiles(userId);
-        return profile;
+    public ResponseEntity<ProfileResponseDTO> getProfile(@PathVariable int userId) {
+        ProfileResponseDTO profile = profileService.getProfiles(userId);
+        return ResponseEntity.ok(profile);
     }
 
     @PostMapping("/profile")
-    public ProfilesDTO addProfile(@PathVariable int userId, ProfilesDTO profilesDTO) {
-        profilesDTO.setUserId(userId);
-        ProfilesDTO addResult = profileService.addProfile(profilesDTO);
-        return addResult;
+    public ResponseEntity<ProfileResponseDTO> addProfile(@PathVariable int userId, AddProfileRequest request) {
+        AddProfileCommand command = new AddProfileCommand(
+                userId,
+                request.getIntro()
+        );
+        ProfileResponseDTO addResult = profileService.addProfile(command);
+        return ResponseEntity.ok(addResult);
     }
 
     @PostMapping("/profileImage")
-    public int addProfileImage(@PathVariable int userId, MultipartFile file) {
-        ProfilesDTO profile = profileService.addProfileImage(userId, file);
-        int result = 0;
-        if (profile != null) {
-            result = 1;
-        } else {
-            result = 0;
-        }
-        return result;
+    public ResponseEntity<String> addProfileImage(@PathVariable int userId, MultipartFile file) {
+        profileService.addProfileImage(userId, file);
+        return ResponseEntity.ok("프로필이 성공적으로 업데이트 되었습니다.");
     }
 
     @PatchMapping("/profile")
-    public ProfilesDTO updateProfile(@PathVariable int userId, ProfilesDTO profileInfo) {
-        profileInfo.setUserId(userId);
-        ProfilesDTO profile = profileService.updateProfiles(profileInfo);
-        return profile;
+    public ResponseEntity<ProfileResponseDTO> updateProfile(@PathVariable int userId, UpdateProfileReqeust reqeust) {
+        UpdateProfileCommand command = new UpdateProfileCommand(
+                userId,
+                reqeust.getIntro()
+        );
+        ProfileResponseDTO profile = profileService.updateProfiles(command);
+        return ResponseEntity.ok(profile);
     }
 
     @PatchMapping("/profileImage")
-    public int updateProfileImage(@PathVariable int userId, MultipartFile file) {
-        ProfilesDTO profile = profileService.updateProfileImage(userId, file);
-        int result = 0;
-        if (profile != null) {
-            result = 1;
-        } else {
-            result = 0;
-        }
-        return result;
+    public ResponseEntity<String> updateProfileImage(@PathVariable int userId, MultipartFile file) {
+        profileService.updateProfileImage(userId, file);
+        return ResponseEntity.ok("프로필이 성공적으로 업데이트 되었습니다.");
     }
 
 }
