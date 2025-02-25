@@ -69,6 +69,7 @@ public class SchedulesService {
         return ScheduleMapper.INSTANCE.toScheduleDto(schedulesRepository.save(schedule));
     }
 
+    @Transactional(readOnly = true)
     public ScheduleResponse getScheduleDetail(int scheduleId) {
         Schedule schedule = schedulesRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다"));
