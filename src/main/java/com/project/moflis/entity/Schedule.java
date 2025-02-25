@@ -24,11 +24,11 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private Post postId;
+    private Post post;
 
     @ManyToOne
     @JoinColumn(name = "group_post_id")
-    private Post groupPostId;
+    private Post groupPost;
 
     @ManyToOne
     @JoinColumn(name = "recurring_schedules_id")
