@@ -4,14 +4,12 @@ import com.project.moflis.command.scheduls.UpdateSchedulsCommand;
 import com.project.moflis.enums.SchedulesStatus;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
-@ToString
 public class UpdateSchedulsRequest {
 
     private Integer userId;
