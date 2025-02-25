@@ -21,7 +21,7 @@ public interface ScheduleMapper {
     @Mapping(source = "user.id", target = "userId")
     ScheduleResponse toScheduleDto(Schedule schedule);
 
-    @Mapping(source = "userId", target = "user.id")
+    @Mapping(source = "user.id", target = "userId")
     ScheduleSummaryResponse toScheduleSummaryResponse(Schedule schedule);
 
     @Mapping(source = "userId", target = "user.id")

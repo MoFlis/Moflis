@@ -25,11 +25,11 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private Post post;
+    private Post postId;
 
     @ManyToOne
     @JoinColumn(name = "group_post_id")
-    private Post groupPost;
+    private Post groupPostId;
 
     @ManyToOne
     @JoinColumn(name = "recurring_schedules_id")
@@ -61,5 +61,9 @@ public class Schedule {
         this.scheduleTitle = command.getScheduleTitle();
         this.description = command.getDescription();
         this.schedulesStatus = command.getSchedulesStatus();
+    }
+
+    public boolean isOwnedBy(Integer userId) {
+        return this.user.getId().equals(userId);
     }
 }
