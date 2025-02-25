@@ -29,6 +29,6 @@ public class ScheduleSpecs {
     }
 
     public static Specification<Schedule> isActive() {
-        return (root, query, builder) -> builder.equal(root.get("schedulesStatus"), SchedulesStatus.ACTIVE);
+        return (root, query, builder) -> builder.equal(root.get("schedulesStatus"), SchedulesStatus.INACTIVE);
     }
 }
