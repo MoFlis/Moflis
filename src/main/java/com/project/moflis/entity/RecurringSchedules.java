@@ -41,9 +41,6 @@ public class RecurringSchedules {
     @Column(name = "end_time")
     private LocalTime endTime;
 
-    @Column(name = "location", nullable = false, length = 255)
-    private String location;
-
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 }
