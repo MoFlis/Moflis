@@ -59,13 +59,7 @@ public class SchedulesService {
         if (!schedule.getUser().getId().equals(command.getUserId())) {
             throw new IllegalArgumentException("해당 스케줄을 수정할 권한이 없습니다.");
         }
-
         schedule.setScheduleDate(command.getScheduleDate());
-        schedule.setStartTime(command.getStartTime());
-        schedule.setEndTime(command.getEndTime());
-        schedule.setScheduleTitle(command.getScheduleTitle());
-        schedule.setDescription(command.getDescription());
-        schedule.setSchedulesStatus(command.getSchedulesStatus());
         return ScheduleMapper.INSTANCE.toScheduleDto(schedulesRepository.save(schedule));
     }
 

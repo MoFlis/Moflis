@@ -1,5 +1,6 @@
 package com.project.moflis.entity;
 
+import com.project.moflis.command.scheduls.UpdateSchedulsCommand;
 import com.project.moflis.enums.SchedulesStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "group_post_id")
     private Post groupPost;
-    
+
     @ManyToOne
     @JoinColumn(name = "recurring_schedules_id")
     private RecurringSchedules recurringSchedules;
@@ -52,4 +53,13 @@ public class Schedule {
     @Enumerated(EnumType.STRING)
     @Column(name = "schedules_status", nullable = false, length = 50)
     private SchedulesStatus schedulesStatus;
+
+    public void updateSchedule(UpdateSchedulsCommand command) {
+        this.scheduleDate = command.getScheduleDate();
+        this.startTime = command.getStartTime();
+        this.endTime = command.getEndTime();
+        this.scheduleTitle = command.getScheduleTitle();
+        this.description = command.getDescription();
+        this.schedulesStatus = command.getSchedulesStatus();
+    }
 }
