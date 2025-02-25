@@ -29,7 +29,7 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "group_post_id")
     private Post groupPost;
-
+    
     @ManyToOne
     @JoinColumn(name = "recurring_schedules_id")
     private RecurringSchedules recurringSchedules;

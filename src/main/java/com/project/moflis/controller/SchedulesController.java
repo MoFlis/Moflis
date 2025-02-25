@@ -1,7 +1,6 @@
 package com.project.moflis.controller;
 
 import com.project.moflis.command.scheduls.AddSchedulsCommand;
-import com.project.moflis.command.scheduls.UpdateSchedulsCommand;
 import com.project.moflis.dto.page.PageDTO;
 import com.project.moflis.dto.schedule.AddSchedulsRequest;
 import com.project.moflis.dto.schedule.ScheduleResponse;
@@ -64,20 +63,7 @@ public class SchedulesController {
     //스케줄 수정
     @PatchMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponse> patchSchedules(@PathVariable("scheduleId") int scheduleId, UpdateSchedulsRequest request) {
-        UpdateSchedulsCommand command = new UpdateSchedulsCommand(
-                scheduleId,
-                request.getUserId(),
-                request.getPostId(),
-                request.getGroupPostId(),
-                request.getRecurringPostId(),
-                request.getScheduleDate(),
-                request.getStartTime(),
-                request.getEndTime(),
-                request.getScheduleTitle(),
-                request.getDescription(),
-                SchedulesStatus.valueOf(request.getSchedulesStatus().toUpperCase())
-        );
-        ScheduleResponse response = schedulsService.updateSchedules(command);
+        ScheduleResponse response = schedulsService.updateSchedules(request.toCommand(scheduleId));
         return ResponseEntity.ok(response);
     }
 
