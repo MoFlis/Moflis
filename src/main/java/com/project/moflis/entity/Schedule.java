@@ -32,7 +32,7 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumn(name = "recurring_schedules_id")
-    private RecurringSchedules recurringSchedulesId;
+    private RecurringSchedules recurringSchedules;
 
     @Column(name = "schedule_date")
     private LocalDate scheduleDate;
