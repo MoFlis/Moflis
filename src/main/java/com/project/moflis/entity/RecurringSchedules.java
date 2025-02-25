@@ -9,10 +9,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "recurring_meetings")
+@Table(name = "recurring_schedules")
 @Getter
 @Setter
-public class RecurringMeeting {
+public class RecurringSchedules {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

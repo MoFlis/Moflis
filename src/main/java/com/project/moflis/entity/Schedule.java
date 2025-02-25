@@ -31,8 +31,8 @@ public class Schedule {
     private Post groupPostId;
 
     @ManyToOne
-    @JoinColumn(name = "recurring_meetings_id")
-    private RecurringMeeting recurringMeetingId;
+    @JoinColumn(name = "recurring_schedules_id")
+    private RecurringSchedules recurringSchedulesId;
 
     @Column(name = "schedule_date")
     private LocalDate scheduleDate;

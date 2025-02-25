@@ -4,7 +4,8 @@ import com.project.moflis.Specification.ScheduleSpecs;
 import com.project.moflis.command.scheduls.AddSchedulsCommand;
 import com.project.moflis.command.scheduls.UpdateSchedulsCommand;
 import com.project.moflis.dto.page.PageDTO;
-import com.project.moflis.dto.schedule.ScheduleResponseDTO;
+import com.project.moflis.dto.schedule.ScheduleResponse;
+import com.project.moflis.dto.schedule.ScheduleSummaryResponse;
 import com.project.moflis.entity.Schedule;
 import com.project.moflis.enums.SchedulesStatus;
 import com.project.moflis.mapper.ScheduleMapper;
@@ -27,7 +28,7 @@ public class SchedulesService {
     }
 
     @Transactional(readOnly = true)
-    public PageDTO<ScheduleResponseDTO> getSchedules(int userId, String startDate, String endDate, int page, int size) {
+    public PageDTO<ScheduleSummaryResponse> getSchedules(int userId, String startDate, String endDate, int page, int size) {
 
         //정렬
         Pageable pageable = PageRequest.of(page, size, Sort.by("scheduleDate").descending());
@@ -41,17 +42,17 @@ public class SchedulesService {
         Page<Schedule> schedulesPage = schedulesRepository.findAll(spec, pageable);
 
         // map dto 변환 시 페이징 정보를 잃지 않기 위해 씀
-        return new PageDTO<>(schedulesPage.map(ScheduleMapper.INSTANCE::toScheduleDto));
+        return new PageDTO<>(schedulesPage.map(ScheduleMapper.INSTANCE::toScheduleSummaryResponse));
     }
 
     @Transactional
-    public ScheduleResponseDTO addSchedules(AddSchedulsCommand command) {
+    public ScheduleResponse addSchedules(AddSchedulsCommand command) {
         Schedule schedule = ScheduleMapper.INSTANCE.toSchedule(command);
         return ScheduleMapper.INSTANCE.toScheduleDto(schedulesRepository.save(schedule));
     }
 
     @Transactional
-    public ScheduleResponseDTO updateSchedules(UpdateSchedulsCommand command) {
+    public ScheduleResponse updateSchedules(UpdateSchedulsCommand command) {
         Schedule schedule = schedulesRepository.findById(command.getScheduleId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다."));
 
@@ -68,7 +69,7 @@ public class SchedulesService {
         return ScheduleMapper.INSTANCE.toScheduleDto(schedulesRepository.save(schedule));
     }
 
-    public ScheduleResponseDTO detailSchedules(int scheduleId) {
+    public ScheduleResponse getScheduleDetail(int scheduleId) {
         Schedule schedule = schedulesRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다"));
         return ScheduleMapper.INSTANCE.toScheduleDto(schedule);

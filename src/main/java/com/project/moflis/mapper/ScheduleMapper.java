@@ -2,7 +2,8 @@ package com.project.moflis.mapper;
 
 import com.project.moflis.command.scheduls.AddSchedulsCommand;
 import com.project.moflis.command.scheduls.UpdateSchedulsCommand;
-import com.project.moflis.dto.schedule.ScheduleResponseDTO;
+import com.project.moflis.dto.schedule.ScheduleResponse;
+import com.project.moflis.dto.schedule.ScheduleSummaryResponse;
 import com.project.moflis.entity.Post;
 import com.project.moflis.entity.Schedule;
 import org.mapstruct.Mapper;
@@ -18,10 +19,14 @@ public interface ScheduleMapper {
     ScheduleMapper INSTANCE = Mappers.getMapper(ScheduleMapper.class);
 
     @Mapping(source = "user.id", target = "userId")
-    ScheduleResponseDTO toScheduleDto(Schedule schedule);
+    ScheduleResponse toScheduleDto(Schedule schedule);
 
     @Mapping(source = "userId", target = "user.id")
-    Schedule toSchedule(ScheduleResponseDTO scheduleResponseDTO);
+    ScheduleSummaryResponse toScheduleSummaryResponse(Schedule schedule);
+
+    @Mapping(source = "userId", target = "user.id")
+    Schedule toSchedule(ScheduleResponse scheduleResponseDTO);
+
 
     @Mapping(source = "userId", target = "user.id")
     @Mapping(source = "postId", target = "postId", qualifiedByName = "mapToPost")
@@ -41,8 +46,8 @@ public interface ScheduleMapper {
         return post;
     }
 
-    List<ScheduleResponseDTO> toScheduleDtoList(List<Schedule> scheduleList);
+    List<ScheduleResponse> toScheduleDtoList(List<Schedule> scheduleList);
 
-    List<Schedule> toSchedulesList(List<ScheduleResponseDTO> scheduleDTOList);
+    List<Schedule> toSchedulesList(List<ScheduleResponse> scheduleDTOList);
 
 }
