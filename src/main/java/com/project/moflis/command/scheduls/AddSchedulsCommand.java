@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class AddSchedulsCommand {
-    
+
     private final Integer userId;
     private final Integer postId;
     private final Integer groupPostId;
@@ -21,4 +21,5 @@ public class AddSchedulsCommand {
     private final String scheduleTitle;
     private final String description;
     private final SchedulesStatus schedulesStatus;
+
 }

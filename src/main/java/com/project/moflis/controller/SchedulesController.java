@@ -1,12 +1,10 @@
 package com.project.moflis.controller;
 
-import com.project.moflis.command.scheduls.AddSchedulsCommand;
 import com.project.moflis.dto.page.PageDTO;
 import com.project.moflis.dto.schedule.AddSchedulsRequest;
 import com.project.moflis.dto.schedule.ScheduleResponse;
 import com.project.moflis.dto.schedule.ScheduleSummaryResponse;
 import com.project.moflis.dto.schedule.UpdateSchedulsRequest;
-import com.project.moflis.enums.SchedulesStatus;
 import com.project.moflis.service.SchedulesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +20,9 @@ public class SchedulesController {
     }
 
     //스케줄 조회
-    @GetMapping("/users/{userId}")
+    @GetMapping
     public ResponseEntity<PageDTO<ScheduleSummaryResponse>> getSchedules(
-            @PathVariable("userId") int userId,
+            @RequestParam("userId") int userId,
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
             @RequestParam(defaultValue = "0") int page,
@@ -42,21 +40,9 @@ public class SchedulesController {
     }
 
     //스케줄 추가
-    @PostMapping("/users/{userId}")
-    public ResponseEntity<ScheduleResponse> addSchedules(@PathVariable("userId") int userId, AddSchedulsRequest request) {
-        AddSchedulsCommand command = new AddSchedulsCommand(
-                userId,
-                request.getPostId(),
-                request.getGroupPostId(),
-                request.getRecurringPostId(),
-                request.getScheduleDate(),
-                request.getStartTime(),
-                request.getEndTime(),
-                request.getScheduleTitle(),
-                request.getDescription(),
-                SchedulesStatus.valueOf(request.getSchedulesStatus().toUpperCase())
-        );
-        ScheduleResponse response = schedulsService.addSchedules(command);
+    @PostMapping
+    public ResponseEntity<ScheduleResponse> addSchedules(AddSchedulsRequest request) {
+        ScheduleResponse response = schedulsService.addSchedules(request.toCommand());
         return ResponseEntity.ok(response);
     }
 
