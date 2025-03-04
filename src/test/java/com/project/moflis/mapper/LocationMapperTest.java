@@ -1,8 +1,9 @@
 package com.project.moflis.mapper;
 
-import com.project.moflis.dto.location.LocationResponseDTO;
-import com.project.moflis.entity.Locations;
-import com.project.moflis.entity.User;
+import com.project.moflis.location.dto.LocationResponseDTO;
+import com.project.moflis.location.entity.Locations;
+import com.project.moflis.location.mapper.LocationMapper;
+import com.project.moflis.user.entity.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 

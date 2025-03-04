@@ -1,6 +1,7 @@
 package com.project.moflis.util;
 
-import com.project.moflis.storage.FileStorageService;
+import com.project.moflis.profile.storage.FileStorageService;
+import com.project.moflis.profile.util.FileNameConflictResolver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

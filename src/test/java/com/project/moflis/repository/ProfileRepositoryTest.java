@@ -1,7 +1,8 @@
 package com.project.moflis.repository;
 
-import com.project.moflis.entity.Profile;
-import com.project.moflis.entity.User;
+import com.project.moflis.profile.entity.Profile;
+import com.project.moflis.profile.repository.ProfileRepository;
+import com.project.moflis.user.entity.User;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

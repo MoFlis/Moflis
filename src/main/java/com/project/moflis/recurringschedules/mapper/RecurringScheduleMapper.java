@@ -1,0 +1,67 @@
+package com.project.moflis.recurringschedules.mapper;
+
+import com.project.moflis.post.entity.Post;
+import com.project.moflis.recurringschedules.command.AddRecurringScheduleRequest;
+import com.project.moflis.recurringschedules.command.RecurringScheduleResponse;
+import com.project.moflis.recurringschedules.dto.AddRecurringSchedulesCommand;
+import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
+import com.project.moflis.schedules.entity.Schedule;
+import com.project.moflis.user.entity.User;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.mapstruct.factory.Mappers;
+
+import java.util.List;
+
+@Mapper
+public interface RecurringScheduleMapper {
+
+    RecurringScheduleMapper INSTANCE = Mappers.getMapper(RecurringScheduleMapper.class);
+
+    // Entity -> DTO 변환
+    @Mapping(source = "groupPost", target = "groupPostId", qualifiedByName = "mapPostToId")
+    @Mapping(source = "user", target = "userId", qualifiedByName = "mapUserToId")
+    RecurringScheduleResponse toRecurringScheduleResponse(RecurringSchedules recurringSchedules);
+
+    // DTO -> Entity 변환
+    @Mapping(source = "groupPostId", target = "groupPost", qualifiedByName = "mapToPost")
+    @Mapping(source = "userId", target = "user", qualifiedByName = "mapToUser")
+    RecurringSchedules toRecurringSchedule(AddRecurringScheduleRequest recurringScheduleRequest);
+
+    @Mapping(source = "groupPostId", target = "groupPost", qualifiedByName = "mapToPost")
+    @Mapping(source = "userId", target = "user", qualifiedByName = "mapToUser")
+    RecurringSchedules toRecurringSchedule(AddRecurringSchedulesCommand addRecurringSchedulesCommand);
+
+    // 리스트 변환
+    List<RecurringScheduleResponse> toRecurringScheduleDtoList(List<RecurringSchedules> recurringSchedulesList);
+
+    List<ScheduleResponse> toSchedulesList(List<Schedule> schedules);
+
+    @Named("mapPostToId")
+    default Integer mapPostToId(Post post) {
+        return (post == null) ? null : post.getId();
+    }
+
+    @Named("mapUserToId")
+    default Integer mapUserToId(User user) {
+        return (user == null) ? null : user.getId();
+    }
+
+    @Named("mapToPost")
+    default Post mapToPost(Integer postId) {
+        if (postId == null) return null;
+        Post post = new Post();
+        post.setId(postId);
+        return post;
+    }
+
+    @Named("mapToUser")
+    default User mapToUser(Integer userId) {
+        if (userId == null) return null;
+        User user = new User();
+        user.setId(userId);
+        return user;
+    }
+}

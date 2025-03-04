@@ -1,6 +1,6 @@
 package com.project.moflis.command;
 
-import com.project.moflis.command.profile.AddProfileCommand;
+import com.project.moflis.profile.command.AddProfileCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

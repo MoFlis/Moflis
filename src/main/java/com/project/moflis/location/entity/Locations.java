@@ -1,0 +1,44 @@
+package com.project.moflis.location.entity;
+
+import com.project.moflis.user.entity.User;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Getter
+@Setter
+@Table(name = "locations")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Locations {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Column(nullable = false)
+    private Double latitude;
+
+    @Column(nullable = false)
+    private Double longitude;
+
+    @Column(name = "is_verified")
+    private Boolean verified = false;
+
+    @Column(name = "request_time", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime requestTime;
+
+    @Column(name = "completed_time")
+    private LocalDateTime completedTime;
+
+
+}

@@ -1,11 +1,12 @@
 package com.project.moflis.controller;
 
-import com.project.moflis.dto.profile.AddProfileRequest;
-import com.project.moflis.dto.profile.ProfileResponseDTO;
-import com.project.moflis.dto.profile.UpdateProfileReqeust;
-import com.project.moflis.entity.Profile;
-import com.project.moflis.entity.User;
-import com.project.moflis.repository.ProfileRepository;
+import com.project.moflis.profile.controller.ProfileController;
+import com.project.moflis.profile.dto.AddProfileRequest;
+import com.project.moflis.profile.dto.ProfileResponseDTO;
+import com.project.moflis.profile.dto.UpdateProfileReqeust;
+import com.project.moflis.profile.entity.Profile;
+import com.project.moflis.profile.repository.ProfileRepository;
+import com.project.moflis.user.entity.User;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

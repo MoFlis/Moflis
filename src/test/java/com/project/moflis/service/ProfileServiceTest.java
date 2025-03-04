@@ -1,11 +1,12 @@
 package com.project.moflis.service;
 
-import com.project.moflis.command.profile.AddProfileCommand;
-import com.project.moflis.command.profile.UpdateProfileCommand;
-import com.project.moflis.dto.profile.ProfileResponseDTO;
-import com.project.moflis.entity.Profile;
-import com.project.moflis.entity.User;
-import com.project.moflis.repository.ProfileRepository;
+import com.project.moflis.profile.command.AddProfileCommand;
+import com.project.moflis.profile.command.UpdateProfileCommand;
+import com.project.moflis.profile.dto.ProfileResponseDTO;
+import com.project.moflis.profile.entity.Profile;
+import com.project.moflis.profile.repository.ProfileRepository;
+import com.project.moflis.profile.service.ProfileService;
+import com.project.moflis.user.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

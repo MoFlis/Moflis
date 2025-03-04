@@ -1,7 +1,8 @@
 package com.project.moflis.repository;
 
-import com.project.moflis.entity.Locations;
-import com.project.moflis.entity.User;
+import com.project.moflis.location.entity.Locations;
+import com.project.moflis.location.repository.LocationRepository;
+import com.project.moflis.user.entity.User;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,7 @@ class LocationRepositoryTest {
         location.setLatitude(37.7749);
         location.setLongitude(-122.4194);
         locationRepository.save(location);
-        
+
         boolean result = locationRepository.existsByUserId(user.getId());
         assertEquals(true, result);
     }
