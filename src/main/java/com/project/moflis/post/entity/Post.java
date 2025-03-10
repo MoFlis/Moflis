@@ -2,7 +2,7 @@ package com.project.moflis.post.entity;
 
 import com.project.moflis.post.enums.PostStatus;
 import com.project.moflis.post.enums.PostType;
-import com.project.moflis.profile.entity.Tags;
+import com.project.moflis.profile.tags.entity.Tags;
 import com.project.moflis.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class Post {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id")
     private Tags tags;
 

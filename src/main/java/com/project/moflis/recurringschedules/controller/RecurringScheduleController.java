@@ -20,7 +20,6 @@ public class RecurringScheduleController {
 
     @PostMapping
     public ResponseEntity<RecurringScheduleResponse> addRecurringSchedule(AddRecurringScheduleRequest request) {
-        System.out.println("Recurring Schedule added" + request);
         RecurringScheduleResponse response = recurringScheduleService.addRecurringSchedule(request.toCommand(request));
         return ResponseEntity.ok(response);
     }

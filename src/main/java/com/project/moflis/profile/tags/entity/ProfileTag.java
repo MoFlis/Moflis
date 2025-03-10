@@ -1,5 +1,6 @@
-package com.project.moflis.profile.entity;
+package com.project.moflis.profile.tags.entity;
 
+import com.project.moflis.profile.entity.Profile;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

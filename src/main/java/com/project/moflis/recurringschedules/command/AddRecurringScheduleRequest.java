@@ -1,7 +1,7 @@
 package com.project.moflis.recurringschedules.command;
 
-import com.project.moflis.recurringschedules.enums.RepeatType;
 import com.project.moflis.recurringschedules.dto.AddRecurringSchedulesCommand;
+import com.project.moflis.recurringschedules.enums.RepeatType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +15,6 @@ import java.time.LocalTime;
 public class AddRecurringScheduleRequest {
 
     private Integer id;
-    private Integer groupPostId;
     private Integer userId;
     private RepeatType repeatType;
     private LocalDate startDate;
@@ -27,7 +26,6 @@ public class AddRecurringScheduleRequest {
     public AddRecurringSchedulesCommand toCommand(AddRecurringScheduleRequest request) {
         return new AddRecurringSchedulesCommand(
                 this.id,
-                this.groupPostId,
                 this.userId,
                 this.repeatType,
                 this.startDate,

@@ -1,8 +1,8 @@
 package com.project.moflis.recurringschedules.entity;
 
-import com.project.moflis.post.entity.Post;
-import com.project.moflis.recurringschedules.enums.RepeatType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.moflis.recurringschedules.dto.AddRecurringSchedulesCommand;
+import com.project.moflis.recurringschedules.enums.RepeatType;
 import com.project.moflis.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "recurring_schedules")
 @Getter
@@ -21,11 +22,7 @@ public class RecurringSchedules {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "group_post_id")
-    private Post groupPost;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -48,9 +45,8 @@ public class RecurringSchedules {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    public void addRecurringSchedules(AddRecurringSchedulesCommand command, Post groupPost, User user) {
+    public void addRecurringSchedules(AddRecurringSchedulesCommand command, User user) {
         this.id = command.getId();
-        this.groupPost = groupPost;
         this.user = user;
         this.repeatType = command.getRepeatType();
         this.startDate = command.getStartDate();

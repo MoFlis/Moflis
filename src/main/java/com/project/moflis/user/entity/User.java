@@ -1,5 +1,6 @@
 package com.project.moflis.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.moflis.user.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Setter
 @Getter

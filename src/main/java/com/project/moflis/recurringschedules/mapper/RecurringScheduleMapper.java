@@ -21,16 +21,13 @@ public interface RecurringScheduleMapper {
     RecurringScheduleMapper INSTANCE = Mappers.getMapper(RecurringScheduleMapper.class);
 
     // Entity -> DTO 변환
-    @Mapping(source = "groupPost", target = "groupPostId", qualifiedByName = "mapPostToId")
     @Mapping(source = "user", target = "userId", qualifiedByName = "mapUserToId")
     RecurringScheduleResponse toRecurringScheduleResponse(RecurringSchedules recurringSchedules);
 
     // DTO -> Entity 변환
-    @Mapping(source = "groupPostId", target = "groupPost", qualifiedByName = "mapToPost")
     @Mapping(source = "userId", target = "user", qualifiedByName = "mapToUser")
     RecurringSchedules toRecurringSchedule(AddRecurringScheduleRequest recurringScheduleRequest);
 
-    @Mapping(source = "groupPostId", target = "groupPost", qualifiedByName = "mapToPost")
     @Mapping(source = "userId", target = "user", qualifiedByName = "mapToUser")
     RecurringSchedules toRecurringSchedule(AddRecurringSchedulesCommand addRecurringSchedulesCommand);
 

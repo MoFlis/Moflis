@@ -1,42 +1,37 @@
 package com.project.moflis.schedules.entity;
 
-import com.project.moflis.post.entity.Post;
-import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.moflis.recurringschedules.entity.RecurringSchedules;
 import com.project.moflis.schedules.command.UpdateSchedulsCommand;
+import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "schedules")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post postId;
-
-    @ManyToOne
-    @JoinColumn(name = "group_post_id")
-    private Post groupPostId;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recurring_schedules_id")
-    private RecurringSchedules recurringSchedulesId;
+    private RecurringSchedules recurringSchedules;
 
     @Column(name = "schedule_date")
     private LocalDate scheduleDate;
@@ -56,6 +51,19 @@ public class Schedule {
     @Enumerated(EnumType.STRING)
     @Column(name = "schedules_status", nullable = false, length = 50)
     private SchedulesStatus schedulesStatus;
+
+    public Schedule(User user, RecurringSchedules recurringSchedules, LocalDate scheduleDate,
+                    LocalDateTime startTime, LocalDateTime endTime, String scheduleTitle,
+                    String description, SchedulesStatus schedulesStatus) {
+        this.user = user;
+        this.recurringSchedules = recurringSchedules;
+        this.scheduleDate = scheduleDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.scheduleTitle = scheduleTitle;
+        this.description = description;
+        this.schedulesStatus = schedulesStatus;
+    }
 
     public void updateSchedule(UpdateSchedulsCommand command) {
         this.scheduleDate = command.getScheduleDate();

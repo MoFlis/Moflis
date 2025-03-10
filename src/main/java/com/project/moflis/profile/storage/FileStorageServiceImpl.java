@@ -14,10 +14,11 @@ import java.io.IOException;
 public class FileStorageServiceImpl implements FileStorageService {
 
     private final FileConfig config;
-    private S3Client s3Client;
+    private final S3Client s3Client;
 
-    public FileStorageServiceImpl(FileConfig config) {
+    public FileStorageServiceImpl(FileConfig config, S3Client s3Client) {
         this.config = config;
+        this.s3Client = s3Client;
     }
 
     @Override

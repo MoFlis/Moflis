@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 public class FileConfig {
+
     @Value("${aws.s3.bucket}")
     private String bucketName;
 

@@ -1,4 +1,4 @@
-package com.project.moflis.profile.entity;
+package com.project.moflis.profile.tags.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
