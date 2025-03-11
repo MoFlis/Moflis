@@ -1,12 +1,12 @@
 package com.project.moflis.schedules.service;
 
-import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.command.AddSchedulsCommand;
 import com.project.moflis.schedules.command.UpdateSchedulsCommand;
 import com.project.moflis.schedules.dto.page.PageDTO;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.dto.schedules.ScheduleSummaryResponse;
 import com.project.moflis.schedules.entity.Schedule;
+import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.mapper.ScheduleMapper;
 import com.project.moflis.schedules.repository.SchedulesRepository;
 import com.project.moflis.schedules.specification.ScheduleSpecs;
@@ -17,6 +17,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class SchedulesService {
@@ -78,5 +80,10 @@ public class SchedulesService {
         ScheduleMapper.INSTANCE.toScheduleDto(schedulesRepository.save(schedule));
     }
 
+    @Transactional
+    public void saveAllSchedules(List<Schedule> generatedSchedules) {
 
+        //반복일정 저장
+        schedulesRepository.saveAll(generatedSchedules);
+    }
 }

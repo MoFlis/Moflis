@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.moflis.recurringschedules.entity.RecurringSchedules;
 import com.project.moflis.schedules.command.UpdateSchedulsCommand;
 import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.schedules.enums.SchedulesType;
 import com.project.moflis.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -52,9 +53,13 @@ public class Schedule {
     @Column(name = "schedules_status", nullable = false, length = 50)
     private SchedulesStatus schedulesStatus;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "schedules_type", nullable = false, length = 50)
+    private SchedulesType schedulesType;
+
     public Schedule(User user, RecurringSchedules recurringSchedules, LocalDate scheduleDate,
                     LocalDateTime startTime, LocalDateTime endTime, String scheduleTitle,
-                    String description, SchedulesStatus schedulesStatus) {
+                    String description, SchedulesStatus schedulesStatus, SchedulesType schedulesType) {
         this.user = user;
         this.recurringSchedules = recurringSchedules;
         this.scheduleDate = scheduleDate;
@@ -63,6 +68,7 @@ public class Schedule {
         this.scheduleTitle = scheduleTitle;
         this.description = description;
         this.schedulesStatus = schedulesStatus;
+        this.schedulesType = schedulesType;
     }
 
     public void updateSchedule(UpdateSchedulsCommand command) {
