@@ -1,6 +1,7 @@
 package com.project.moflis.schedules.command;
 
 import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.schedules.enums.SchedulesType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,8 +13,6 @@ import java.time.LocalDateTime;
 public class AddSchedulsCommand {
 
     private final Integer userId;
-    private final Integer postId;
-    private final Integer groupPostId;
     private final Integer recurringSchedulesId;
     private final LocalDate scheduleDate;
     private final LocalDateTime startTime;
@@ -21,5 +20,6 @@ public class AddSchedulsCommand {
     private final String scheduleTitle;
     private final String description;
     private final SchedulesStatus schedulesStatus;
+    private final SchedulesType schedulesType;
 
 }

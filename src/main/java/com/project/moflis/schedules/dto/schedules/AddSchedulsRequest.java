@@ -1,7 +1,8 @@
 package com.project.moflis.schedules.dto.schedules;
 
-import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.command.AddSchedulsCommand;
+import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.schedules.enums.SchedulesType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,19 +23,19 @@ public class AddSchedulsRequest {
     private String scheduleTitle;
     private String description;
     private String schedulesStatus;
+    private String schedulesType;
 
     public AddSchedulsCommand toCommand() {
         return new AddSchedulsCommand(
                 userId,
-                postId,
-                groupPostId,
                 recurringSchedulesId,
                 scheduleDate,
                 startTime,
                 endTime,
                 scheduleTitle,
                 description,
-                SchedulesStatus.valueOf(schedulesStatus.toUpperCase())  // 변환 로직을 내부에서 처리
+                SchedulesStatus.valueOf(schedulesStatus.toUpperCase()),
+                SchedulesType.valueOf(schedulesType.toUpperCase())
         );
     }
 

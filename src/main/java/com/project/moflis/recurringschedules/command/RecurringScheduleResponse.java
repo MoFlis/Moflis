@@ -12,7 +12,6 @@ import java.time.LocalTime;
 public class RecurringScheduleResponse {
 
     private Integer id;
-    private Integer groupPostId;
     private Integer userId;
     private RepeatType repeatType;
     private LocalDate startDate;

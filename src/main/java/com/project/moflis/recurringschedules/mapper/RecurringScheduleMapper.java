@@ -1,7 +1,6 @@
 package com.project.moflis.recurringschedules.mapper;
 
 import com.project.moflis.post.entity.Post;
-import com.project.moflis.recurringschedules.command.AddRecurringScheduleRequest;
 import com.project.moflis.recurringschedules.command.RecurringScheduleResponse;
 import com.project.moflis.recurringschedules.dto.AddRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.entity.RecurringSchedules;
@@ -24,9 +23,6 @@ public interface RecurringScheduleMapper {
     @Mapping(source = "user", target = "userId", qualifiedByName = "mapUserToId")
     RecurringScheduleResponse toRecurringScheduleResponse(RecurringSchedules recurringSchedules);
 
-    // DTO -> Entity 변환
-    @Mapping(source = "userId", target = "user", qualifiedByName = "mapToUser")
-    RecurringSchedules toRecurringSchedule(AddRecurringScheduleRequest recurringScheduleRequest);
 
     @Mapping(source = "userId", target = "user", qualifiedByName = "mapToUser")
     RecurringSchedules toRecurringSchedule(AddRecurringSchedulesCommand addRecurringSchedulesCommand);
@@ -44,14 +40,6 @@ public interface RecurringScheduleMapper {
     @Named("mapUserToId")
     default Integer mapUserToId(User user) {
         return (user == null) ? null : user.getId();
-    }
-
-    @Named("mapToPost")
-    default Post mapToPost(Integer postId) {
-        if (postId == null) return null;
-        Post post = new Post();
-        post.setId(postId);
-        return post;
     }
 
     @Named("mapToUser")

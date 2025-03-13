@@ -1,8 +1,8 @@
 package com.project.moflis.schedules.dto.schedules;
 
-import com.project.moflis.post.entity.Post;
-import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.schedules.enums.SchedulesType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 public class ScheduleResponse {
     private Integer id;
     private Integer userId;
-    private Post postId;
-    private Post groupPostId;
     private RecurringSchedules recurringSchedulesId;
     private LocalDate scheduleDate;
     private LocalDateTime startTime;
@@ -23,4 +21,5 @@ public class ScheduleResponse {
     private String scheduleTitle;
     private String description;
     private SchedulesStatus schedulesStatus;
+    private SchedulesType schedulesType;
 }

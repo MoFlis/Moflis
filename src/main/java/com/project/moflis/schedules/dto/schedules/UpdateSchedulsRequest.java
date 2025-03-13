@@ -1,7 +1,7 @@
 package com.project.moflis.schedules.dto.schedules;
 
-import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.command.UpdateSchedulsCommand;
+import com.project.moflis.schedules.enums.SchedulesStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,8 +27,6 @@ public class UpdateSchedulsRequest {
         return new UpdateSchedulsCommand(
                 scheduleId,
                 this.userId,
-                this.postId,
-                this.groupPostId,
                 this.recurringPostId,
                 this.scheduleDate,
                 this.startTime,

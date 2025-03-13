@@ -2,7 +2,6 @@ package com.project.moflis.schedules.mapper;
 
 import com.project.moflis.recurringschedules.entity.RecurringSchedules;
 import com.project.moflis.schedules.command.AddSchedulsCommand;
-import com.project.moflis.schedules.command.UpdateSchedulsCommand;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.dto.schedules.ScheduleSummaryResponse;
 import com.project.moflis.schedules.entity.Schedule;
@@ -27,15 +26,12 @@ public interface ScheduleMapper {
     ScheduleSummaryResponse toScheduleSummaryResponse(Schedule schedule);
 
     @Mapping(source = "userId", target = "user.id")
+    @Mapping(source = "recurringSchedulesId", target = "recurringSchedules")
     Schedule toSchedule(ScheduleResponse scheduleResponseDTO);
 
     @Mapping(source = "userId", target = "user.id")
     @Mapping(source = "recurringSchedulesId", target = "recurringSchedules", qualifiedByName = "mapToRecurringSchedules")
     Schedule toSchedule(AddSchedulsCommand command);
-
-    @Mapping(source = "userId", target = "user.id")
-    @Mapping(source = "recurringSchedulesId", target = "recurringSchedules", qualifiedByName = "mapToRecurringSchedules")
-    Schedule toSchedule(UpdateSchedulsCommand command);
 
     @Named("mapToRecurringSchedules")
     default RecurringSchedules mapToRecurringSchedules(Integer recurringScheduleId) {

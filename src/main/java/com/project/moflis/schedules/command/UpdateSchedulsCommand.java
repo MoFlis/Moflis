@@ -13,8 +13,6 @@ public class UpdateSchedulsCommand {
 
     private final Integer scheduleId;
     private final Integer userId;
-    private final Integer postId;
-    private final Integer groupPostId;
     private final Integer recurringSchedulesId;
     private final LocalDate scheduleDate;
     private final LocalDateTime startTime;
