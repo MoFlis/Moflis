@@ -1,6 +1,6 @@
 package com.project.moflis.schedules.specification;
 
-import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.recurringschedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.entity.Schedule;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
@@ -29,6 +29,6 @@ public class ScheduleSpecs {
     }
 
     public static Specification<Schedule> isActive() {
-        return (root, query, builder) -> builder.equal(root.get("schedulesStatus"), SchedulesStatus.INACTIVE);
+        return (root, query, builder) -> builder.equal(root.get("schedulesStatus"), SchedulesStatus.ACTIVE);
     }
 }

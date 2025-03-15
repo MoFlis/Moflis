@@ -1,9 +1,10 @@
 package com.project.moflis.recurringschedules.mapper;
 
-import com.project.moflis.recurringschedules.command.RecurringScheduleResponse;
-import com.project.moflis.recurringschedules.dto.AddRecurringSchedulesCommand;
+import com.project.moflis.recurringschedules.command.AddRecurringSchedulesCommand;
+import com.project.moflis.recurringschedules.dto.RecurringScheduleResponse;
 import com.project.moflis.recurringschedules.entity.RecurringSchedules;
 import com.project.moflis.recurringschedules.enums.RepeatType;
+import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.user.entity.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -60,7 +61,7 @@ class RecurringScheduleMapperTest {
         LocalTime startTime = LocalTime.now();
 
         AddRecurringSchedulesCommand command = new AddRecurringSchedulesCommand(
-                1, 1, RepeatType.DAILY, startDate, endDate, startTime, endTime, "test"
+                1, 1, RepeatType.DAILY, startDate, endDate, startTime, endTime, "test", SchedulesStatus.ACTIVE
         );
 
         RecurringSchedules recurringSchedules = INSTANCE.toRecurringSchedule(command);

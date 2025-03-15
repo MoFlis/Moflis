@@ -1,6 +1,7 @@
 package com.project.moflis.schedules.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.project.moflis.recurringschedules.command.UpdateRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.entity.RecurringSchedules;
 import com.project.moflis.schedules.command.UpdateSchedulsCommand;
 import com.project.moflis.schedules.enums.SchedulesStatus;
@@ -83,4 +84,23 @@ public class Schedule {
     public boolean isOwnedBy(Integer userId) {
         return this.user.getId().equals(userId);
     }
+
+    public void updateSchedules(UpdateRecurringSchedulesCommand command) {
+        if (command.getStartDate() != null) {
+            this.scheduleDate = command.getStartDate();
+        }
+        if (command.getStartTime() != null && command.getStartDate() != null) {
+            this.startTime = LocalDateTime.of(command.getStartDate(), command.getStartTime()); // ✅ 변환 코드
+        }
+        if (command.getEndTime() != null && command.getStartDate() != null) {
+            this.endTime = LocalDateTime.of(command.getStartDate(), command.getEndTime()); // ✅ 변환 코드
+        }
+        if (command.getDescription() != null) {
+            this.description = command.getDescription();
+        }
+        if (command.getStatus() != null) {
+            this.schedulesStatus = command.getStatus();
+        }
+    }
+
 }

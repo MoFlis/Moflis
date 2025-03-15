@@ -54,7 +54,7 @@ public class RecurringScheduleGenerator {
                 endTime.atDate(date),
                 "반복 일정: " + recurringSchedules.getDescription(),
                 recurringSchedules.getDescription(),
-                SchedulesStatus.INACTIVE,
+                SchedulesStatus.ACTIVE,
                 SchedulesType.PERSONAL
         );
     }

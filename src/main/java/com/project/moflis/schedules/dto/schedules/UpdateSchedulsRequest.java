@@ -2,6 +2,7 @@ package com.project.moflis.schedules.dto.schedules;
 
 import com.project.moflis.schedules.command.UpdateSchedulsCommand;
 import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.schedules.enums.SchedulesType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +14,6 @@ import java.time.LocalDateTime;
 public class UpdateSchedulsRequest {
 
     private Integer userId;
-    private Integer postId;
-    private Integer groupPostId;
     private Integer recurringPostId;
     private LocalDate scheduleDate;
     private LocalDateTime startTime;
@@ -22,6 +21,7 @@ public class UpdateSchedulsRequest {
     private String scheduleTitle;
     private String description;
     private String schedulesStatus;
+    private String schedulesType;
 
     public UpdateSchedulsCommand toCommand(Integer scheduleId) {
         return new UpdateSchedulsCommand(
@@ -33,7 +33,8 @@ public class UpdateSchedulsRequest {
                 this.endTime,
                 this.scheduleTitle,
                 this.description,
-                SchedulesStatus.valueOf(this.schedulesStatus.toUpperCase()) // 변환 로직도 여기서 처리
+                SchedulesStatus.valueOf(this.schedulesStatus.toUpperCase()),
+                SchedulesType.valueOf(this.schedulesType.toUpperCase())
         );
     }
 

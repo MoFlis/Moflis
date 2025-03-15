@@ -1,6 +1,7 @@
 package com.project.moflis.schedules.command;
 
 import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.schedules.enums.SchedulesType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -20,4 +21,6 @@ public class UpdateSchedulsCommand {
     private final String scheduleTitle;
     private final String description;
     private final SchedulesStatus schedulesStatus;
+    private final SchedulesType schedulesType;
+
 }

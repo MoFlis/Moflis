@@ -1,6 +1,7 @@
-package com.project.moflis.recurringschedules.command;
+package com.project.moflis.recurringschedules.dto;
 
 import com.project.moflis.recurringschedules.enums.RepeatType;
+import com.project.moflis.schedules.enums.SchedulesStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +20,5 @@ public class RecurringScheduleResponse {
     private LocalTime startTime;
     private LocalTime endTime;
     private String description;
+    private SchedulesStatus status;
 }

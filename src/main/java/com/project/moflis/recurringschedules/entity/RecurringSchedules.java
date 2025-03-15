@@ -1,8 +1,9 @@
 package com.project.moflis.recurringschedules.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.project.moflis.recurringschedules.dto.AddRecurringSchedulesCommand;
+import com.project.moflis.recurringschedules.command.UpdateRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.enums.RepeatType;
+import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -45,15 +46,18 @@ public class RecurringSchedules {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    public void addRecurringSchedules(AddRecurringSchedulesCommand command, User user) {
-        this.id = command.getId();
-        this.user = user;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private SchedulesStatus status;
+
+    public void updateRecurringSchedules(UpdateRecurringSchedulesCommand command) {
         this.repeatType = command.getRepeatType();
         this.startDate = command.getStartDate();
         this.endDate = command.getEndDate();
         this.startTime = command.getStartTime();
         this.endTime = command.getEndTime();
         this.description = command.getDescription();
+        this.status = command.getStatus();
 
     }
 }
