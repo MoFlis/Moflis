@@ -1,7 +1,7 @@
 package com.project.moflis.recurringschedules.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.project.moflis.recurringschedules.command.UpdateRecurringSchedulesCommand;
+import com.project.moflis.recurringschedules.command.RecurringSchedulesUpdateCommand;
 import com.project.moflis.recurringschedules.enums.RepeatType;
 import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.user.entity.User;
@@ -50,7 +50,7 @@ public class RecurringSchedules {
     @Enumerated(EnumType.STRING)
     private SchedulesStatus status;
 
-    public void updateRecurringSchedules(UpdateRecurringSchedulesCommand command) {
+    public void update(RecurringSchedulesUpdateCommand command) {
         this.repeatType = command.getRepeatType();
         this.startDate = command.getStartDate();
         this.endDate = command.getEndDate();

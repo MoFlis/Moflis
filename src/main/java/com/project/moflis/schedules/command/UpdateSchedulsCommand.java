@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class UpdateSchedulsCommand {
+public class UpdateSchedulsCommand implements ScheduleUpdateCommand {
 
     private final Integer scheduleId;
     private final Integer userId;

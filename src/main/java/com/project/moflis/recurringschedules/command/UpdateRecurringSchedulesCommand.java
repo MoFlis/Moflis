@@ -2,13 +2,15 @@ package com.project.moflis.recurringschedules.command;
 
 import com.project.moflis.recurringschedules.enums.RepeatType;
 import com.project.moflis.schedules.enums.SchedulesStatus;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
-public class UpdateRecurringSchedulesCommand {
+@AllArgsConstructor
+public class UpdateRecurringSchedulesCommand implements RecurringSchedulesUpdateCommand {
 
     private final Integer userId;
     private final RepeatType repeatType;
@@ -19,14 +21,5 @@ public class UpdateRecurringSchedulesCommand {
     private final String description;
     private final SchedulesStatus status;
 
-    public UpdateRecurringSchedulesCommand(Integer userId, RepeatType repeatType, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, String description, SchedulesStatus status) {
-        this.userId = userId;
-        this.repeatType = repeatType;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.description = description;
-        this.status = status;
-    }
+
 }
