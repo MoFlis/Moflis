@@ -50,7 +50,7 @@ public class RecurringScheduleService {
     public RecurringScheduleResponse deleteRecurringSchedule(int recurringScheduleId) {
         RecurringSchedules recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
                 .orElseThrow(() -> new RuntimeException("반복일정 아이디가 존재하지 않습니다."));
-        recurringSchedules.setStatus(SchedulesStatus.DELETED);
+        recurringSchedules.setStatus(SchedulesStatus.INACTIVE);
         schedulesService.deleteRecurringSchedules(recurringScheduleId);
         return RecurringScheduleMapper.INSTANCE.toRecurringScheduleResponse(recurringSchedulesRepository.save(recurringSchedules));
     }

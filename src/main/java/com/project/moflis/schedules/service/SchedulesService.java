@@ -78,7 +78,7 @@ public class SchedulesService {
     public void deleteSchedules(int scheduleId) {
         Schedule schedule = schedulesRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다"));
-        schedule.setSchedulesStatus(SchedulesStatus.DELETED);
+        schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
         ScheduleMapper.INSTANCE.toScheduleDto(schedulesRepository.save(schedule));
     }
 
@@ -93,7 +93,7 @@ public class SchedulesService {
     public void deleteRecurringSchedules(int recurringScheduleId) {
         List<Schedule> recurringSchedulesList = schedulesRepository.findByRecurringSchedulesId(recurringScheduleId);
         for (Schedule schedule : recurringSchedulesList) {
-            schedule.setSchedulesStatus(SchedulesStatus.DELETED);
+            schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
         }
         schedulesRepository.saveAll(recurringSchedulesList);
     }

@@ -5,6 +5,7 @@ import com.project.moflis.schedules.command.AddSchedulsCommand;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.dto.schedules.ScheduleSummaryResponse;
 import com.project.moflis.schedules.entity.Schedule;
+import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.enums.SchedulesType;
 import com.project.moflis.user.entity.User;
 import org.junit.jupiter.api.Test;
