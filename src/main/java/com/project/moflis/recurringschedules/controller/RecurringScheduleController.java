@@ -5,7 +5,12 @@ import com.project.moflis.recurringschedules.dto.RecurringScheduleResponse;
 import com.project.moflis.recurringschedules.dto.UpdateRecurringScheduleRequest;
 import com.project.moflis.recurringschedules.service.RecurringScheduleService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/schedules/recurring-schedule")
