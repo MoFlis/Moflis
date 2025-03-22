@@ -1,6 +1,6 @@
 package com.project.moflis.schedules.dto.schedules;
 
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.enums.SchedulesType;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class ScheduleSummaryResponse {
 
     private Integer id;
     private Integer userId;
-    private RecurringSchedules recurringSchedulesId;
+    private RecurringSchedule recurringSchedulesId;
     private LocalDate scheduleDate;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

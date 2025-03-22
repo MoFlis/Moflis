@@ -5,7 +5,7 @@ import com.project.moflis.global.exception.UserLocationAlreadyExistsException;
 import com.project.moflis.location.dto.CoordinatesRequest;
 import com.project.moflis.location.dto.LocationResponseDTO;
 import com.project.moflis.location.dto.VerifyLocationRequest;
-import com.project.moflis.location.entity.Locations;
+import com.project.moflis.location.entity.Location;
 import com.project.moflis.location.mapper.LocationMapper;
 import com.project.moflis.location.repository.LocationRepository;
 import jakarta.transaction.Transactional;
@@ -31,7 +31,7 @@ public class LocationService {
             throw new UserLocationAlreadyExistsException("이미 저장된 위치 정보가 존재합니다.");
         }
 
-        Locations location = new Locations(
+        Location location = new Location(
                 null,
                 userId,
                 coordinates.getLatitude(),
@@ -45,7 +45,7 @@ public class LocationService {
 
     @Transactional
     public boolean locationVerify(Integer userId, VerifyLocationRequest verifyLocationRequest) {
-        Locations locationInfo = locationRepository.findByUserId(userId);
+        Location locationInfo = locationRepository.findByUserId(userId);
 
         if (locationInfo == null) {
             throw new RuntimeException("해당 유저의 위치정보가 없습니다");

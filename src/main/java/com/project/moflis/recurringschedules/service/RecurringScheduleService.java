@@ -3,7 +3,7 @@ package com.project.moflis.recurringschedules.service;
 import com.project.moflis.recurringschedules.command.AddRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.command.UpdateRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.dto.RecurringScheduleResponse;
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.recurringschedules.mapper.RecurringScheduleMapper;
 import com.project.moflis.recurringschedules.repository.RecurringSchedulesRepository;
 import com.project.moflis.recurringschedules.util.RecurringScheduleGenerator;
@@ -28,7 +28,7 @@ public class RecurringScheduleService {
 
     @Transactional
     public RecurringScheduleResponse addRecurringSchedule(AddRecurringSchedulesCommand command) {
-        RecurringSchedules recurringSchedules = RecurringScheduleMapper.INSTANCE.toRecurringSchedule(command);
+        RecurringSchedule recurringSchedules = RecurringScheduleMapper.INSTANCE.toRecurringSchedule(command);
         recurringSchedules = recurringSchedulesRepository.save(recurringSchedules);
 
         List<Schedule> generatedSchedules = RecurringScheduleGenerator.generateSchedules(recurringSchedules);
@@ -38,7 +38,7 @@ public class RecurringScheduleService {
 
     @Transactional
     public RecurringScheduleResponse patchRecurringSchedule(int recurringScheduleId, UpdateRecurringSchedulesCommand command) {
-        RecurringSchedules recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
+        RecurringSchedule recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
                 .orElseThrow(() -> new RuntimeException("반복일정 아이디가 존재하지 않습니다"));
         recurringSchedules.update(command);
         schedulesService.updateRecurringSchedules(recurringSchedules, recurringScheduleId);
@@ -48,7 +48,7 @@ public class RecurringScheduleService {
 
     @Transactional
     public RecurringScheduleResponse deleteRecurringSchedule(int recurringScheduleId) {
-        RecurringSchedules recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
+        RecurringSchedule recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
                 .orElseThrow(() -> new RuntimeException("반복일정 아이디가 존재하지 않습니다."));
         recurringSchedules.setStatus(SchedulesStatus.INACTIVE);
         schedulesService.deleteRecurringSchedules(recurringScheduleId);

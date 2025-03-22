@@ -1,6 +1,6 @@
 package com.project.moflis.schedules.service;
 
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.recurringschedules.util.RecurringScheduleGenerator;
 import com.project.moflis.schedules.command.AddSchedulsCommand;
 import com.project.moflis.schedules.command.UpdateSchedulsCommand;
@@ -91,7 +91,7 @@ public class SchedulesService {
     //반복일정 삭제
     @Transactional
     public void deleteRecurringSchedules(int recurringScheduleId) {
-        List<Schedule> recurringSchedulesList = schedulesRepository.findByRecurringSchedulesId(recurringScheduleId);
+        List<Schedule> recurringSchedulesList = schedulesRepository.findByRecurringScheduleId(recurringScheduleId);
         for (Schedule schedule : recurringSchedulesList) {
             schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
         }
@@ -100,8 +100,8 @@ public class SchedulesService {
 
     //반복일정 수정
     @Transactional
-    public void updateRecurringSchedules(RecurringSchedules recurringSchedules, int recurringScheduleId) {
-        schedulesRepository.deleteByRecurringSchedulesId(recurringScheduleId);
+    public void updateRecurringSchedules(RecurringSchedule recurringSchedules, int recurringScheduleId) {
+        schedulesRepository.deleteByRecurringScheduleId(recurringScheduleId);
         List<Schedule> generatedSchedules = RecurringScheduleGenerator.generateSchedules(recurringSchedules);
         schedulesRepository.saveAll(generatedSchedules);
     }

@@ -3,7 +3,7 @@ package com.project.moflis.recurringschedules.mapper;
 import com.project.moflis.recurringschedules.command.AddRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.command.UpdateRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.dto.RecurringScheduleResponse;
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.entity.Schedule;
 import com.project.moflis.user.entity.User;
@@ -21,16 +21,16 @@ public interface RecurringScheduleMapper {
 
     // Entity -> DTO 변환
     @Mapping(source = "user", target = "userId", qualifiedByName = "mapUserToId")
-    RecurringScheduleResponse toRecurringScheduleResponse(RecurringSchedules recurringSchedules);
+    RecurringScheduleResponse toRecurringScheduleResponse(RecurringSchedule recurringSchedules);
 
     @Mapping(source = "userId", target = "user", qualifiedByName = "mapToUser")
-    RecurringSchedules toRecurringSchedule(AddRecurringSchedulesCommand addRecurringSchedulesCommand);
+    RecurringSchedule toRecurringSchedule(AddRecurringSchedulesCommand addRecurringSchedulesCommand);
 
     @Mapping(source = "userId", target = "user", qualifiedByName = "mapToUser")
-    RecurringSchedules toRecurringSchedule(UpdateRecurringSchedulesCommand updateRecurringSchedulesCommand);
+    RecurringSchedule toRecurringSchedule(UpdateRecurringSchedulesCommand updateRecurringSchedulesCommand);
 
     // 리스트 변환
-    List<RecurringScheduleResponse> toRecurringScheduleDtoList(List<RecurringSchedules> recurringSchedulesList);
+    List<RecurringScheduleResponse> toRecurringScheduleDtoList(List<RecurringSchedule> recurringSchedulesList);
 
     List<ScheduleResponse> toSchedulesList(List<Schedule> schedules);
 

@@ -1,6 +1,5 @@
 package com.project.moflis.recurringschedules.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.moflis.recurringschedules.command.RecurringSchedulesUpdateCommand;
 import com.project.moflis.recurringschedules.enums.RepeatType;
 import com.project.moflis.schedules.enums.SchedulesStatus;
@@ -12,12 +11,11 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "recurring_schedules")
 @Getter
 @Setter
-public class RecurringSchedules {
+public class RecurringSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

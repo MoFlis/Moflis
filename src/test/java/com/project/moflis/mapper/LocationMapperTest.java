@@ -1,9 +1,8 @@
 package com.project.moflis.mapper;
 
 import com.project.moflis.location.dto.LocationResponseDTO;
-import com.project.moflis.location.entity.Locations;
+import com.project.moflis.location.entity.Location;
 import com.project.moflis.location.mapper.LocationMapper;
-import com.project.moflis.user.entity.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -23,11 +22,8 @@ class LocationMapperTest {
         LocalDateTime now = LocalDateTime.of(2025, 1, 10, 15, 16, 4);
         LocalDateTime tomorrow = now.plusDays(1);
         //Given
-        Locations location = new Locations();
+        Location location = new Location();
         location.setId(1);
-        User user = new User();
-        user.setId(1);
-        location.setUser(user);
         location.setVerified(false);
         location.setCompletedTime(tomorrow);
         location.setRequestTime(now);
@@ -60,10 +56,9 @@ class LocationMapperTest {
         locationDTO.setLongitude(127.09416);
         locationDTO.setLatitude(37.597466);
 
-        Locations location = locationMapper.toLocations(locationDTO);
+        Location location = locationMapper.toLocations(locationDTO);
 
         assertThat(location.getId()).isEqualTo(1);
-        assertThat(location.getUser().getId()).isEqualTo(1);
         assertThat(location.getVerified()).isEqualTo(false);
         assertThat(location.getCompletedTime()).isEqualTo(tomorrow);
         assertThat(location.getRequestTime()).isEqualTo(now);
@@ -77,22 +72,16 @@ class LocationMapperTest {
         LocalDateTime now = LocalDateTime.of(2025, 1, 10, 15, 16, 4);
         LocalDateTime tomorrow = now.plusDays(1);
 
-        Locations location1 = new Locations();
+        Location location1 = new Location();
         location1.setId(1);
-        User user = new User();
-        user.setId(1);
-        location1.setUser(user);
         location1.setVerified(false);
         location1.setCompletedTime(tomorrow);
         location1.setRequestTime(now);
         location1.setLongitude(127.09416);
         location1.setLatitude(37.597466);
 
-        Locations location2 = new Locations();
+        Location location2 = new Location();
         location2.setId(2);
-        User user2 = new User();
-        user2.setId(2);
-        location2.setUser(user2);
         location2.setVerified(false);
         location2.setCompletedTime(tomorrow);
         location2.setRequestTime(now);
@@ -105,8 +94,6 @@ class LocationMapperTest {
         assertThat(locationDTOList).hasSize(2);
         assertThat(locationDTOList.get(0).getId()).isEqualTo(1);
         assertThat(locationDTOList.get(1).getId()).isEqualTo(2);
-        assertThat(locationDTOList.get(0).getUserId()).isEqualTo(1);
-        assertThat(locationDTOList.get(1).getUserId()).isEqualTo(2);
     }
 
     @Test
@@ -133,14 +120,12 @@ class LocationMapperTest {
         locationDTO2.setLongitude(127.09416);
         locationDTO2.setLatitude(37.597466);
 
-        List<Locations> locationList = new ArrayList<>();
+        List<Location> locationList = new ArrayList<>();
         locationList.add(locationMapper.toLocations(locationDTO1));
         locationList.add(locationMapper.toLocations(locationDTO2));
         assertThat(locationList).hasSize(2);
         assertThat(locationList.get(0).getId()).isEqualTo(1);
         assertThat(locationList.get(1).getId()).isEqualTo(2);
-        assertThat(locationList.get(0).getUser().getId()).isEqualTo(1);
-        assertThat(locationList.get(1).getUser().getId()).isEqualTo(2);
     }
 
 

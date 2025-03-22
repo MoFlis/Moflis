@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 @Table(name = "locations")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Locations {
+public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @JoinColumn(name = "user_id", nullable = false)
-    private Integer user;
+    private Integer userId;
 
     @Column(nullable = false)
     private Double latitude;

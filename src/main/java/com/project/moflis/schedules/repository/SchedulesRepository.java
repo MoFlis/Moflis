@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SchedulesRepository extends JpaRepository<Schedule, Integer>, JpaSpecificationExecutor<Schedule> {
 
-    List<Schedule> findByRecurringSchedulesId(int recurringScheduleId);
+    List<Schedule> findByRecurringScheduleId(int recurringScheduleId);
 
-    void deleteByRecurringSchedulesId(int recurringScheduleId);
+    void deleteByRecurringScheduleId(int recurringScheduleId);
 }

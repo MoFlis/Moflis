@@ -1,6 +1,6 @@
 package com.project.moflis.schedules.mapper;
 
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.schedules.command.AddSchedulsCommand;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.dto.schedules.ScheduleSummaryResponse;
@@ -18,25 +18,25 @@ public interface ScheduleMapper {
     ScheduleMapper INSTANCE = Mappers.getMapper(ScheduleMapper.class);
 
     @Mapping(source = "user.id", target = "userId")
-    @Mapping(source = "recurringSchedules", target = "recurringSchedulesId")
+    @Mapping(source = "recurringSchedule", target = "recurringSchedulesId")
     ScheduleResponse toScheduleDto(Schedule schedule);
 
     @Mapping(source = "user.id", target = "userId")
-    @Mapping(source = "recurringSchedules", target = "recurringSchedulesId")
+    @Mapping(source = "recurringSchedule", target = "recurringSchedulesId")
     ScheduleSummaryResponse toScheduleSummaryResponse(Schedule schedule);
 
     @Mapping(source = "userId", target = "user.id")
-    @Mapping(source = "recurringSchedulesId", target = "recurringSchedules")
+    @Mapping(source = "recurringSchedulesId", target = "recurringSchedule")
     Schedule toSchedule(ScheduleResponse scheduleResponseDTO);
 
     @Mapping(source = "userId", target = "user.id")
-    @Mapping(source = "recurringSchedulesId", target = "recurringSchedules", qualifiedByName = "mapToRecurringSchedules")
+    @Mapping(source = "recurringSchedulesId", target = "recurringSchedule", qualifiedByName = "mapToRecurringSchedules")
     Schedule toSchedule(AddSchedulsCommand command);
 
     @Named("mapToRecurringSchedules")
-    default RecurringSchedules mapToRecurringSchedules(Integer recurringScheduleId) {
+    default RecurringSchedule mapToRecurringSchedules(Integer recurringScheduleId) {
         if (recurringScheduleId == null) return null;
-        RecurringSchedules recurringSchedules = new RecurringSchedules();
+        RecurringSchedule recurringSchedules = new RecurringSchedule();
         recurringSchedules.setId(recurringScheduleId);
         return recurringSchedules;
     }

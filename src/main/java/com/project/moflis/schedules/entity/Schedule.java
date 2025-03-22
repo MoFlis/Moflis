@@ -1,7 +1,7 @@
 package com.project.moflis.schedules.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.schedules.command.ScheduleUpdateCommand;
 import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.enums.SchedulesType;
@@ -32,7 +32,7 @@ public class Schedule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recurring_schedules_id")
-    private RecurringSchedules recurringSchedules;
+    private RecurringSchedule recurringSchedule;
 
     @Column(name = "schedule_date")
     private LocalDate scheduleDate;
@@ -57,11 +57,11 @@ public class Schedule {
     @Column(name = "schedules_type", nullable = false, length = 50)
     private SchedulesType schedulesType;
 
-    public Schedule(User user, RecurringSchedules recurringSchedules, LocalDate scheduleDate,
+    public Schedule(User user, RecurringSchedule recurringSchedule, LocalDate scheduleDate,
                     LocalDateTime startTime, LocalDateTime endTime, String scheduleTitle,
                     String description, SchedulesStatus schedulesStatus, SchedulesType schedulesType) {
         this.user = user;
-        this.recurringSchedules = recurringSchedules;
+        this.recurringSchedule = recurringSchedule;
         this.scheduleDate = scheduleDate;
         this.startTime = startTime;
         this.endTime = endTime;

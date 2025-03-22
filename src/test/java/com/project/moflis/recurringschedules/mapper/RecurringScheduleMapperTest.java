@@ -2,7 +2,7 @@ package com.project.moflis.recurringschedules.mapper;
 
 import com.project.moflis.recurringschedules.command.AddRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.dto.RecurringScheduleResponse;
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.recurringschedules.enums.RepeatType;
 import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.user.entity.User;
@@ -27,7 +27,7 @@ class RecurringScheduleMapperTest {
         LocalTime endTime = LocalTime.now();
         LocalTime startTime = LocalTime.now();
 
-        RecurringSchedules recurringSchedules = new RecurringSchedules();
+        RecurringSchedule recurringSchedules = new RecurringSchedule();
 
         User user = new User();
         user.setId(1);
@@ -64,7 +64,7 @@ class RecurringScheduleMapperTest {
                 1, 1, RepeatType.DAILY, startDate, endDate, startTime, endTime, "test", SchedulesStatus.ACTIVE
         );
 
-        RecurringSchedules recurringSchedules = INSTANCE.toRecurringSchedule(command);
+        RecurringSchedule recurringSchedules = INSTANCE.toRecurringSchedule(command);
 
         assertThat(recurringSchedules.getId()).isEqualTo(1);
         assertThat(recurringSchedules.getUser().getId()).isEqualTo(1);
