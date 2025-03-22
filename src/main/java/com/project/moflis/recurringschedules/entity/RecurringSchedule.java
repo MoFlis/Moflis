@@ -4,7 +4,17 @@ import com.project.moflis.recurringschedules.command.RecurringSchedulesUpdateCom
 import com.project.moflis.recurringschedules.enums.RepeatType;
 import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.user.entity.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -56,6 +66,12 @@ public class RecurringSchedule {
         this.endTime = command.getEndTime();
         this.description = command.getDescription();
         this.status = command.getStatus();
+    }
 
+    public void deactivate() {
+        if (this.status == SchedulesStatus.INACTIVE) {
+            throw new IllegalStateException("이미 비활성화된 일정입니다.");
+        }
+        this.status = SchedulesStatus.INACTIVE;
     }
 }

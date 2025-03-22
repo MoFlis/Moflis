@@ -8,7 +8,6 @@ import com.project.moflis.recurringschedules.mapper.RecurringScheduleMapper;
 import com.project.moflis.recurringschedules.repository.RecurringSchedulesRepository;
 import com.project.moflis.recurringschedules.util.RecurringScheduleGenerator;
 import com.project.moflis.schedules.entity.Schedule;
-import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.service.SchedulesService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +49,7 @@ public class RecurringScheduleService {
     public RecurringScheduleResponse deleteRecurringSchedule(int recurringScheduleId) {
         RecurringSchedule recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
                 .orElseThrow(() -> new RuntimeException("반복일정 아이디가 존재하지 않습니다."));
-        recurringSchedules.setStatus(SchedulesStatus.INACTIVE);
+        recurringSchedules.deactivate();
         schedulesService.deleteRecurringSchedules(recurringScheduleId);
         return RecurringScheduleMapper.INSTANCE.toRecurringScheduleResponse(recurringSchedulesRepository.save(recurringSchedules));
     }
