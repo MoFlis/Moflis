@@ -2,6 +2,7 @@ package com.project.moflis.profile.storage;
 
 import com.project.moflis.global.config.FileConfig;
 import com.project.moflis.profile.util.FileNameConflictResolver;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -10,16 +11,12 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import java.io.File;
 import java.io.IOException;
 
+@RequiredArgsConstructor
 @Component
 public class FileStorageServiceImpl implements FileStorageService {
 
     private final FileConfig config;
     private final S3Client s3Client;
-
-    public FileStorageServiceImpl(FileConfig config, S3Client s3Client) {
-        this.config = config;
-        this.s3Client = s3Client;
-    }
 
     @Override
     public void createDirectoryIfNotExists(String fileName, String path) {
