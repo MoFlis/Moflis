@@ -12,34 +12,22 @@ import java.util.List;
 
 public class RecurringScheduleGenerator {
 
-    public static List<Schedule> generateSchedules(RecurringSchedule RecurringSchedule) {
-        LocalDate startDate = RecurringSchedule.getStartDate();
-        LocalDate endDate = RecurringSchedule.getEndDate();
-        LocalTime startTime = RecurringSchedule.getStartTime();
-        LocalTime endTime = RecurringSchedule.getEndTime();
+    public static List<Schedule> generateSchedules(RecurringSchedule recurringSchedule) {
+        LocalDate startDate = recurringSchedule.getStartDate();
+        LocalDate endDate = recurringSchedule.getEndDate();
+        LocalTime startTime = recurringSchedule.getStartTime();
+        LocalTime endTime = recurringSchedule.getEndTime();
 
         List<Schedule> schedules = new ArrayList<>();
         LocalDate currentDate = startDate;
 
-        switch (RecurringSchedule.getRepeatType()) {
-            case DAILY:
-                while (!currentDate.isAfter(endDate)) {
-                    schedules.add(createSchedule(RecurringSchedule, currentDate, startTime, endTime));
-                    currentDate = currentDate.plusDays(1);
-                }
-                break;
-            case WEEKLY:
-                while (!currentDate.isAfter(endDate)) {
-                    schedules.add(createSchedule(RecurringSchedule, currentDate, startTime, endTime));
-                    currentDate = currentDate.plusWeeks(1);
-                }
-                break;
-            case MONTHLY:
-                while (!currentDate.isAfter(endDate)) {
-                    schedules.add(createSchedule(RecurringSchedule, currentDate, startTime, endTime));
-                    currentDate = currentDate.plusMonths(1);
-                }
-                break;
+        while (!currentDate.isAfter(endDate)) {
+            schedules.add(createSchedule(recurringSchedule, currentDate, startTime, endTime));
+            currentDate = switch (recurringSchedule.getRepeatType()) {
+                case DAILY -> currentDate.plusDays(1);
+                case WEEKLY -> currentDate.plusWeeks(1);
+                case MONTHLY -> currentDate.plusMonths(1);
+            };
         }
 
         return schedules;
