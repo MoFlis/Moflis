@@ -1,6 +1,5 @@
 package com.project.moflis.location.entity;
 
-import com.project.moflis.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,9 +20,8 @@ public class Locations {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Integer user;
 
     @Column(nullable = false)
     private Double latitude;

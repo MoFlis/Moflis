@@ -8,8 +8,6 @@ import com.project.moflis.location.dto.VerifyLocationRequest;
 import com.project.moflis.location.entity.Locations;
 import com.project.moflis.location.mapper.LocationMapper;
 import com.project.moflis.location.repository.LocationRepository;
-import com.project.moflis.user.entity.User;
-import com.project.moflis.user.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -20,26 +18,22 @@ public class LocationService {
 
 
     private final LocationRepository locationRepository;
-    private final UserService userService;
     private final LocationConfig locationConfig;
 
-    public LocationService(LocationRepository locationRepository, UserService userService, LocationConfig locationConfig) {
+    public LocationService(LocationRepository locationRepository, LocationConfig locationConfig) {
         this.locationRepository = locationRepository;
-        this.userService = userService;
         this.locationConfig = locationConfig;
     }
 
     @Transactional
     public LocationResponseDTO saveLocation(Integer userId, CoordinatesRequest coordinates) {
-        User user = userService.getUserById(userId);
-
         if (locationRepository.existsByUserId(userId)) {
             throw new UserLocationAlreadyExistsException("이미 저장된 위치 정보가 존재합니다.");
         }
 
         Locations location = new Locations(
                 null,
-                user,
+                userId,
                 coordinates.getLatitude(),
                 coordinates.getLongitude(),
                 false,
