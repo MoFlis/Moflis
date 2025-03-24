@@ -2,7 +2,7 @@ package com.project.moflis.recurringschedules.dto;
 
 import com.project.moflis.recurringschedules.command.UpdateRecurringSchedulesCommand;
 import com.project.moflis.recurringschedules.enums.RepeatType;
-import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.recurringschedules.enums.SchedulesStatus;
 import lombok.Getter;
 import lombok.Setter;
 

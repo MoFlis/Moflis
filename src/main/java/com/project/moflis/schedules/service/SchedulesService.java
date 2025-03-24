@@ -63,7 +63,7 @@ public class SchedulesService {
         if (!schedule.isOwnedBy(command.getUserId())) {
             throw new IllegalArgumentException("해당 스케줄을 수정할 권한이 없습니다.");
         }
-        schedule.update(command);
+        schedule.update(command.toValues());
         return ScheduleMapper.INSTANCE.toScheduleDto(schedulesRepository.save(schedule));
     }
 

@@ -1,8 +1,8 @@
 package com.project.moflis.recurringschedules.entity;
 
-import com.project.moflis.recurringschedules.command.RecurringSchedulesUpdateCommand;
 import com.project.moflis.recurringschedules.enums.RepeatType;
-import com.project.moflis.schedules.enums.SchedulesStatus;
+import com.project.moflis.recurringschedules.enums.SchedulesStatus;
+import com.project.moflis.recurringschedules.vo.RecurringScheduleValues;
 import com.project.moflis.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -58,7 +58,7 @@ public class RecurringSchedule {
     @Enumerated(EnumType.STRING)
     private SchedulesStatus status;
 
-    public void update(RecurringSchedulesUpdateCommand command) {
+    public void update(RecurringScheduleValues command) {
         this.repeatType = command.getRepeatType();
         this.startDate = command.getStartDate();
         this.endDate = command.getEndDate();

@@ -39,7 +39,7 @@ public class RecurringScheduleService {
     public RecurringScheduleResponse patchRecurringSchedule(int recurringScheduleId, UpdateRecurringSchedulesCommand command) {
         RecurringSchedule recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
                 .orElseThrow(() -> new RuntimeException("반복일정 아이디가 존재하지 않습니다"));
-        recurringSchedules.update(command);
+        recurringSchedules.update(command.toValues());
         schedulesService.updateRecurringSchedules(recurringSchedules, recurringScheduleId);
         return RecurringScheduleMapper.INSTANCE.toRecurringScheduleResponse(recurringSchedulesRepository.save(recurringSchedules));
 

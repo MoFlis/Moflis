@@ -2,6 +2,7 @@ package com.project.moflis.schedules.command;
 
 import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.enums.SchedulesType;
+import com.project.moflis.schedules.vo.ScheduleValues;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class UpdateSchedulsCommand implements ScheduleUpdateCommand {
+public class UpdateSchedulsCommand {
 
     private final Integer scheduleId;
     private final Integer userId;
@@ -22,5 +23,18 @@ public class UpdateSchedulsCommand implements ScheduleUpdateCommand {
     private final String description;
     private final SchedulesStatus schedulesStatus;
     private final SchedulesType schedulesType;
+
+    public ScheduleValues toValues() {
+        return new ScheduleValues(
+                scheduleDate,
+                startTime,
+                endTime,
+                scheduleTitle,
+                description,
+                schedulesStatus,
+                schedulesType,
+                recurringSchedulesId
+        );
+    }
 
 }

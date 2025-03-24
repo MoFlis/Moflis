@@ -1,9 +1,9 @@
 package com.project.moflis.schedules.entity;
 
 import com.project.moflis.recurringschedules.entity.RecurringSchedule;
-import com.project.moflis.schedules.command.ScheduleUpdateCommand;
 import com.project.moflis.schedules.enums.SchedulesStatus;
 import com.project.moflis.schedules.enums.SchedulesType;
+import com.project.moflis.schedules.vo.ScheduleValues;
 import com.project.moflis.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -79,7 +79,7 @@ public class Schedule {
         this.schedulesType = schedulesType;
     }
 
-    public void update(ScheduleUpdateCommand command) {
+    public void update(ScheduleValues command) {
         this.scheduleDate = command.getScheduleDate();
         this.startTime = command.getStartTime();
         this.endTime = command.getEndTime();
