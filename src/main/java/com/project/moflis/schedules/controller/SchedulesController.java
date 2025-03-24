@@ -1,5 +1,6 @@
 package com.project.moflis.schedules.controller;
 
+import com.project.moflis.global.security.model.CustomUserDetails;
 import com.project.moflis.schedules.dto.page.PageDTO;
 import com.project.moflis.schedules.dto.schedules.AddSchedulsRequest;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
@@ -7,6 +8,7 @@ import com.project.moflis.schedules.dto.schedules.ScheduleSummaryResponse;
 import com.project.moflis.schedules.dto.schedules.UpdateSchedulsRequest;
 import com.project.moflis.schedules.service.SchedulesService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -29,12 +31,13 @@ public class SchedulesController {
     //스케줄 조회
     @GetMapping
     public ResponseEntity<PageDTO<ScheduleSummaryResponse>> getSchedules(
-            @RequestParam("userId") int userId,
+            @AuthenticationPrincipal CustomUserDetails user,
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
+        int userId = user.getId();
         PageDTO<ScheduleSummaryResponse> schedulesList = schedulsService.getSchedules(userId, startDate, endDate, page, size);
         return ResponseEntity.ok(schedulesList);
     }
