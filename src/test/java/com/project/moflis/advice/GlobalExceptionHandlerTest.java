@@ -1,8 +1,8 @@
 package com.project.moflis.advice;
 
-import com.project.moflis.controller.ProfileController;
-import com.project.moflis.exception.ImageUploadException;
-import com.project.moflis.service.ProfileService;
+import com.project.moflis.global.exception.ImageUploadException;
+import com.project.moflis.profile.controller.ProfileController;
+import com.project.moflis.profile.service.ProfileService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

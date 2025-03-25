@@ -1,7 +1,8 @@
 package com.project.moflis.repository;
 
-import com.project.moflis.entity.Locations;
-import com.project.moflis.entity.User;
+import com.project.moflis.location.entity.Location;
+import com.project.moflis.location.repository.LocationRepository;
+import com.project.moflis.user.entity.User;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,30 +29,27 @@ class LocationRepositoryTest {
 
     @Test
     void findByUserId() {
-        Locations location = new Locations();
+        Location location = new Location();
         User user = new User();
         user.setId(1);
-        location.setUser(user);
         location.setLatitude(37.7749); // Example latitude
         location.setLongitude(-122.4194);
         locationRepository.save(location);
 
-        Locations result = locationRepository.findByUserId(user.getId());
+        Location result = locationRepository.findByUserId(user.getId());
         assertNotNull(result);
-        assertEquals(user.getId(), result.getUser().getId());
+        assertEquals(user.getId(), result.getUser());
     }
 
     @Test
     void existsByUserId() {
-        Locations location = new Locations();
-        User user = new User();
-        user.setId(1);
-        location.setUser(user);
+        Location location = new Location();
+        location.setUser(1);
         location.setLatitude(37.7749);
         location.setLongitude(-122.4194);
         locationRepository.save(location);
-        
-        boolean result = locationRepository.existsByUserId(user.getId());
+
+        boolean result = locationRepository.existsByUserId(location.getUser());
         assertEquals(true, result);
     }
 }

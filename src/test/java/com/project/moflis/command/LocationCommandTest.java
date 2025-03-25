@@ -1,6 +1,6 @@
 package com.project.moflis.command;
 
-import com.project.moflis.command.location.LocationCommand;
+import com.project.moflis.location.command.LocationCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
