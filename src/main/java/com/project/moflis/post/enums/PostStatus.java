@@ -4,4 +4,5 @@ public enum PostStatus {
     PENDING,
     COMPLETED,
     INCOMPLETE,
+    DELETED
 }

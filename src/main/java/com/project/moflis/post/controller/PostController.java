@@ -6,6 +6,7 @@ import com.project.moflis.post.dto.PostSliceResponse;
 import com.project.moflis.post.dto.UpdatePostRequest;
 import com.project.moflis.post.service.PostService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,5 +54,12 @@ public class PostController {
         PostResponse post = postService.updatePost(postId, updatePostRequest.toCommand());
         return ResponseEntity.ok(post);
     }
+
+    @DeleteMapping("/post/{postId}")
+    public ResponseEntity<PostResponse> deletePost(@PathVariable Integer postId) {
+        PostResponse post = postService.deletePost(postId);
+        return ResponseEntity.ok(post);
+    }
+
 
 }

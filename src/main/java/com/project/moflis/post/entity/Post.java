@@ -70,4 +70,12 @@ public class Post {
         this.content = command.getContent();
     }
 
+    public void delete() {
+        if (this.status == PostStatus.DELETED) {
+            throw new IllegalStateException("이미 비활성화된 일정입니다.");
+        }
+        this.status = PostStatus.DELETED;
+    }
+
+
 }
