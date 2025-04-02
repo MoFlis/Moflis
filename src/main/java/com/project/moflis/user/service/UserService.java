@@ -23,4 +23,5 @@ public class UserService {
     public UserDTO getUserAddress(Integer userId) {
         return UserMapper.INSTANCE.toUserDto(userRepository.findById(userId).get());
     }
+
 }

@@ -5,10 +5,13 @@ import com.project.moflis.post.command.UpdatePostCommand;
 import com.project.moflis.post.dto.PostResponse;
 import com.project.moflis.post.dto.PostSliceResponse;
 import com.project.moflis.post.entity.Post;
+import com.project.moflis.post.enums.PostStatus;
 import com.project.moflis.post.mapper.PostMapper;
 import com.project.moflis.post.repository.PostRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -59,4 +62,26 @@ public class PostService {
         post.delete();
         return PostMapper.INSTANCE.toPostResponse(postRepository.save(post));
     }
+
+
+    public Post getPostForApplication(int postId, int userId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다."));
+
+        if (post.getUser().getId() == userId) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "본인의 글에는 신청할 수 없습니다.");
+        }
+
+        if (post.getParticipantLimit() <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "모집 인원이 잘못 설정되어 있습니다.");
+        }
+
+        if (post.getStatus() == PostStatus.DELETED || post.getStatus() == PostStatus.COMPLETED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 모집 완료 되었거나 삭제된 글입니다.");
+        }
+
+        return post;
+    }
+
+    ;
 }

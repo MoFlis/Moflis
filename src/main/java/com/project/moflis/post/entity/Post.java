@@ -77,5 +77,8 @@ public class Post {
         this.status = PostStatus.DELETED;
     }
 
+    public void complete() {
+        this.status = PostStatus.COMPLETED;
+    }
 
 }

@@ -1,0 +1,31 @@
+package com.project.moflis.participant.mapper;
+
+import com.project.moflis.participant.command.ApplyParticipantCommand;
+import com.project.moflis.participant.dto.ParticipantResponse;
+import com.project.moflis.participant.entity.Participant;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
+
+import java.util.List;
+
+@Mapper
+public interface ParticipantMapper {
+    ParticipantMapper INSTANCE = Mappers.getMapper(ParticipantMapper.class);
+
+    @Mapping(source = "post.id", target = "postId")
+    @Mapping(source = "user.id", target = "userId")
+    ParticipantResponse toParticipantResponse(Participant participant);
+
+    @Mapping(source = "postId", target = "post.id")
+    @Mapping(source = "userId", target = "user.id")
+    Participant toParticipant(ParticipantResponse participantResponse);
+
+    @Mapping(source = "postId", target = "post.id")
+    @Mapping(source = "userId", target = "user.id")
+    Participant toParticipant(ApplyParticipantCommand applyParticipantCommand);
+
+    List<ParticipantResponse> toParticipantResponseList(List<Participant> participantList);
+
+
+}

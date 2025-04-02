@@ -20,7 +20,6 @@ public interface PostMapper {
     @Mapping(source = "user.id", target = "userId")
     PostResponse toPostResponse(Post post);
 
-
     List<PostResponse> toPostResponseList(List<Post> postList);
 
 }

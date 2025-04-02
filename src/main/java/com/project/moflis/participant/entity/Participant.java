@@ -1,7 +1,7 @@
 package com.project.moflis.participant.entity;
 
+import com.project.moflis.participant.enums.ParticipantStatus;
 import com.project.moflis.post.entity.Post;
-import com.project.moflis.post.enums.ParticipantStatus;
 import com.project.moflis.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "participants")
+@NoArgsConstructor
 public class Participant {
 
     @Id
@@ -41,12 +43,23 @@ public class Participant {
     @Column(nullable = false)
     private ParticipantStatus status;
 
-    @Column(name = "participant_limit", nullable = false)
-    private int participantLimit;
-
     @Column(name = "join_date")
     private LocalDateTime joinDate = LocalDateTime.now();
 
     @Column(name = "leave_date")
     private LocalDateTime leaveDate;
+
+    public void cancel() {
+        this.status = ParticipantStatus.CANCELED;
+        this.leaveDate = LocalDateTime.now();
+    }
+
+    public void approve() {
+        this.status = ParticipantStatus.CONFIRMED;
+    }
+
+    public void reject() {
+        this.status = ParticipantStatus.REJECTED;
+        this.leaveDate = LocalDateTime.now();
+    }
 }
