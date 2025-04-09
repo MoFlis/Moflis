@@ -32,8 +32,15 @@ public class PostService {
         if (hasNext) {
             posts.remove(posts.size() - 1);
         }
+        
         List<PostResponse> content = PostMapper.INSTANCE.toPostResponseList(posts);
-        return new PostSliceResponse(content, hasNext);
+
+        LocalDateTime nextCursor = null;
+        if (hasNext && !posts.isEmpty()) {
+            Post lastPost = posts.get(posts.size() - 1);
+            nextCursor = lastPost.getDate();
+        }
+        return new PostSliceResponse(content, hasNext, nextCursor);
     }
 
     @Transactional
