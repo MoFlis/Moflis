@@ -4,18 +4,11 @@ import com.project.moflis.post.enums.PostStatus;
 import com.project.moflis.post.enums.PostType;
 import com.project.moflis.post.vo.UpdatePostValues;
 import com.project.moflis.user.entity.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
@@ -81,4 +74,9 @@ public class Post {
         this.status = PostStatus.COMPLETED;
     }
 
+    public void validateOwner(int userId, String errorMessage) {
+        if (user.getId() != userId) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+    }
 }

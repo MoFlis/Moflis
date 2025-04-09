@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
@@ -51,5 +53,18 @@ public class Participant {
     public void reject() {
         this.status = ParticipantStatus.REJECTED;
         this.leaveDate = LocalDateTime.now();
+    }
+
+    public void validateCancel() {
+        if (this.status == ParticipantStatus.CANCELED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 취소된 신청입니다.");
+        }
+        this.status = ParticipantStatus.CANCELED;
+    }
+
+    public void validatePending() {
+        if (this.status != ParticipantStatus.PENDING) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 처리된 신청입니다.");
+        }
     }
 }

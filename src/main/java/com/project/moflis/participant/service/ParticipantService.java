@@ -4,7 +4,6 @@ import com.project.moflis.participant.command.ApplyParticipantCommand;
 import com.project.moflis.participant.dto.ParticipantApplyResponse;
 import com.project.moflis.participant.dto.ParticipantResponse;
 import com.project.moflis.participant.entity.Participant;
-import com.project.moflis.participant.enums.ParticipantStatus;
 import com.project.moflis.participant.mapper.ParticipantMapper;
 import com.project.moflis.participant.repository.ParticipantRepository;
 import com.project.moflis.post.entity.Post;
@@ -59,10 +58,7 @@ public class ParticipantService {
         Participant participant = participantRepository.findByPostIdAndUserId(postId, userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "참여 정보가 존재하지 않습니다."));
 
-        if (participant.getStatus() == ParticipantStatus.CANCELED) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 취소된 신청입니다.");
-        }
-
+        participant.validateCancel();
         participant.cancel();
     }
 
@@ -72,14 +68,8 @@ public class ParticipantService {
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "참여 정보가 없습니다."));
         Post post = participant.getPost();
 
-        if (post.getUser().getId() != userId) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "신청 승인 권한이 없습니다.");
-        }
-
-        if (participant.getStatus() != ParticipantStatus.PENDING) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 처리된 신청입니다.");
-        }
-
+        post.validateOwner(userId, "신청 승인 권한이 없습니다.");
+        participant.validatePending();
         participant.confirmed();
     }
 
@@ -87,13 +77,9 @@ public class ParticipantService {
     public void reject(int participantId, int userId) {
         Participant participant = participantRepository.findById(participantId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "참여 정보가 존재하지 않습니다."));
-
         Post post = participant.getPost();
 
-        if (post.getUser().getId() != userId) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "신청 거절 권한이 없습니다.");
-        }
-
+        post.validateOwner(userId, "신청 거절 권한이 없습니다.");
         participant.reject();
     }
 }
