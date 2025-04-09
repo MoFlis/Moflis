@@ -34,12 +34,11 @@ public class ParticipantController {
         int userId = user.getId();
         ApplyParticipantCommand command = new ApplyParticipantCommand(
                 postId,
-                userId,
                 ParticipantStatus.PENDING,
                 LocalDateTime.now(),
                 null
         );
-        ParticipantResponse response = participantService.applyParticipant(command);
+        ParticipantResponse response = participantService.applyParticipant(command, userId);
         return ResponseEntity.ok(response);
     }
 

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ApplyParticipantCommand {
     private int postId;
-    private int userId;
     private ParticipantStatus status;
     private LocalDateTime joinDate;
     private LocalDateTime leaveDate;

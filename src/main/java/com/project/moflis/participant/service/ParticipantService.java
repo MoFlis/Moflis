@@ -32,15 +32,15 @@ public class ParticipantService {
     }
 
     @Transactional
-    public ParticipantResponse applyParticipant(ApplyParticipantCommand command) {
-        Post post = postService.getPostForApplication(command.getPostId(), command.getUserId());
+    public ParticipantResponse applyParticipant(ApplyParticipantCommand command, int userId) {
+        Post post = postService.getPostForApplication(command.getPostId(), userId);
         int currentCount = participantRepository.countByPostId(command.getPostId());
 
         if (currentCount >= post.getParticipantLimit()) {
             throw new IllegalStateException("참가 인원이 이미 가득 찼습니다.");
         }
 
-        boolean alreadyApplied = participantRepository.existsByPostIdAndUserId(command.getPostId(), command.getUserId());
+        boolean alreadyApplied = participantRepository.existsByPostIdAndUserId(command.getPostId(), userId);
         if (alreadyApplied) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 신청한 사용자입니다.");
         }
