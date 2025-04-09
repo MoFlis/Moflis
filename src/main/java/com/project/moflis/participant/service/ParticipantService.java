@@ -1,6 +1,7 @@
 package com.project.moflis.participant.service;
 
 import com.project.moflis.participant.command.ApplyParticipantCommand;
+import com.project.moflis.participant.dto.ParticipantApplyResponse;
 import com.project.moflis.participant.dto.ParticipantResponse;
 import com.project.moflis.participant.entity.Participant;
 import com.project.moflis.participant.enums.ParticipantStatus;
@@ -32,7 +33,7 @@ public class ParticipantService {
     }
 
     @Transactional
-    public ParticipantResponse applyParticipant(ApplyParticipantCommand command, int userId) {
+    public ParticipantApplyResponse applyParticipant(ApplyParticipantCommand command, int userId) {
         Post post = postService.getPostForApplication(command.getPostId(), userId);
         int currentCount = participantRepository.countByPostId(command.getPostId());
 
@@ -50,7 +51,7 @@ public class ParticipantService {
         if (currentCount + 1 >= post.getParticipantLimit()) {
             post.complete();
         }
-        return ParticipantMapper.INSTANCE.toParticipantResponse(participantRepository.save(participant));
+        return ParticipantMapper.INSTANCE.toParticipantApplyResponse(participantRepository.save(participant));
     }
 
     @Transactional

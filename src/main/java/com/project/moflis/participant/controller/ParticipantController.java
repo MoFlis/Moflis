@@ -2,6 +2,7 @@ package com.project.moflis.participant.controller;
 
 import com.project.moflis.global.security.model.CustomUserDetails;
 import com.project.moflis.participant.command.ApplyParticipantCommand;
+import com.project.moflis.participant.dto.ParticipantApplyResponse;
 import com.project.moflis.participant.dto.ParticipantResponse;
 import com.project.moflis.participant.enums.ParticipantStatus;
 import com.project.moflis.participant.service.ParticipantService;
@@ -29,7 +30,7 @@ public class ParticipantController {
     }
 
     @PostMapping("/apply")
-    public ResponseEntity<ParticipantResponse> applyParticipant(
+    public ResponseEntity<ParticipantApplyResponse> applyParticipant(
             @RequestParam int postId, @AuthenticationPrincipal CustomUserDetails user) {
         int userId = user.getId();
         ApplyParticipantCommand command = new ApplyParticipantCommand(
@@ -38,7 +39,7 @@ public class ParticipantController {
                 LocalDateTime.now(),
                 null
         );
-        ParticipantResponse response = participantService.applyParticipant(command, userId);
+        ParticipantApplyResponse response = participantService.applyParticipant(command, userId);
         return ResponseEntity.ok(response);
     }
 
