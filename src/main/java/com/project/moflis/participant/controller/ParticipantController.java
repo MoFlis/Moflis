@@ -49,14 +49,14 @@ public class ParticipantController {
         return ResponseEntity.ok("참여 신청이 취소되었습니다.");
     }
 
-    @PostMapping("{participantId}/approve")
+    @PatchMapping("{participantId}/approve")
     public ResponseEntity<String> approve(@PathVariable int participantId, @AuthenticationPrincipal CustomUserDetails user) {
         int userId = user.getId();
         participantService.approve(participantId, userId);
         return ResponseEntity.ok("참여 신청이 승인되었습니다.");
     }
 
-    @PostMapping("{participantId}/reject")
+    @PatchMapping("{participantId}/reject")
     public ResponseEntity<String> reject(@PathVariable int participantId, @AuthenticationPrincipal CustomUserDetails user) {
         int userId = user.getId();
         participantService.reject(participantId, userId);
