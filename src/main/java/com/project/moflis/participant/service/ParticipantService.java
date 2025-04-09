@@ -80,7 +80,7 @@ public class ParticipantService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 처리된 신청입니다.");
         }
 
-        participant.approve();
+        participant.confirmed();
     }
 
     @Transactional

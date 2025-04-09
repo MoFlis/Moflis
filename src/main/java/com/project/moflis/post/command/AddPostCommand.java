@@ -20,5 +20,4 @@ public class AddPostCommand {
     private final PostType type;
     private final String content;
 
-
 }
