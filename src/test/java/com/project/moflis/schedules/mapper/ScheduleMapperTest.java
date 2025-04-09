@@ -1,6 +1,6 @@
 package com.project.moflis.schedules.mapper;
 
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.schedules.command.AddSchedulsCommand;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.dto.schedules.ScheduleSummaryResponse;
@@ -74,10 +74,10 @@ class ScheduleMapperTest {
         schedule.setEndTime(endTime);
         schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
 
-        RecurringSchedules recurringSchedules = new RecurringSchedules();
+        RecurringSchedule recurringSchedules = new RecurringSchedule();
         recurringSchedules.setId(1);
 
-        schedule.setRecurringSchedules(recurringSchedules);
+        schedule.setRecurringSchedule(recurringSchedules);
         schedule.setStartTime(startTime);
         schedule.setScheduleTitle("test");
         return schedule;

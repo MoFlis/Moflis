@@ -27,7 +27,6 @@ public interface ParticipantMapper {
     Participant toParticipant(ParticipantResponse participantResponse);
 
     @Mapping(source = "postId", target = "post.id")
-    @Mapping(source = "userId", target = "user.id")
     Participant toParticipant(ApplyParticipantCommand applyParticipantCommand);
 
     List<ParticipantResponse> toParticipantResponseList(List<Participant> participantList);

@@ -38,18 +38,18 @@ class LocationRepositoryTest {
 
         Location result = locationRepository.findByUserId(user.getId());
         assertNotNull(result);
-        assertEquals(user.getId(), result.getUser());
+        assertEquals(user.getId(), result.getUserId());
     }
 
     @Test
     void existsByUserId() {
         Location location = new Location();
-        location.setUser(1);
+        location.setUserId(1);
         location.setLatitude(37.7749);
         location.setLongitude(-122.4194);
         locationRepository.save(location);
 
-        boolean result = locationRepository.existsByUserId(location.getUser());
+        boolean result = locationRepository.existsByUserId(location.getUserId());
         assertEquals(true, result);
     }
 }
