@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class ParticipantResponse {
+public class ParticipantListItem {
     private Long id;
     private Long postId;
     private Long userId;

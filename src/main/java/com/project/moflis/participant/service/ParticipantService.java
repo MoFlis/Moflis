@@ -2,7 +2,7 @@ package com.project.moflis.participant.service;
 
 import com.project.moflis.participant.command.ApplyParticipantCommand;
 import com.project.moflis.participant.dto.ParticipantApplyResponse;
-import com.project.moflis.participant.dto.ParticipantResponse;
+import com.project.moflis.participant.dto.ParticipantListItem;
 import com.project.moflis.participant.entity.Participant;
 import com.project.moflis.participant.mapper.ParticipantMapper;
 import com.project.moflis.participant.repository.ParticipantRepository;
@@ -26,7 +26,7 @@ public class ParticipantService {
         this.postService = postService;
     }
 
-    public List<ParticipantResponse> getParticipants(long postId) {
+    public List<ParticipantListItem> getParticipants(long postId) {
         List<Participant> participants = participantRepository.findByPostId(postId);
         return ParticipantMapper.INSTANCE.toParticipantResponseList(participants);
     }

@@ -2,7 +2,7 @@ package com.project.moflis.participant.service;
 
 import com.project.moflis.participant.command.ApplyParticipantCommand;
 import com.project.moflis.participant.dto.ParticipantApplyResponse;
-import com.project.moflis.participant.dto.ParticipantResponse;
+import com.project.moflis.participant.dto.ParticipantListItem;
 import com.project.moflis.participant.entity.Participant;
 import com.project.moflis.participant.enums.ParticipantStatus;
 import com.project.moflis.participant.repository.ParticipantRepository;
@@ -52,7 +52,7 @@ class ParticipantServiceTest {
         List<Participant> fakeList = List.of(pr1, pr2);
         when(participantRepository.findByPostId(postId)).thenReturn(fakeList);
 
-        List<ParticipantResponse> participants = participantService.getParticipants(postId);
+        List<ParticipantListItem> participants = participantService.getParticipants(postId);
 
         assertNotNull(participants);
         assertFalse(participants.isEmpty());

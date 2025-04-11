@@ -2,7 +2,7 @@ package com.project.moflis.participant.mapper;
 
 import com.project.moflis.participant.command.ApplyParticipantCommand;
 import com.project.moflis.participant.dto.ParticipantApplyResponse;
-import com.project.moflis.participant.dto.ParticipantResponse;
+import com.project.moflis.participant.dto.ParticipantListItem;
 import com.project.moflis.participant.entity.Participant;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,7 +16,7 @@ public interface ParticipantMapper {
 
     @Mapping(source = "post.id", target = "postId")
     @Mapping(source = "user.id", target = "userId")
-    ParticipantResponse toParticipantResponse(Participant participant);
+    ParticipantListItem toParticipantResponse(Participant participant);
 
     @Mapping(source = "post.id", target = "postId")
     @Mapping(source = "user.id", target = "userId")
@@ -26,6 +26,6 @@ public interface ParticipantMapper {
     @Mapping(source = "postId", target = "post.id")
     Participant toParticipant(ApplyParticipantCommand applyParticipantCommand);
 
-    List<ParticipantResponse> toParticipantResponseList(List<Participant> participantList);
+    List<ParticipantListItem> toParticipantResponseList(List<Participant> participantList);
 
 }

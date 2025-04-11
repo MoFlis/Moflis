@@ -3,7 +3,7 @@ package com.project.moflis.participant.controller;
 import com.project.moflis.global.security.model.CustomUserDetails;
 import com.project.moflis.participant.command.ApplyParticipantCommand;
 import com.project.moflis.participant.dto.ParticipantApplyResponse;
-import com.project.moflis.participant.dto.ParticipantResponse;
+import com.project.moflis.participant.dto.ParticipantListItem;
 import com.project.moflis.participant.enums.ParticipantStatus;
 import com.project.moflis.participant.service.ParticipantService;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,8 @@ public class ParticipantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ParticipantResponse>> getParticipants(@RequestParam long postId) {
-        List<ParticipantResponse> participants = participantService.getParticipants(postId);
+    public ResponseEntity<List<ParticipantListItem>> getParticipants(@RequestParam long postId) {
+        List<ParticipantListItem> participants = participantService.getParticipants(postId);
         return ResponseEntity.ok(participants);
     }
 
