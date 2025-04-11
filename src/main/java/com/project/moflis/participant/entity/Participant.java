@@ -67,4 +67,13 @@ public class Participant {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 처리된 신청입니다.");
         }
     }
+
+    public static Participant create(Post post, User user, ParticipantStatus status) {
+        Participant participant = new Participant();
+        participant.post = post;
+        participant.user = user;
+        participant.status = status;
+        participant.joinDate = LocalDateTime.now();
+        return participant;
+    }
 }

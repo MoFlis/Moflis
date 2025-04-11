@@ -9,7 +9,7 @@ class LocationCommandTest {
 
     @Test
     void testLocationCommand() {
-        Long userId = 1;
+        Long userId = 1L;
         double latitude = 37.7749;
         double longitude = -122.4194;
         LocationCommand locationCommand = new LocationCommand(userId, latitude, longitude);

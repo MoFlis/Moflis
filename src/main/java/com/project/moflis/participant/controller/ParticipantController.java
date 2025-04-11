@@ -24,14 +24,14 @@ public class ParticipantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ParticipantResponse>> getParticipants(@RequestParam int postId) {
+    public ResponseEntity<List<ParticipantResponse>> getParticipants(@RequestParam long postId) {
         List<ParticipantResponse> participants = participantService.getParticipants(postId);
         return ResponseEntity.ok(participants);
     }
 
     @PostMapping("/apply")
     public ResponseEntity<ParticipantApplyResponse> applyParticipant(
-            @RequestParam int postId, @AuthenticationPrincipal CustomUserDetails user) {
+            @RequestParam long postId, @AuthenticationPrincipal CustomUserDetails user) {
         int userId = user.getId();
         ApplyParticipantCommand command = new ApplyParticipantCommand(
                 postId,
@@ -44,20 +44,20 @@ public class ParticipantController {
     }
 
     @PatchMapping("/cancel")
-    public ResponseEntity<String> cancelParticipation(@RequestParam int postId, @AuthenticationPrincipal CustomUserDetails user) {
+    public ResponseEntity<String> cancelParticipation(@RequestParam long postId, @AuthenticationPrincipal CustomUserDetails user) {
         participantService.cancelParticipation(postId, user.getId());
         return ResponseEntity.ok("참여 신청이 취소되었습니다.");
     }
 
     @PatchMapping("{participantId}/approve")
-    public ResponseEntity<String> approve(@PathVariable int participantId, @AuthenticationPrincipal CustomUserDetails user) {
+    public ResponseEntity<String> approve(@PathVariable long participantId, @AuthenticationPrincipal CustomUserDetails user) {
         int userId = user.getId();
         participantService.approve(participantId, userId);
         return ResponseEntity.ok("참여 신청이 승인되었습니다.");
     }
 
     @PatchMapping("{participantId}/reject")
-    public ResponseEntity<String> reject(@PathVariable int participantId, @AuthenticationPrincipal CustomUserDetails user) {
+    public ResponseEntity<String> reject(@PathVariable long participantId, @AuthenticationPrincipal CustomUserDetails user) {
         int userId = user.getId();
         participantService.reject(participantId, userId);
         return ResponseEntity.ok("참여 신청이 거절 되었습니다.");

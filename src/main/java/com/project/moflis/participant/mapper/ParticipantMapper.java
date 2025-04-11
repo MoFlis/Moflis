@@ -22,14 +22,10 @@ public interface ParticipantMapper {
     @Mapping(source = "user.id", target = "userId")
     ParticipantApplyResponse toParticipantApplyResponse(Participant participant);
 
-    @Mapping(source = "postId", target = "post.id")
-    @Mapping(source = "userId", target = "user.id")
-    Participant toParticipant(ParticipantResponse participantResponse);
 
     @Mapping(source = "postId", target = "post.id")
     Participant toParticipant(ApplyParticipantCommand applyParticipantCommand);
 
     List<ParticipantResponse> toParticipantResponseList(List<Participant> participantList);
-
 
 }

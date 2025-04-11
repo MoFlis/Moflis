@@ -43,13 +43,11 @@ class ParticipantServiceTest {
     void getParticipants() {
         int postId = 1;
 
-        Participant pr1 = new Participant();
-        pr1.setId(postId);
-        pr1.setStatus(ParticipantStatus.PENDING);
+        Post fakePost = new Post();
+        User dummyUser = new User();
 
-        Participant pr2 = new Participant();
-        pr2.setId(postId);
-        pr2.setStatus(ParticipantStatus.CONFIRMED);
+        Participant pr1 = Participant.create(fakePost, dummyUser, ParticipantStatus.PENDING);
+        Participant pr2 = Participant.create(fakePost, dummyUser, ParticipantStatus.CONFIRMED);
 
         List<Participant> fakeList = List.of(pr1, pr2);
         when(participantRepository.findByPostId(postId)).thenReturn(fakeList);
@@ -69,8 +67,8 @@ class ParticipantServiceTest {
     @Test
     void applyParticipant_성공() {
 
-        int postId = 1;
-        int userId = 2;
+        long postId = 1;
+        long userId = 2;
 
         ApplyParticipantCommand command = new ApplyParticipantCommand(postId, ParticipantStatus.PENDING, LocalDateTime.now(), null);
 
@@ -92,8 +90,8 @@ class ParticipantServiceTest {
 
     @Test
     void applyParticipant_참여인원_초과시_예외발생() {
-        int postId = 1;
-        int userId = 2;
+        long postId = 1;
+        long userId = 2;
 
         ApplyParticipantCommand command = new ApplyParticipantCommand(postId, ParticipantStatus.PENDING, LocalDateTime.now(), null);
         Post fakePost = new Post();
@@ -113,8 +111,8 @@ class ParticipantServiceTest {
 
     @Test
     void applyParticipant_이미_신청한_사용자_예외발생() {
-        int postId = 1;
-        int userId = 2;
+        long postId = 1;
+        long userId = 2;
 
         ApplyParticipantCommand command = new ApplyParticipantCommand(postId, ParticipantStatus.PENDING, LocalDateTime.now(), null);
         Post fakePost = new Post();
@@ -132,8 +130,8 @@ class ParticipantServiceTest {
 
     @Test
     void applyPArticipant_이후_상태_변경_확인() {
-        int postId = 1;
-        int userId = 2;
+        long postId = 1;
+        long userId = 2;
 
         ApplyParticipantCommand command = new ApplyParticipantCommand(postId, ParticipantStatus.PENDING, LocalDateTime.now(), null);
         Post fakePost = new Post();
@@ -155,15 +153,16 @@ class ParticipantServiceTest {
         int postId = 1;
         int userId = 2;
 
-        Participant fakeParticipant = new Participant();
-        fakeParticipant.setStatus(ParticipantStatus.CONFIRMED);
+        Post post = new Post();
+        User user = new User();
+        Participant participant = Participant.create(post, user, ParticipantStatus.PENDING);
 
         when(participantRepository.findByPostIdAndUserId(postId, userId))
-                .thenReturn(Optional.of(fakeParticipant));
+                .thenReturn(Optional.of(participant));
 
         participantService.cancelParticipation(postId, userId);
 
-        assertEquals(ParticipantStatus.CANCELED, fakeParticipant.getStatus());
+        assertEquals(ParticipantStatus.CANCELED, participant.getStatus());
     }
 
 
@@ -171,7 +170,7 @@ class ParticipantServiceTest {
     void approve_정상승인() {
 
         int participantId = 1;
-        int userId = 100;
+        long userId = 100;
 
         User postOwner = new User();
         postOwner.setId(userId);
@@ -179,12 +178,9 @@ class ParticipantServiceTest {
         Post post = new Post();
         post.setUser(postOwner);
 
-        Participant participant = new Participant();
-        participant.setId(participantId);
-        participant.setStatus(ParticipantStatus.PENDING);
-        participant.setPost(post);
+        Participant participant = Participant.create(post, postOwner, ParticipantStatus.PENDING);
 
-        when(participantRepository.findById(participantId)).thenReturn(Optional.of(participant));
+        when(participantRepository.findById(participant.getId())).thenReturn(Optional.of(participant));
 
         participantService.approve(participantId, userId);
 
@@ -195,7 +191,7 @@ class ParticipantServiceTest {
     void approve_작성자가아닌유저가승인하려할때_예외발생() {
 
         int participantId = 1;
-        int ownerId = 100;
+        long ownerId = 100;
         int otherUserId = 200;
 
         User postOwner = new User();
@@ -204,12 +200,9 @@ class ParticipantServiceTest {
         Post post = new Post();
         post.setUser(postOwner);
 
-        Participant participant = new Participant();
-        participant.setId(participantId);
-        participant.setStatus(ParticipantStatus.PENDING);
-        participant.setPost(post);
+        Participant participant = Participant.create(post, postOwner, ParticipantStatus.PENDING);
 
-        when(participantRepository.findById(participantId)).thenReturn(Optional.of(participant));
+        when(participantRepository.findById(participant.getId())).thenReturn(Optional.of(participant));
 
         ResponseStatusException exception = assertThrows(
                 ResponseStatusException.class,
@@ -223,20 +216,17 @@ class ParticipantServiceTest {
     @Test
     void reject_작성자가아닌유저가거절하려할때_예외발생() {
         int participantId = 1;
-        int userId = 100;
-        int otherUserId = 200;
+        long userId = 100;
+        long otherUserId = 200;
 
         User postOwner = new User();
         postOwner.setId(userId);
         Post post = new Post();
         post.setUser(postOwner);
 
-        Participant participant = new Participant();
-        participant.setId(participantId);
-        participant.setStatus(ParticipantStatus.PENDING);
-        participant.setPost(post);
+        Participant participant = Participant.create(post, postOwner, ParticipantStatus.PENDING);
 
-        when(participantRepository.findById(participantId)).thenReturn(Optional.of(participant));
+        when(participantRepository.findById(participant.getId())).thenReturn(Optional.of(participant));
 
         ResponseStatusException exception = assertThrows(
                 ResponseStatusException.class,

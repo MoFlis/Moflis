@@ -32,7 +32,7 @@ public class ParticipantService {
     }
 
     @Transactional
-    public ParticipantApplyResponse applyParticipant(ApplyParticipantCommand command, int userId) {
+    public ParticipantApplyResponse applyParticipant(ApplyParticipantCommand command, long userId) {
         Post post = postService.getPostForApplication(command.getPostId(), userId);
         int currentCount = participantRepository.countByPostId(command.getPostId());
 
@@ -54,7 +54,7 @@ public class ParticipantService {
     }
 
     @Transactional
-    public void cancelParticipation(int postId, int userId) {
+    public void cancelParticipation(long postId, long userId) {
         Participant participant = participantRepository.findByPostIdAndUserId(postId, userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "참여 정보가 존재하지 않습니다."));
 
@@ -74,7 +74,7 @@ public class ParticipantService {
     }
 
     @Transactional
-    public void reject(long participantId, int userId) {
+    public void reject(long participantId, long userId) {
         Participant participant = participantRepository.findById(participantId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "참여 정보가 존재하지 않습니다."));
         Post post = participant.getPost();
