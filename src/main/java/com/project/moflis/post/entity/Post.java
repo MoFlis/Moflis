@@ -79,4 +79,24 @@ public class Post {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
         }
     }
+
+    public void validateNotWrittenBy(long userId) {
+        if (this.user != null && this.user.getId() == userId) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "본인의 글에는 신청할 수 없습니다.");
+        }
+    }
+
+    public void validateRecruitableStatus() {
+        if (this.status == PostStatus.DELETED || this.status == PostStatus.COMPLETED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 모집 완료 되었거나 삭제된 글입니다.");
+        }
+    }
+
+    public void validateRecruitmentLimit() {
+        if (this.participantLimit <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "모집 인원이 잘못 설정되어 있습니다.");
+        }
+    }
+
+
 }
