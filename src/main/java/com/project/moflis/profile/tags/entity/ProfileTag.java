@@ -13,7 +13,7 @@ public class ProfileTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "profile_id", nullable = false)

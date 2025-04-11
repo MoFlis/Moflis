@@ -32,7 +32,7 @@ public class PostService {
         if (hasNext) {
             posts.remove(posts.size() - 1);
         }
-        
+
         List<PostResponse> content = PostMapper.INSTANCE.toPostResponseList(posts);
 
         LocalDateTime nextCursor = null;
@@ -48,14 +48,14 @@ public class PostService {
         return PostMapper.INSTANCE.toPostResponse(postRepository.save(PostMapper.INSTANCE.toPost(command)));
     }
 
-    public PostResponse getPost(Integer postId) {
+    public PostResponse getPost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new RuntimeException("존재 하지 않는 postId: " + postId + "입니다"));
         return PostMapper.INSTANCE.toPostResponse(post);
     }
 
     @Transactional
-    public PostResponse updatePost(int postId, UpdatePostCommand command) {
+    public PostResponse updatePost(long postId, UpdatePostCommand command) {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new RuntimeException("존재하지 않는 글입니다"));
         post.update(command.toValues());
@@ -63,7 +63,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponse deletePost(Integer postId) {
+    public PostResponse deletePost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new RuntimeException("존재하지 않는 글입니다"));
         post.delete();
@@ -71,7 +71,7 @@ public class PostService {
     }
 
 
-    public Post getPostForApplication(int postId, int userId) {
+    public Post getPostForApplication(long postId, long userId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다."));
 
@@ -89,6 +89,4 @@ public class PostService {
 
         return post;
     }
-
-    ;
 }

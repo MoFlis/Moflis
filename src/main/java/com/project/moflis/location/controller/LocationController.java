@@ -22,13 +22,13 @@ public class LocationController {
     }
 
     @PostMapping("/locations")
-    public ResponseEntity<LocationResponseDTO> saveLocation(@PathVariable("userId") Integer userId, @RequestBody CoordinatesRequest coordinatesRequest) {
+    public ResponseEntity<LocationResponseDTO> saveLocation(@PathVariable("userId") Long userId, @RequestBody CoordinatesRequest coordinatesRequest) {
         LocationResponseDTO location = locationApplicationService.processAndSaveLocation(userId, coordinatesRequest);
         return ResponseEntity.ok(location);
     }
 
     @PostMapping("/locations/verify")
-    public ResponseEntity<Boolean> verifyLocation(@PathVariable("userId") Integer userId, @RequestBody VerifyLocationRequest request) {
+    public ResponseEntity<Boolean> verifyLocation(@PathVariable("userId") Long userId, @RequestBody VerifyLocationRequest request) {
         boolean isVerify = locationApplicationService.verifyLocation(userId, request);
         return ResponseEntity.ok(isVerify);
     }

@@ -18,7 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 반드시 존재해야 함
+    private Long id; // 반드시 존재해야 함
 
     @Column
     private String name;

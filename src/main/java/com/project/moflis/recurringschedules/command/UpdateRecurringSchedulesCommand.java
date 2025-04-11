@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class UpdateRecurringSchedulesCommand {
 
-    private final Integer userId;
+    private final Long userId;
     private final RepeatType repeatType;
     private final LocalDate startDate;
     private final LocalDate endDate;

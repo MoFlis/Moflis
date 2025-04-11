@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AddSchedulsCommand {
 
-    private final Integer userId;
-    private final Integer recurringSchedulesId;
+    private final Long userId;
+    private final Long recurringSchedulesId;
     private final LocalDate scheduleDate;
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;

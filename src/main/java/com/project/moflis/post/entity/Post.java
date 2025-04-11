@@ -20,7 +20,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -30,7 +30,7 @@ public class Post {
     private String name;
 
     @JoinColumn(name = "tag_id")
-    private Integer tagId;
+    private Long tagId;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -74,7 +74,7 @@ public class Post {
         this.status = PostStatus.COMPLETED;
     }
 
-    public void validateOwner(int userId, String errorMessage) {
+    public void validateOwner(long userId, String errorMessage) {
         if (user.getId() != userId) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
         }

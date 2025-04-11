@@ -19,12 +19,12 @@ public class ScheduleValues {
     private final String description;
     private final SchedulesStatus schedulesStatus;
     private final SchedulesType schedulesType;
-    private final Integer recurringSchedulesId;
+    private final Long recurringSchedulesId;
 
     public ScheduleValues(LocalDate scheduleDate, LocalDateTime startTime, LocalDateTime endTime,
                           String scheduleTitle, String description,
                           SchedulesStatus schedulesStatus, SchedulesType schedulesType,
-                          Integer recurringSchedulesId) {
+                          Long recurringSchedulesId) {
         this.scheduleDate = scheduleDate;
         this.startTime = startTime;
         this.endTime = endTime;

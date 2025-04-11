@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class AddPostRequest {
-    private Integer postId;
-    private Integer userId;
+    private Long postId;
+    private Long userId;
     private String name;
-    private Integer tagId;
+    private Long tagId;
     private LocalDateTime date;
     private String location;
-    private Integer participantLimit;
+    private Long participantLimit;
     private String status;
     private String type;
     private String content;

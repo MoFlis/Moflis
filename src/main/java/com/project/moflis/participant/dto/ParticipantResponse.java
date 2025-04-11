@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ParticipantResponse {
-    private Integer id;
-    private Integer postId;
-    private Integer userId;
+    private Long id;
+    private Long postId;
+    private Long userId;
     private ParticipantStatus status;
     private LocalDateTime joinDate;
     private LocalDateTime leaveDate;

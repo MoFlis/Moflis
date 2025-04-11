@@ -10,12 +10,12 @@ import java.util.Collections;
 @Getter
 public class CustomUserDetails implements UserDetails {
 
-    private final Integer id;
+    private final int id;
     private final String username;
 
     // 필요한 경우: roles, email 등 추가 가능
 
-    public CustomUserDetails(Integer id, String username) {
+    public CustomUserDetails(int id, String username) {
         this.id = id;
         this.username = username;
     }

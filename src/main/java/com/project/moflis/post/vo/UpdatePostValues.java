@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 public class UpdatePostValues {
 
     private final String name;
-    private final Integer tagId;
+    private final Long tagId;
     private final LocalDateTime date;
     private final String location;
-    private final Integer participantLimit;
+    private final int participantLimit;
     private final PostStatus status;
     private final PostType type;
     private final String content;
 
-    public UpdatePostValues(String name, Integer tagId, LocalDateTime date, String location, Integer participantLimit, PostStatus status, PostType type, String content) {
+    public UpdatePostValues(String name, Long tagId, LocalDateTime date, String location, int participantLimit, PostStatus status, PostType type, String content) {
         this.name = name;
         this.tagId = tagId;
         this.date = date;

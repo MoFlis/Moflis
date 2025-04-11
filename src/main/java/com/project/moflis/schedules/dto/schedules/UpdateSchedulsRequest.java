@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 public class UpdateSchedulsRequest {
 
-    private Integer userId;
-    private Integer recurringPostId;
+    private Long userId;
+    private Long recurringPostId;
     private LocalDate scheduleDate;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -23,7 +23,7 @@ public class UpdateSchedulsRequest {
     private String schedulesStatus;
     private String schedulesType;
 
-    public UpdateSchedulsCommand toCommand(Integer scheduleId) {
+    public UpdateSchedulsCommand toCommand(Long scheduleId) {
         return new UpdateSchedulsCommand(
                 scheduleId,
                 this.userId,

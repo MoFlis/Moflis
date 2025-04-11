@@ -78,7 +78,7 @@ public class ProfileMapperImpl implements ProfileMapper {
         return list;
     }
 
-    private Integer profilesUserId(Profiles profiles) {
+    private Long profilesUserId(Profiles profiles) {
         if (profiles == null) {
             return null;
         }
@@ -86,7 +86,7 @@ public class ProfileMapperImpl implements ProfileMapper {
         if (user == null) {
             return null;
         }
-        Integer id = user.getId();
+        Long id = user.getId();
         if (id == null) {
             return null;
         }

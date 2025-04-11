@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ScheduleResponse {
-    private Integer id;
-    private Integer userId;
+    private Long id;
+    private Long userId;
     private RecurringSchedule recurringSchedulesId;
     private LocalDate scheduleDate;
     private LocalDateTime startTime;

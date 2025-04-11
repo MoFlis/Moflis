@@ -26,7 +26,7 @@ public class LocationService {
     }
 
     @Transactional
-    public LocationResponseDTO saveLocation(Integer userId, CoordinatesRequest coordinates) {
+    public LocationResponseDTO saveLocation(Long userId, CoordinatesRequest coordinates) {
         if (locationRepository.existsByUserId(userId)) {
             throw new UserLocationAlreadyExistsException("이미 저장된 위치 정보가 존재합니다.");
         }
@@ -44,7 +44,7 @@ public class LocationService {
     }
 
     @Transactional
-    public boolean locationVerify(Integer userId, VerifyLocationRequest verifyLocationRequest) {
+    public boolean locationVerify(Long userId, VerifyLocationRequest verifyLocationRequest) {
         Location locationInfo = locationRepository.findByUserId(userId);
 
         if (locationInfo == null) {

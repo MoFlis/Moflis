@@ -26,7 +26,7 @@ public class ParticipantService {
         this.postService = postService;
     }
 
-    public List<ParticipantResponse> getParticipants(int postId) {
+    public List<ParticipantResponse> getParticipants(long postId) {
         List<Participant> participants = participantRepository.findByPostId(postId);
         return ParticipantMapper.INSTANCE.toParticipantResponseList(participants);
     }
@@ -63,7 +63,7 @@ public class ParticipantService {
     }
 
     @Transactional
-    public void approve(int participantId, int userId) {
+    public void approve(long participantId, long userId) {
         Participant participant = participantRepository.findById(participantId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "참여 정보가 없습니다."));
         Post post = participant.getPost();
@@ -74,7 +74,7 @@ public class ParticipantService {
     }
 
     @Transactional
-    public void reject(int participantId, int userId) {
+    public void reject(long participantId, int userId) {
         Participant participant = participantRepository.findById(participantId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "참여 정보가 존재하지 않습니다."));
         Post post = participant.getPost();

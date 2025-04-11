@@ -10,8 +10,8 @@ import java.time.LocalTime;
 @Getter
 public class AddRecurringSchedulesCommand {
 
-    private final Integer id;
-    private final Integer userId;
+    private final Long id;
+    private final Long userId;
     private final RepeatType repeatType;
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -20,7 +20,7 @@ public class AddRecurringSchedulesCommand {
     private final String description;
     private final SchedulesStatus status;
 
-    public AddRecurringSchedulesCommand(Integer id, Integer userId, RepeatType repeatType, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, String description, SchedulesStatus status) {
+    public AddRecurringSchedulesCommand(Long id, Long userId, RepeatType repeatType, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, String description, SchedulesStatus status) {
         this.id = id;
         this.userId = userId;
         this.repeatType = repeatType;

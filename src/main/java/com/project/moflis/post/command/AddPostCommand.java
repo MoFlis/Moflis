@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class AddPostCommand {
-    private final Integer userId;
+    private final Long userId;
     private final String name;
-    private final Integer tagId;
+    private final Long tagId;
     private final LocalDateTime date;
     private final String location;
-    private final Integer participantLimit;
+    private final Long participantLimit;
     private final PostStatus status;
     private final PostType type;
     private final String content;

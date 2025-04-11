@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @Getter
 public class AddSchedulsRequest {
 
-    private Integer userId;
-    private Integer postId;
-    private Integer groupPostId;
-    private Integer recurringSchedulesId;
+    private Long userId;
+    private Long postId;
+    private Long groupPostId;
+    private Long recurringSchedulesId;
     private LocalDate scheduleDate;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class AddProfileCommand {
-    private final Integer userId;
+    private final Long userId;
     private final String intro;
 
-    public AddProfileCommand(Integer userId, String intro) {
+    public AddProfileCommand(Long userId, String intro) {
         this.userId = userId;
         this.intro = intro;
     }

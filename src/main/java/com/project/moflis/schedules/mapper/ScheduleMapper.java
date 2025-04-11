@@ -34,7 +34,7 @@ public interface ScheduleMapper {
     Schedule toSchedule(AddSchedulsCommand command);
 
     @Named("mapToRecurringSchedules")
-    default RecurringSchedule mapToRecurringSchedules(Integer recurringScheduleId) {
+    default RecurringSchedule mapToRecurringSchedules(Long recurringScheduleId) {
         if (recurringScheduleId == null) return null;
         RecurringSchedule recurringSchedules = new RecurringSchedule();
         recurringSchedules.setId(recurringScheduleId);

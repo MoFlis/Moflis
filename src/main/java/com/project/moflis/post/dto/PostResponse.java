@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @Setter
 public class PostResponse {
 
-    private Integer id;
-    private Integer userId;
+    private Long id;
+    private Long userId;
     private String name;
-    private Integer tagId;
+    private Long tagId;
     private LocalDateTime date;
     private String location;
     private int participantLimit;

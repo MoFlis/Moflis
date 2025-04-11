@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ParticipantRepository extends JpaRepository<Participant, Integer> {
+public interface ParticipantRepository extends JpaRepository<Participant, Long> {
 
-    int countByPostId(int postId);
+    int countByPostId(long postId);
 
-    boolean existsByPostIdAndUserId(int postId, int userId);
+    boolean existsByPostIdAndUserId(long postId, long userId);
 
-    Optional<Participant> findByPostIdAndUserId(int postId, int userId);
+    Optional<Participant> findByPostIdAndUserId(long postId, long userId);
 
-    List<Participant> findByPostId(int postId);
+    List<Participant> findByPostId(long postId);
 
-    int user(User user);
+    long user(User user);
 }

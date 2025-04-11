@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserDTO {
 
-    private Integer id; // 반드시 존재해야 함
+    private Long id; // 반드시 존재해야 함
     private String name;
     private String email;
     private String password;

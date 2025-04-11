@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class UpdatePostCommand {
-    private final Integer postId;
-    private final Integer userId;
+    private final Long postId;
+    private final Long userId;
     private final String name;
-    private final Integer tags;
+    private final Long tags;
     private final LocalDateTime date;
     private final String location;
-    private final Integer participantLimit;
+    private final int participantLimit;
     private final PostStatus status;
     private final PostType type;
     private final String content;

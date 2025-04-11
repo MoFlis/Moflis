@@ -68,14 +68,14 @@ public class SchedulesService {
     }
 
     @Transactional(readOnly = true)
-    public ScheduleResponse getScheduleDetail(int scheduleId) {
+    public ScheduleResponse getScheduleDetail(long scheduleId) {
         Schedule schedule = schedulesRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다"));
         return ScheduleMapper.INSTANCE.toScheduleDto(schedule);
     }
 
     @Transactional
-    public void deleteSchedules(int scheduleId) {
+    public void deleteSchedules(long scheduleId) {
         Schedule schedule = schedulesRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다"));
         schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
@@ -90,7 +90,7 @@ public class SchedulesService {
 
     //반복일정 삭제
     @Transactional
-    public void deleteRecurringSchedules(int recurringScheduleId) {
+    public void deleteRecurringSchedules(long recurringScheduleId) {
         List<Schedule> recurringSchedulesList = schedulesRepository.findByRecurringScheduleId(recurringScheduleId);
         for (Schedule schedule : recurringSchedulesList) {
             schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
@@ -100,7 +100,7 @@ public class SchedulesService {
 
     //반복일정 수정
     @Transactional
-    public void updateRecurringSchedules(RecurringSchedule recurringSchedules, int recurringScheduleId) {
+    public void updateRecurringSchedules(RecurringSchedule recurringSchedules, long recurringScheduleId) {
         schedulesRepository.deleteByRecurringScheduleId(recurringScheduleId);
         List<Schedule> generatedSchedules = RecurringScheduleGenerator.generateSchedules(recurringSchedules);
         schedulesRepository.saveAll(generatedSchedules);
