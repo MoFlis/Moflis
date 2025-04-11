@@ -24,8 +24,8 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public PostSliceResponse getPostList(LocalDateTime cursor, int size) {
-        List<Post> posts = postRepository.findNextPostsByDate(cursor, size + 1);
+    public PostSliceResponse getPostList(String sortBy, LocalDateTime cursor, int size) {
+        List<Post> posts = postRepository.findNextPostsByDate(sortBy, cursor, size + 1);
 
         boolean hasNext = posts.size() > size;
         if (hasNext) {

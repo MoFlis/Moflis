@@ -23,9 +23,10 @@ public class PostController {
     @GetMapping
     public ResponseEntity<PostSliceResponse> getPost(
             @RequestParam(required = false) LocalDateTime cursor,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "date") String sortBy
     ) {
-        PostSliceResponse response = postService.getPostList(cursor, size);
+        PostSliceResponse response = postService.getPostList(sortBy, cursor, size);
         return ResponseEntity.ok(response);
     }
 
