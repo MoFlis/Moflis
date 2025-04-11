@@ -5,8 +5,12 @@ import com.project.moflis.post.command.UpdatePostCommand;
 import com.project.moflis.post.dto.PostResponse;
 import com.project.moflis.post.dto.PostSliceResponse;
 import com.project.moflis.post.entity.Post;
+import com.project.moflis.post.enums.PostStatus;
 import com.project.moflis.post.mapper.PostMapper;
 import com.project.moflis.post.repository.PostRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,21 +29,16 @@ public class PostService {
     }
 
     public PostSliceResponse getPostList(String sortBy, LocalDateTime cursor, int size) {
-        List<Post> posts = postRepository.findNextPostsByDate(sortBy, cursor, size + 1);
-
-        boolean hasNext = posts.size() > size;
-        if (hasNext) {
-            posts.remove(posts.size() - 1);
-        }
-
-        List<PostResponse> content = PostMapper.INSTANCE.toPostResponseList(posts);
+        Pageable pageable = PageRequest.of(0, size);
+        Slice<Post> postSlice = postRepository.findNextPostsBy(sortBy, cursor, pageable);
+        List<PostResponse> content = PostMapper.INSTANCE.toPostResponseList(postSlice.getContent());
 
         LocalDateTime nextCursor = null;
-        if (hasNext && !posts.isEmpty()) {
-            Post lastPost = posts.get(posts.size() - 1);
-            nextCursor = lastPost.getDate();
+        if (postSlice.hasNext() && !postSlice.getContent().isEmpty()) {
+            nextCursor = postSlice.getContent().get(postSlice.getContent().size() - 1).getDate();
         }
-        return new PostSliceResponse(content, hasNext, nextCursor);
+
+        return new PostSliceResponse(content, postSlice.hasNext(), nextCursor);
     }
 
     @Transactional
@@ -74,9 +73,18 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다."));
 
-        post.validateNotWrittenBy(userId);
-        post.validateRecruitableStatus();
-        post.validateRecruitmentLimit();
+        if (post.getUser().getId() == userId) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "본인의 글에는 신청할 수 없습니다.");
+        }
+
+        if (post.getParticipantLimit() <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "모집 인원이 잘못 설정되어 있습니다.");
+        }
+
+        if (post.getStatus() == PostStatus.DELETED || post.getStatus() == PostStatus.COMPLETED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 모집 완료 되었거나 삭제된 글입니다.");
+        }
+
         return post;
     }
 }

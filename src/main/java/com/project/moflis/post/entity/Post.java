@@ -52,6 +52,12 @@ public class Post {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "hit")
+    private int hit;
+
+    @Column(name = "likes")
+    private int likes;
+
     public void update(UpdatePostValues command) {
         this.tagId = command.getTagId();
         this.name = command.getName();
