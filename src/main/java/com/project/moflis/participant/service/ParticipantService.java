@@ -4,6 +4,7 @@ import com.project.moflis.participant.command.ApplyParticipantCommand;
 import com.project.moflis.participant.dto.ParticipantApplyResponse;
 import com.project.moflis.participant.dto.ParticipantListItem;
 import com.project.moflis.participant.entity.Participant;
+import com.project.moflis.participant.enums.ParticipantStatus;
 import com.project.moflis.participant.mapper.ParticipantMapper;
 import com.project.moflis.participant.repository.ParticipantRepository;
 import com.project.moflis.post.entity.Post;
@@ -58,7 +59,9 @@ public class ParticipantService {
         Participant participant = participantRepository.findByPostIdAndUserId(postId, userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "참여 정보가 존재하지 않습니다."));
 
-        participant.validateCancel();
+        if (participant.getStatus() == ParticipantStatus.CANCELED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 취소된 신청 입니다.");
+        }
         participant.cancel();
     }
 

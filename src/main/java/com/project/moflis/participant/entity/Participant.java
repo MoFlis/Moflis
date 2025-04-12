@@ -55,13 +55,6 @@ public class Participant {
         this.leaveDate = LocalDateTime.now();
     }
 
-    public void validateCancel() {
-        if (this.status == ParticipantStatus.CANCELED) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 취소된 신청입니다.");
-        }
-        this.status = ParticipantStatus.CANCELED;
-    }
-
     public void validatePending() {
         if (this.status != ParticipantStatus.PENDING) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 처리된 신청입니다.");
