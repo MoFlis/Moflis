@@ -30,10 +30,10 @@ class RecurringScheduleMapperTest {
         RecurringSchedule recurringSchedules = new RecurringSchedule();
 
         User user = new User();
-        user.setId(1);
+        user.setId(1L);
 
         recurringSchedules.setUser(user);
-        recurringSchedules.setId(1);
+        recurringSchedules.setId(1L);
         recurringSchedules.setDescription("test");
         recurringSchedules.setEndDate(endDate);
         recurringSchedules.setStartDate(startDate);
@@ -61,7 +61,7 @@ class RecurringScheduleMapperTest {
         LocalTime startTime = LocalTime.now();
 
         AddRecurringSchedulesCommand command = new AddRecurringSchedulesCommand(
-                1, 1, RepeatType.DAILY, startDate, endDate, startTime, endTime, "test", SchedulesStatus.ACTIVE
+                1L, 1L, RepeatType.DAILY, startDate, endDate, startTime, endTime, "test", SchedulesStatus.ACTIVE
         );
 
         RecurringSchedule recurringSchedules = INSTANCE.toRecurringSchedule(command);

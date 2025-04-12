@@ -68,9 +68,8 @@ public class PostService {
         return PostMapper.INSTANCE.toPostResponse(postRepository.save(post));
     }
 
-
-    public Post getPostForApplication(long postId, long userId) {
-        Post post = postRepository.findById(postId)
+    public Post getPostWithLockAndValidate(long postId, long userId) {
+        Post post = postRepository.findByIdWithPessimisticLock(postId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다."));
 
         if (post.getUser().getId() == userId) {
@@ -86,5 +85,14 @@ public class PostService {
         }
 
         return post;
+    }
+
+    public void verifyAndHandleCapacity(Post post, int currentCount) {
+        if (currentCount >= post.getParticipantLimit()) {
+            throw new IllegalStateException("참가 인원이 이미 가득 찼습니다.");
+        }
+        if (currentCount + 1 >= post.getParticipantLimit()) {
+            post.complete();
+        }
     }
 }

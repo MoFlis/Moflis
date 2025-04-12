@@ -15,4 +15,5 @@ public class ParticipantApplyResponse {
     private ParticipantStatus status;
     private LocalDateTime joinDate;
     private LocalDateTime leaveDate;
+
 }

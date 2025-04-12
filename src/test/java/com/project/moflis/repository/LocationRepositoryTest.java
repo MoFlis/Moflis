@@ -31,7 +31,7 @@ class LocationRepositoryTest {
     void findByUserId() {
         Location location = new Location();
         User user = new User();
-        user.setId(1);
+        user.setId(1L);
         location.setLatitude(37.7749); // Example latitude
         location.setLongitude(-122.4194);
         locationRepository.save(location);
@@ -44,7 +44,7 @@ class LocationRepositoryTest {
     @Test
     void existsByUserId() {
         Location location = new Location();
-        location.setUserId(1);
+        location.setUserId(1L);
         location.setLatitude(37.7749);
         location.setLongitude(-122.4194);
         locationRepository.save(location);

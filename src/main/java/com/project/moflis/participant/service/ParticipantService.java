@@ -9,6 +9,7 @@ import com.project.moflis.participant.mapper.ParticipantMapper;
 import com.project.moflis.participant.repository.ParticipantRepository;
 import com.project.moflis.post.entity.Post;
 import com.project.moflis.post.service.PostService;
+import com.project.moflis.user.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,24 +35,19 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantApplyResponse applyParticipant(ApplyParticipantCommand command, long userId) {
-        Post post = postService.getPostForApplication(command.getPostId(), userId);
-        int currentCount = participantRepository.countByPostId(command.getPostId());
-
-        if (currentCount >= post.getParticipantLimit()) {
-            throw new IllegalStateException("참가 인원이 이미 가득 찼습니다.");
-        }
 
         boolean alreadyApplied = participantRepository.existsByPostIdAndUserId(command.getPostId(), userId);
         if (alreadyApplied) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 신청한 사용자입니다.");
         }
 
-        Participant participant = ParticipantMapper.INSTANCE.toParticipant(command);
+        Post post = postService.getPostWithLockAndValidate(command.getPostId(), userId);
+        int currentCount = participantRepository.countByPostId(command.getPostId());
+        postService.verifyAndHandleCapacity(post, currentCount);
 
-        if (currentCount + 1 >= post.getParticipantLimit()) {
-            post.complete();
-        }
-        return ParticipantMapper.INSTANCE.toParticipantApplyResponse(participantRepository.save(participant));
+        User user = new User(userId);
+        Participant participant1 = Participant.create(post, user, command.getStatus());
+        return ParticipantMapper.INSTANCE.toParticipantApplyResponse(participantRepository.save(participant1));
     }
 
     @Transactional
@@ -85,4 +81,6 @@ public class ParticipantService {
         post.validateOwner(userId, "신청 거절 권한이 없습니다.");
         participant.reject();
     }
+
+
 }

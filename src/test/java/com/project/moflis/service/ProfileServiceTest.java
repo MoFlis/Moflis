@@ -28,7 +28,7 @@ class ProfileServiceTest {
     @Test
     void getProfileSuccess() {
         // given
-        int userId = 9999;
+        long userId = 9999;
         Profile profile = new Profile();
         User user = new User();
         user.setId(userId);
@@ -48,7 +48,7 @@ class ProfileServiceTest {
     @Test
     void getProfileFail() {
         // given
-        int userId = 9999;
+        long userId = 9999;
         Mockito.when(profileRepository.findByUserId(userId)).thenReturn(null);
 
         // when & then
@@ -60,11 +60,11 @@ class ProfileServiceTest {
     @Test
     void addProfileSuccess() {
         // given
-        AddProfileCommand command = new AddProfileCommand(9999, "성공프로필");
+        AddProfileCommand command = new AddProfileCommand(9999L, "성공프로필");
 
         Profile savedProfile = new Profile();
         User user = new User();
-        user.setId(9999);
+        user.setId(9999L);
         savedProfile.setUser(user);
         savedProfile.setIntro("성공 프로필");
 
@@ -82,11 +82,11 @@ class ProfileServiceTest {
     @Test
     void addProfileExistingProfile() {
         // given
-        AddProfileCommand command = new AddProfileCommand(9999, "이미 있는 프로필");
+        AddProfileCommand command = new AddProfileCommand(9999L, "이미 있는 프로필");
 
         Profile existingProfile = new Profile();
         User user = new User();
-        user.setId(9999);
+        user.setId(9999L);
         existingProfile.setUser(user);
 
         Mockito.when(profileRepository.findByUserId(command.getUserId())).thenReturn(existingProfile);
@@ -100,11 +100,11 @@ class ProfileServiceTest {
     @Test
     void updateProfileSuccess() {
         // given
-        UpdateProfileCommand command = new UpdateProfileCommand(9999, "업데이트된 프로필");
+        UpdateProfileCommand command = new UpdateProfileCommand(9999L, "업데이트된 프로필");
 
         Profile existingProfile = new Profile();
         User user = new User();
-        user.setId(9999);
+        user.setId(9999L);
         existingProfile.setUser(user);
         existingProfile.setIntro("기존 프로필");
 
@@ -122,7 +122,7 @@ class ProfileServiceTest {
     @Test
     void updateProfileFail() {
         // given
-        UpdateProfileCommand command = new UpdateProfileCommand(9999, "업데이트된 프로필");
+        UpdateProfileCommand command = new UpdateProfileCommand(9999L, "업데이트된 프로필");
 
         Mockito.when(profileRepository.findByUserId(command.getUserId())).thenReturn(null);
 

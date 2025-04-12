@@ -1,11 +1,7 @@
 package com.project.moflis.global.security.config;
 
 import com.project.moflis.global.security.model.CustomUserDetails;
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +29,7 @@ public class SecurityConfig {
                     @Override
                     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
                             throws IOException, ServletException {
-                        CustomUserDetails fakeUser = new CustomUserDetails(1, "devUser");
+                        CustomUserDetails fakeUser = new CustomUserDetails(3, "devUser");
                         var auth = new UsernamePasswordAuthenticationToken(fakeUser, null, List.of());
                         SecurityContextHolder.getContext().setAuthentication(auth);
                         chain.doFilter(request, response);

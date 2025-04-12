@@ -9,7 +9,7 @@ class ProfileCommandTest {
 
     @Test
     void ProfileCommand() {
-        Long userId = 1;
+        Long userId = 1L;
         String intro = "이것은 테스트";
 
         AddProfileCommand command = new AddProfileCommand(userId, intro);

@@ -41,7 +41,7 @@ class ProfileControllerTest {
         profileRepository.deleteAll();
         Profile testProfile = new Profile();
         User user = new User();
-        user.setId(9999);
+        user.setId(9999L);
         testProfile.setUser(user); // 테스트용 userId
         testProfile.setIntro("테스트 프로필");
         testProfile.setTrustScore(50f);
@@ -66,7 +66,7 @@ class ProfileControllerTest {
     @Commit
     void addProfile() throws Exception {
         // given
-        int userId = 9998;
+        long userId = 9998;
         AddProfileRequest addProfileRequest = new AddProfileRequest();
         addProfileRequest.setUserId(userId);
         addProfileRequest.setIntro("안녕 나는 유저1");
@@ -90,7 +90,7 @@ class ProfileControllerTest {
     @Test
     void updateProfile() throws Exception {
         //given
-        int userId = 9999;
+        long userId = 9999;
         ProfileResponseDTO requestProfilesDTO = new ProfileResponseDTO();
         requestProfilesDTO.setUserId(userId);
         requestProfilesDTO.setIntro("안녕 나는 테스트 유저9999");
@@ -113,7 +113,7 @@ class ProfileControllerTest {
     @Test
     void updateFailProfile() throws Exception {
         // given
-        int userId = 9997; // 존재하지 않는 userId
+        long userId = 9997; // 존재하지 않는 userId
         UpdateProfileReqeust updateProfileReqeust = new UpdateProfileReqeust();
         updateProfileReqeust.setUserId(userId);
         updateProfileReqeust.setIntro("실패할 테스트");

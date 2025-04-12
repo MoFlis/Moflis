@@ -23,7 +23,7 @@ class LocationMapperTest {
         LocalDateTime tomorrow = now.plusDays(1);
         //Given
         Location location = new Location();
-        location.setId(1);
+        location.setId(1L);
         location.setVerified(false);
         location.setCompletedTime(tomorrow);
         location.setRequestTime(now);
@@ -48,8 +48,8 @@ class LocationMapperTest {
         LocalDateTime tomorrow = now.plusDays(1);
         //Given
         LocationResponseDTO locationDTO = new LocationResponseDTO();
-        locationDTO.setId(1);
-        locationDTO.setUserId(1);
+        locationDTO.setId(1L);
+        locationDTO.setUserId(1L);
         locationDTO.setVerified(false);
         locationDTO.setCompletedTime(tomorrow);
         locationDTO.setRequestTime(now);
@@ -73,7 +73,7 @@ class LocationMapperTest {
         LocalDateTime tomorrow = now.plusDays(1);
 
         Location location1 = new Location();
-        location1.setId(1);
+        location1.setId(1L);
         location1.setVerified(false);
         location1.setCompletedTime(tomorrow);
         location1.setRequestTime(now);
@@ -81,7 +81,7 @@ class LocationMapperTest {
         location1.setLatitude(37.597466);
 
         Location location2 = new Location();
-        location2.setId(2);
+        location2.setId(2L);
         location2.setVerified(false);
         location2.setCompletedTime(tomorrow);
         location2.setRequestTime(now);
@@ -103,8 +103,8 @@ class LocationMapperTest {
         LocalDateTime tomorrow = now.plusDays(1);
 
         LocationResponseDTO locationDTO1 = new LocationResponseDTO();
-        locationDTO1.setId(1);
-        locationDTO1.setUserId(1);
+        locationDTO1.setId(1L);
+        locationDTO1.setUserId(1L);
         locationDTO1.setVerified(false);
         locationDTO1.setCompletedTime(tomorrow);
         locationDTO1.setRequestTime(now);
@@ -112,8 +112,8 @@ class LocationMapperTest {
         locationDTO1.setLatitude(37.597466);
 
         LocationResponseDTO locationDTO2 = new LocationResponseDTO();
-        locationDTO2.setId(2);
-        locationDTO2.setUserId(2);
+        locationDTO2.setId(2L);
+        locationDTO2.setUserId(2L);
         locationDTO2.setVerified(false);
         locationDTO2.setCompletedTime(tomorrow);
         locationDTO2.setRequestTime(now);

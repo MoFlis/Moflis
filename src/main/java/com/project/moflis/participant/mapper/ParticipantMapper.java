@@ -1,6 +1,5 @@
 package com.project.moflis.participant.mapper;
 
-import com.project.moflis.participant.command.ApplyParticipantCommand;
 import com.project.moflis.participant.dto.ParticipantApplyResponse;
 import com.project.moflis.participant.dto.ParticipantListItem;
 import com.project.moflis.participant.entity.Participant;
@@ -21,10 +20,6 @@ public interface ParticipantMapper {
     @Mapping(source = "post.id", target = "postId")
     @Mapping(source = "user.id", target = "userId")
     ParticipantApplyResponse toParticipantApplyResponse(Participant participant);
-
-
-    @Mapping(source = "postId", target = "post.id")
-    Participant toParticipant(ApplyParticipantCommand applyParticipantCommand);
 
     List<ParticipantListItem> toParticipantResponseList(List<Participant> participantList);
 
