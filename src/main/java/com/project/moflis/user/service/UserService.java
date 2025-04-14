@@ -1,6 +1,8 @@
 package com.project.moflis.user.service;
 
+import com.project.moflis.user.command.JoinUserCommand;
 import com.project.moflis.user.dto.UserDTO;
+import com.project.moflis.user.dto.response.JoinUserResponse;
 import com.project.moflis.user.entity.User;
 import com.project.moflis.user.mapper.UserMapper;
 import com.project.moflis.user.repository.UserRepository;
@@ -24,4 +26,9 @@ public class UserService {
         return UserMapper.INSTANCE.toUserDto(userRepository.findById(userId).get());
     }
 
+    public JoinUserResponse joinUser(JoinUserCommand command) {
+        System.out.println("Command " + command);
+        User user = UserMapper.INSTANCE.toUser(command);
+        return UserMapper.INSTANCE.toJoinUserCommand(userRepository.save(user));
+    }
 }

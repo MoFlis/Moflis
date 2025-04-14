@@ -14,7 +14,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface RecurringScheduleMapper {
 
     RecurringScheduleMapper INSTANCE = Mappers.getMapper(RecurringScheduleMapper.class);
