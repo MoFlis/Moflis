@@ -21,4 +21,6 @@ public class PostResponse {
     private PostStatus status;
     private PostType type;
     private String content;
+    private int hit;
+    private int likes;
 }

@@ -27,3 +27,6 @@ node_modules/
 
 # Ignore Gradle files
 .gradle/
+
+# query dsl
+/src/main/generated/

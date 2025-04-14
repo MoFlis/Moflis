@@ -5,6 +5,7 @@ import com.project.moflis.post.command.UpdatePostCommand;
 import com.project.moflis.post.dto.PostResponse;
 import com.project.moflis.post.dto.PostSliceResponse;
 import com.project.moflis.post.entity.Post;
+import com.project.moflis.post.enums.PostSort;
 import com.project.moflis.post.enums.PostStatus;
 import com.project.moflis.post.mapper.PostMapper;
 import com.project.moflis.post.repository.PostRepository;
@@ -28,7 +29,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public PostSliceResponse getPostList(String sortBy, LocalDateTime cursor, int size) {
+    public PostSliceResponse getPostList(PostSort sortBy, String cursor, int size) {
         Pageable pageable = PageRequest.of(0, size);
         Slice<Post> postSlice = postRepository.findNextPostsBy(sortBy, cursor, pageable);
         List<PostResponse> content = PostMapper.INSTANCE.toPostResponseList(postSlice.getContent());

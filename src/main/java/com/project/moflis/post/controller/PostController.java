@@ -4,11 +4,10 @@ import com.project.moflis.post.dto.AddPostRequest;
 import com.project.moflis.post.dto.PostResponse;
 import com.project.moflis.post.dto.PostSliceResponse;
 import com.project.moflis.post.dto.UpdatePostRequest;
+import com.project.moflis.post.enums.PostSort;
 import com.project.moflis.post.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -22,9 +21,9 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<PostSliceResponse> getPost(
-            @RequestParam(required = false) LocalDateTime cursor,
+            @RequestParam(required = false) String cursor,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "date") String sortBy
+            @RequestParam(defaultValue = "DATE") PostSort sortBy
     ) {
         PostSliceResponse response = postService.getPostList(sortBy, cursor, size);
         return ResponseEntity.ok(response);
