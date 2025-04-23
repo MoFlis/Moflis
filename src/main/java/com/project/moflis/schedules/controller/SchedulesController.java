@@ -30,7 +30,7 @@ public class SchedulesController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        int userId = user.getId();
+        long userId = user.getId();
         PageDTO<ScheduleSummaryResponse> schedulesList = schedulsService.getSchedules(userId, startDate, endDate, page, size);
         return ResponseEntity.ok(schedulesList);
     }

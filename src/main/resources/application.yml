@@ -41,3 +41,5 @@ location:
   base-longitude: ${LOCATION_BASE_LONGITUDE}
   verification-radius: ${LOCATION_VERIFICATION_RADIUS}
   earth-ladius: ${LOCATION_EARTH_RADIUS}
+jwt:
+  secretKey: jaslklaskgkljdsgakljsgljksasdgahfadfgsdfhsdfgh

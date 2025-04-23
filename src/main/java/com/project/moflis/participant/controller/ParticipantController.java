@@ -32,7 +32,7 @@ public class ParticipantController {
     @PostMapping("/apply")
     public ResponseEntity<ParticipantApplyResponse> applyParticipant(
             @RequestParam long postId, @AuthenticationPrincipal CustomUserDetails user) {
-        int userId = user.getId();
+        long userId = user.getId();
         ApplyParticipantCommand command = new ApplyParticipantCommand(
                 postId,
                 ParticipantStatus.PENDING,
@@ -51,14 +51,14 @@ public class ParticipantController {
 
     @PatchMapping("{participantId}/approve")
     public ResponseEntity<String> approve(@PathVariable long participantId, @AuthenticationPrincipal CustomUserDetails user) {
-        int userId = user.getId();
+        long userId = user.getId();
         participantService.approve(participantId, userId);
         return ResponseEntity.ok("참여 신청이 승인되었습니다.");
     }
 
     @PatchMapping("{participantId}/reject")
     public ResponseEntity<String> reject(@PathVariable long participantId, @AuthenticationPrincipal CustomUserDetails user) {
-        int userId = user.getId();
+        long userId = user.getId();
         participantService.reject(participantId, userId);
         return ResponseEntity.ok("참여 신청이 거절 되었습니다.");
     }

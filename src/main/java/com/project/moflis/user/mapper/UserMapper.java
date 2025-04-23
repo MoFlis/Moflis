@@ -18,6 +18,7 @@ public interface UserMapper {
 
     User toUser(JoinUserCommand joinUserCommand);
 
+
     JoinUserResponse toJoinUserCommand(User user);
 
     List<UserDTO> toUserDtoList(List<User> userList);

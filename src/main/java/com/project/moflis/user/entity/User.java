@@ -1,22 +1,20 @@
 package com.project.moflis.user.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.moflis.user.enums.UserStatus;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Setter
 @Getter
+@Builder
 @Table(name = "users")
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -62,7 +60,16 @@ public class User {
     @Column
     private String grade;
 
+    @Column(name = "refresh_token", length = 512)
+    private String refreshToken;
+
     public User(long userId) {
         this.id = userId;
     }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+
 }
