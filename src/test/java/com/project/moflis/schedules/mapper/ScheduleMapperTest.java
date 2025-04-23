@@ -1,6 +1,6 @@
 package com.project.moflis.schedules.mapper;
 
-import com.project.moflis.recurringschedules.entity.RecurringSchedules;
+import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.schedules.command.AddSchedulsCommand;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.dto.schedules.ScheduleSummaryResponse;
@@ -65,19 +65,19 @@ class ScheduleMapperTest {
         Schedule schedule = new Schedule();
 
         User user = new User();
-        user.setId(1);
+        user.setId(1L);
         schedule.setUser(user);
 
-        schedule.setId(1);
+        schedule.setId(1L);
         schedule.setScheduleDate(localDateTime);
         schedule.setDescription("test");
         schedule.setEndTime(endTime);
         schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
 
-        RecurringSchedules recurringSchedules = new RecurringSchedules();
-        recurringSchedules.setId(1);
+        RecurringSchedule recurringSchedules = new RecurringSchedule();
+        recurringSchedules.setId(1L);
 
-        schedule.setRecurringSchedules(recurringSchedules);
+        schedule.setRecurringSchedule(recurringSchedules);
         schedule.setStartTime(startTime);
         schedule.setScheduleTitle("test");
         return schedule;
@@ -92,8 +92,8 @@ class ScheduleMapperTest {
         LocalDate localDateTime = LocalDate.from(LocalDateTime.now());
 
         ScheduleResponse schedule = new ScheduleResponse();
-        schedule.setId(1);
-        schedule.setUserId(1);
+        schedule.setId(1L);
+        schedule.setUserId(1L);
         schedule.setStartTime(startTime);
         schedule.setEndTime(endTime);
         schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
@@ -123,7 +123,7 @@ class ScheduleMapperTest {
         LocalDate localDateTime = LocalDate.from(LocalDateTime.now());
 
         AddSchedulsCommand command = new AddSchedulsCommand(
-                1, 1, localDateTime, startTime, endTime,
+                1L, 1L, localDateTime, startTime, endTime,
                 "test", "test", SchedulesStatus.INACTIVE
                 , SchedulesType.PERSONAL
         );

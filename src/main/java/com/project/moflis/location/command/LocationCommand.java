@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class LocationCommand {
 
-    private final Integer userId;
+    private final Long userId;
     private final double latitude;
     private final double longitude;
 

@@ -7,12 +7,7 @@ import com.project.moflis.profile.dto.ProfileResponseDTO;
 import com.project.moflis.profile.dto.UpdateProfileReqeust;
 import com.project.moflis.profile.service.ProfileService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -32,7 +27,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile")
-    public ResponseEntity<ProfileResponseDTO> addProfile(@PathVariable int userId, AddProfileRequest request) {
+    public ResponseEntity<ProfileResponseDTO> addProfile(@PathVariable long userId, AddProfileRequest request) {
         AddProfileCommand command = new AddProfileCommand(
                 userId,
                 request.getIntro()
@@ -48,7 +43,7 @@ public class ProfileController {
     }
 
     @PatchMapping("/profile")
-    public ResponseEntity<ProfileResponseDTO> updateProfile(@PathVariable int userId, UpdateProfileReqeust reqeust) {
+    public ResponseEntity<ProfileResponseDTO> updateProfile(@PathVariable long userId, UpdateProfileReqeust reqeust) {
         UpdateProfileCommand command = new UpdateProfileCommand(
                 userId,
                 reqeust.getIntro()
@@ -58,7 +53,7 @@ public class ProfileController {
     }
 
     @PatchMapping("/profileImage")
-    public ResponseEntity<String> updateProfileImage(@PathVariable int userId, MultipartFile file) {
+    public ResponseEntity<String> updateProfileImage(@PathVariable long userId, MultipartFile file) {
         profileService.updateProfileImage(userId, file);
         return ResponseEntity.ok("프로필이 성공적으로 업데이트 되었습니다.");
     }

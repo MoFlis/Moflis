@@ -32,7 +32,7 @@ public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -88,7 +88,7 @@ public class Schedule {
         this.schedulesStatus = command.getSchedulesStatus();
     }
 
-    public boolean isOwnedBy(Integer userId) {
+    public boolean isOwnedBy(Long userId) {
         return this.user.getId().equals(userId);
     }
 

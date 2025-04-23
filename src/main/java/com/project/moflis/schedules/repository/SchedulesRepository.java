@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface SchedulesRepository extends JpaRepository<Schedule, Integer>, JpaSpecificationExecutor<Schedule> {
+public interface SchedulesRepository extends JpaRepository<Schedule, Long>, JpaSpecificationExecutor<Schedule> {
 
-    List<Schedule> findByRecurringScheduleId(int recurringScheduleId);
+    List<Schedule> findByRecurringScheduleId(long recurringScheduleId);
 
-    void deleteByRecurringScheduleId(int recurringScheduleId);
+    void deleteByRecurringScheduleId(long recurringScheduleId);
 }

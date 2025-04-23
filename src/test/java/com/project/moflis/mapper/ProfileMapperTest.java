@@ -19,12 +19,12 @@ public class ProfileMapperTest {
     public void testToProfileDto() {
         //Given
         Profile profile = new Profile();
-        profile.setId(1);
+        profile.setId(1L);
         profile.setIntro("테스트");
         profile.setProfileImageName("text_image");
         profile.setTrustScore(50f);
         User user = new User();
-        user.setId(1);
+        user.setId(1L);
         profile.setUser(user);
 
         ProfileResponseDTO profilesDTO = profileMapper.toProfilesDto(profile);
@@ -41,11 +41,11 @@ public class ProfileMapperTest {
     public void testToProfile() {
         //Given
         ProfileResponseDTO profilesDTO = new ProfileResponseDTO();
-        profilesDTO.setId(1);
+        profilesDTO.setId(1L);
         profilesDTO.setIntro("테스트");
         profilesDTO.setProfileImageName("text_image");
         profilesDTO.setTrustScore(50f);
-        profilesDTO.setUserId(1);
+        profilesDTO.setUserId(1L);
 
         //when
         Profile profiles = profileMapper.toProfiles(profilesDTO);
@@ -62,12 +62,12 @@ public class ProfileMapperTest {
     public void testToProfilesDtoList() {
         // Given
         Profile profiles1 = new Profile();
-        profiles1.setId(1);
+        profiles1.setId(1L);
         profiles1.setIntro("소개1");
         profiles1.setTrustScore(50f);
 
         Profile profiles2 = new Profile();
-        profiles2.setId(2);
+        profiles2.setId(2L);
         profiles2.setIntro("소개2");
         profiles2.setTrustScore(70f);
 
@@ -86,12 +86,12 @@ public class ProfileMapperTest {
     public void testToProfilesList() {
         // Given
         ProfileResponseDTO profilesDTO1 = new ProfileResponseDTO();
-        profilesDTO1.setId(1);
+        profilesDTO1.setId(1L);
         profilesDTO1.setIntro("소개1");
         profilesDTO1.setTrustScore(50f);
 
         ProfileResponseDTO profilesDTO2 = new ProfileResponseDTO();
-        profilesDTO2.setId(2);
+        profilesDTO2.setId(2L);
         profilesDTO2.setIntro("소개2");
         profilesDTO2.setTrustScore(70f);
 

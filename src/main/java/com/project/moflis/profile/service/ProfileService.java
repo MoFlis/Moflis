@@ -24,7 +24,7 @@ public class ProfileService {
         this.fileStorageService = fileStorageService;
     }
 
-    public ProfileResponseDTO getProfiles(int userId) {
+    public ProfileResponseDTO getProfiles(long userId) {
         Profile profile = profileRepository.findByUserId(userId);
         if (profile == null) {
             throw new RuntimeException("아이디에 해당하는 프로필 정보가 없습니다: " + userId);
@@ -56,7 +56,7 @@ public class ProfileService {
     }
 
     @Transactional
-    public void addProfileImage(int userId, MultipartFile file) {
+    public void addProfileImage(long userId, MultipartFile file) {
         Profile existingProfile = profileRepository.findByUserId(userId);
         try {
             saveProfileImage(file, existingProfile);
@@ -66,7 +66,7 @@ public class ProfileService {
     }
 
     @Transactional
-    public void updateProfileImage(int userId, MultipartFile file) {
+    public void updateProfileImage(long userId, MultipartFile file) {
         Profile existingProfile = profileRepository.findByUserId(userId);
 
         if (existingProfile == null) {

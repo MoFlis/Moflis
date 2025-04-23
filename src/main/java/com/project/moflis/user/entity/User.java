@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.moflis.user.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -14,11 +15,12 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Table(name = "users")
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 반드시 존재해야 함
+    private Long id; // 반드시 존재해야 함
 
     @Column
     private String name;
@@ -56,4 +58,8 @@ public class User {
 
     @Column
     private String grade;
+
+    public User(long userId) {
+        this.id = userId;
+    }
 }

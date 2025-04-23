@@ -15,12 +15,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUserById(Integer userId) {
+    public User getUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("유저가 존재하지 않습니다."));
     }
 
-    public UserDTO getUserAddress(Integer userId) {
+    public UserDTO getUserAddress(Long userId) {
         return UserMapper.INSTANCE.toUserDto(userRepository.findById(userId).get());
     }
+
 }

@@ -36,7 +36,7 @@ public class RecurringScheduleService {
     }
 
     @Transactional
-    public RecurringScheduleResponse patchRecurringSchedule(int recurringScheduleId, UpdateRecurringSchedulesCommand command) {
+    public RecurringScheduleResponse patchRecurringSchedule(long recurringScheduleId, UpdateRecurringSchedulesCommand command) {
         RecurringSchedule recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
                 .orElseThrow(() -> new RuntimeException("반복일정 아이디가 존재하지 않습니다"));
         recurringSchedules.update(command.toValues());
@@ -46,7 +46,7 @@ public class RecurringScheduleService {
     }
 
     @Transactional
-    public RecurringScheduleResponse deleteRecurringSchedule(int recurringScheduleId) {
+    public RecurringScheduleResponse deleteRecurringSchedule(long recurringScheduleId) {
         RecurringSchedule recurringSchedules = recurringSchedulesRepository.findById(recurringScheduleId)
                 .orElseThrow(() -> new RuntimeException("반복일정 아이디가 존재하지 않습니다."));
         recurringSchedules.deactivate();

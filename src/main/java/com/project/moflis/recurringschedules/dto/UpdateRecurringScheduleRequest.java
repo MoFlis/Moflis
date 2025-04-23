@@ -13,8 +13,8 @@ import java.time.LocalTime;
 @Setter
 public class UpdateRecurringScheduleRequest {
 
-    private Integer id;
-    private Integer userId;
+    private Long id;
+    private Long userId;
     private RepeatType repeatType;
     private LocalDate startDate;
     private LocalDate endDate;

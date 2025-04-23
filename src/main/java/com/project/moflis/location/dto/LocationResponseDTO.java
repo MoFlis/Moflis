@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 public class LocationResponseDTO {
 
-    private Integer id;
-    private Integer userId;
+    private Long id;
+    private Long userId;
     private double latitude;
     private double longitude;
     private boolean verified;

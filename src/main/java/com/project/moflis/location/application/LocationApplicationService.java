@@ -14,11 +14,11 @@ public class LocationApplicationService {
         this.locationService = locationService;
     }
 
-    public LocationResponseDTO processAndSaveLocation(Integer userId, CoordinatesRequest coordinatesRequest) {
+    public LocationResponseDTO processAndSaveLocation(Long userId, CoordinatesRequest coordinatesRequest) {
         return locationService.saveLocation(userId, coordinatesRequest);
     }
 
-    public boolean verifyLocation(Integer userId, VerifyLocationRequest verifyLocationRequest) {
+    public boolean verifyLocation(Long userId, VerifyLocationRequest verifyLocationRequest) {
         return locationService.locationVerify(userId, verifyLocationRequest);
     }
 

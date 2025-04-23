@@ -30,11 +30,11 @@ public class ProfileRepositoryTest {
     public void testFindByUserId() {
         Profile profile = new Profile();
         User user = new User();
-        user.setId(1);
+        user.setId(1L);
         profile.setUser(user);
         profileRepository.save(profile);
 
-        Profile result = profileRepository.findByUserId(1);
+        Profile result = profileRepository.findByUserId(1L);
 
         assertNotNull(result);
         assertEquals(1, result.getUser().getId());

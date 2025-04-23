@@ -35,12 +35,12 @@ public interface RecurringScheduleMapper {
     List<ScheduleResponse> toSchedulesList(List<Schedule> schedules);
 
     @Named("mapUserToId")
-    default Integer mapUserToId(User user) {
+    default Long mapUserToId(User user) {
         return (user == null) ? null : user.getId();
     }
 
     @Named("mapToUser")
-    default User mapToUser(Integer userId) {
+    default User mapToUser(Long userId) {
         if (userId == null) return null;
         User user = new User();
         user.setId(userId);
