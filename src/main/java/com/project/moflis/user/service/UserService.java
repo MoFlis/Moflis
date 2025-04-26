@@ -80,7 +80,7 @@ public class UserService {
     }
 
     public User getByEmail(String email) {
-        return userRepository.findById(email)
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("userId를 찾을 수 없습니다"));
     }
 

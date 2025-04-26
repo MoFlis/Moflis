@@ -32,7 +32,7 @@ public class JwtProvider {
         return algorithm;
     }
 
-    private String genToken(Map<String, Object> claims, int seconds) {
+    private String generateToken(Map<String, Object> claims, int seconds) {
         Date now = new Date();
         Date expiresAt = new Date(now.getTime() + 1000L * seconds);
 
@@ -50,11 +50,11 @@ public class JwtProvider {
     }
 
     public String getAccessToken(Map<String, Object> claims) {
-        return genToken(claims, accessTokenExpireSeconds); // 1시간
+        return generateToken(claims, accessTokenExpireSeconds); // 1시간
     }
 
     public String getRefreshToken(Map<String, Object> claims) {
-        return genToken(claims, refreshTokenExpireSeconds); // 100일
+        return generateToken(claims, refreshTokenExpireSeconds); // 100일
     }
 
     public boolean verify(String token) {
