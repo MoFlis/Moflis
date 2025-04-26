@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class JwtProvider {
@@ -31,7 +29,7 @@ public class JwtProvider {
         return algorithm;
     }
 
-    private String generateToken(Long userId, String name, String grade, int seconds) {
+    private String generateToken(TokenClaims claims, int seconds) {
         Date now = new Date();
         Date expiresAt = new Date(now.getTime() + 1000L * seconds);
 
@@ -40,18 +38,18 @@ public class JwtProvider {
                 .withIssuer("moflis-api")
                 .withIssuedAt(now)
                 .withExpiresAt(expiresAt)
-                .withClaim("userId", userId)
-                .withClaim("name", name)
-                .withClaim("grade", grade)
+                .withClaim("userId", claims.getUserId())
+                .withClaim("name", claims.getName())
+                .withClaim("grade", claims.getGrade())
                 .sign(getAlgorithm());
     }
 
-    public String getAccessToken(Long userId, String name, String grade) {
-        return generateToken(userId, name, grade, accessTokenExpireSeconds); // 1시간
+    public String getAccessToken(TokenClaims claims) {
+        return generateToken(claims, accessTokenExpireSeconds); // 1시간
     }
 
-    public String getRefreshToken(Long userId, String name, String grade) {
-        return generateToken(userId, name, grade, refreshTokenExpireSeconds); // 100일
+    public String getRefreshToken(TokenClaims claims) {
+        return generateToken(claims, refreshTokenExpireSeconds); // 100일
     }
 
     public boolean verify(String token) {
@@ -66,17 +64,22 @@ public class JwtProvider {
         }
     }
 
-    public Map<String, Object> getClaims(String token) {
+    public TokenClaims getClaims(String token) {
         DecodedJWT decodedJWT = JWT.require(getAlgorithm())
+                .withIssuer("moflis-api")
                 .build()
                 .verify(token);
 
-        return decodedJWT.getClaims().entrySet().stream()
-                .collect(
-                        Collectors.toMap(
-                                Map.Entry::getKey,
-                                e -> e.getValue().as(Object.class) // Object로 반환
-                        )
-                );
+        Long userId = decodedJWT.getClaim("userId").asLong();
+        String name = decodedJWT.getClaim("name").asString();
+        String grade = decodedJWT.getClaim("grade").asString();
+        String email = decodedJWT.getClaim("email").asString();
+
+        return TokenClaims.builder()
+                .userId(userId)
+                .name(name)
+                .grade(grade)
+                .email(email)
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.project.moflis.user.service;
 
 import com.project.moflis.global.security.jwt.JwtProvider;
+import com.project.moflis.global.security.jwt.TokenClaims;
 import com.project.moflis.user.command.JoinUserCommand;
 import com.project.moflis.user.command.LoginUserCommand;
 import com.project.moflis.user.dto.response.JoinUserResponse;
@@ -57,9 +58,15 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치 하지 않습니다.");
         }
 
-        String accessToken = jwtProvider.getAccessToken(user.getId(), user.getName(), user.getGrade());
-        String refreshToken = jwtProvider.getRefreshToken(user.getId(), user.getName(), user.getGrade());
-        
+        TokenClaims newClaims = TokenClaims.builder()
+                .userId(user.getId())
+                .name(user.getName())
+                .grade(user.getGrade())
+                .build();
+
+        String accessToken = jwtProvider.getAccessToken(newClaims);
+        String refreshToken = jwtProvider.getRefreshToken(newClaims);
+
         user.updateRefreshToken(refreshToken);
         userRepository.save(user);
 
