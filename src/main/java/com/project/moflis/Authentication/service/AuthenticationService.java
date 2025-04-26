@@ -24,14 +24,14 @@ public class AuthenticationService {
         if (!jwtProvider.verify(refreshToken)) {
             throw new RuntimeException("유효하지 않은 토큰입니다");
         }
-        String email = (String) jwtProvider.getClaims(refreshToken).get("email");
-        User user = userService.getEmail(email);
+        Long userId = (Long) jwtProvider.getClaims(refreshToken).get("userId");
+        User user = userService.getUserId(userId);
         if (!refreshToken.equals(user.getRefreshToken())) {
             throw new RuntimeException("refreshToken이 맞지 않습니다.");
         }
 
         Map<String, Object> claims = Map.of(
-                "email", user.getEmail(),
+                "userId", user.getId(),
                 "name", user.getName(),
                 "grade", user.getGrade()
         );

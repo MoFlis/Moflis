@@ -1,6 +1,7 @@
 package com.project.moflis.global.security.jwt;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtProvider {
@@ -28,7 +30,7 @@ public class JwtProvider {
         Date now = new Date();
         Date expiresAt = new Date(now.getTime() + 1000L * seconds);
 
-        com.auth0.jwt.JWTCreator.Builder builder = JWT.create()
+        JWTCreator.Builder builder = JWT.create()
                 .withSubject("user")
                 .withIssuedAt(now)
                 .withExpiresAt(expiresAt);
@@ -67,7 +69,7 @@ public class JwtProvider {
 
         return decodedJWT.getClaims().entrySet().stream()
                 .collect(
-                        java.util.stream.Collectors.toMap(
+                        Collectors.toMap(
                                 Map.Entry::getKey,
                                 e -> e.getValue().as(Object.class) // Object로 반환
                         )

@@ -79,9 +79,9 @@ public class UserService {
 
     }
 
-    public User getEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("이메일을 찾을 수 없습니다."));
+    public User getUserId(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("userId를 찾을 수 없습니다"));
     }
 
     @Transactional
