@@ -25,8 +25,10 @@ public class AuthenticationService {
         if (!jwtProvider.verify(refreshToken)) {
             throw new RuntimeException("유효하지 않은 토큰입니다");
         }
-        Long userId = (Long) jwtProvider.getClaims(refreshToken).get("userId");
-        User user = userService.getUserId(userId);
+
+        String userId = (String) jwtProvider.getClaims(refreshToken).get("email");
+        User user = userService.getByEmail(userId);
+
         if (!refreshToken.equals(user.getRefreshToken())) {
             throw new RuntimeException("refreshToken이 맞지 않습니다.");
         }

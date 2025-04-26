@@ -79,8 +79,8 @@ public class UserService {
 
     }
 
-    public User getUserId(Long userId) {
-        return userRepository.findById(userId)
+    public User getByEmail(String email) {
+        return userRepository.findById(email)
                 .orElseThrow(() -> new IllegalArgumentException("userId를 찾을 수 없습니다"));
     }
 
