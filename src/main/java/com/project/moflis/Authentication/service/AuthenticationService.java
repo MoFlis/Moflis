@@ -1,6 +1,6 @@
-package com.project.moflis.auth.service;
+package com.project.moflis.Authentication.service;
 
-import com.project.moflis.auth.dto.response.TokenResponse;
+import com.project.moflis.Authentication.dto.response.TokenResponse;
 import com.project.moflis.global.security.jwt.JwtProvider;
 import com.project.moflis.user.entity.User;
 import com.project.moflis.user.service.UserService;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class AuthService {
+public class AuthenticationService {
 
     private final UserService userService;
     private final JwtProvider jwtProvider;
 
-    public AuthService(UserService userService, JwtProvider jwtProvider) {
+    public AuthenticationService(UserService userService, JwtProvider jwtProvider) {
         this.userService = userService;
         this.jwtProvider = jwtProvider;
     }

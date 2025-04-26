@@ -1,4 +1,4 @@
-package com.project.moflis.auth.dto.request;
+package com.project.moflis.Authentication.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

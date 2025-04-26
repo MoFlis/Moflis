@@ -1,4 +1,4 @@
-package com.project.moflis.auth.dto.response;
+package com.project.moflis.Authentication.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
