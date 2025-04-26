@@ -2,6 +2,7 @@ package com.project.moflis.global.advice;
 
 import com.project.moflis.global.exception.AddressNotFoundException;
 import com.project.moflis.global.exception.ImageUploadException;
+import com.project.moflis.global.exception.JwtException;
 import com.project.moflis.global.exception.UserLocationAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,5 +42,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleUnexpectedException(Exception e) {
         return buildErrorResponse("서버에서 알 수 없는 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR, e);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleException(JwtException e) {
+        return ResponseEntity.status(e.getStatus())
+                .body(new ErrorResponse(
+                        e.getMessage(),
+                        e.getStatus().value()
+                ));
     }
 }

@@ -57,6 +57,7 @@ public class JwtProvider {
     public boolean verify(String token) {
         try {
             JWT.require(getAlgorithm())
+                    .withIssuer("moflis-api")
                     .build()
                     .verify(token);
             return true;
