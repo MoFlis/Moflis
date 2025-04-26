@@ -17,6 +17,12 @@ public class JwtProvider {
     @Value("${jwt.secretKey}")
     private String secretKeyCode;
 
+    @Value("${jwt.access-token-expire-seconds}")
+    private int accessTokenExpireSeconds;
+
+    @Value("${jwt.refresh-token-expire-seconds}")
+    private int refreshTokenExpireSeconds;
+
     private Algorithm algorithm;
 
     private Algorithm getAlgorithm() {
@@ -44,11 +50,11 @@ public class JwtProvider {
     }
 
     public String getAccessToken(Map<String, Object> claims) {
-        return genToken(claims, 60 * 60); // 1시간
+        return genToken(claims, accessTokenExpireSeconds); // 1시간
     }
 
     public String getRefreshToken(Map<String, Object> claims) {
-        return genToken(claims, 60 * 60 * 24 * 100); // 100일
+        return genToken(claims, refreshTokenExpireSeconds); // 100일
     }
 
     public boolean verify(String token) {

@@ -43,3 +43,5 @@ location:
   earth-ladius: ${LOCATION_EARTH_RADIUS}
 jwt:
   secretKey: jaslklaskgkljdsgakljsgljksasdgahfadfgsdfhsdfgh
+  access-token-expire-seconds: 3600
+  refresh-token-expire-seconds: 8640000
