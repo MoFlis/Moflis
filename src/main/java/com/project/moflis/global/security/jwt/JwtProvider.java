@@ -39,6 +39,7 @@ public class JwtProvider {
         JWTCreator.Builder builder = JWT.create()
                 .withSubject("user")
                 .withIssuedAt(now)
+                .withIssuer("moflis-api")
                 .withExpiresAt(expiresAt);
 
         // Claims 추가
