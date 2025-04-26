@@ -6,6 +6,7 @@ import com.project.moflis.user.entity.User;
 import com.project.moflis.user.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -30,11 +31,11 @@ public class AuthenticationService {
             throw new RuntimeException("refreshToken이 맞지 않습니다.");
         }
 
-        Map<String, Object> claims = Map.of(
-                "userId", user.getId(),
-                "name", user.getName(),
-                "grade", user.getGrade()
-        );
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getId());
+        claims.put("name", user.getName());
+        claims.put("grade", user.getGrade());
+
         String newAccessToken = jwtProvider.getAccessToken(claims);
         String newRefreshToken = jwtProvider.getRefreshToken(claims);
         user.updateRefreshToken(newRefreshToken);
