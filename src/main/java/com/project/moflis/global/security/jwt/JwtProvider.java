@@ -11,8 +11,8 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    @Value("${jwt.secretKey}")
-    private String secretKeyCode;
+    @Value("${jwt.rawSecretKey}")
+    private String rawSecretKey;
 
     @Value("${jwt.access-token-expire-seconds}")
     private int accessTokenExpireSeconds;
@@ -24,7 +24,7 @@ public class JwtProvider {
 
     private Algorithm getAlgorithm() {
         if (algorithm == null) {
-            algorithm = Algorithm.HMAC256(secretKeyCode);
+            algorithm = Algorithm.HMAC256(rawSecretKey);
         }
         return algorithm;
     }
