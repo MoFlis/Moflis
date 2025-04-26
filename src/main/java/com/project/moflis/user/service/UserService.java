@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class UserService {
@@ -59,14 +57,9 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치 하지 않습니다.");
         }
 
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("name", user.getName());
-        claims.put("email", user.getEmail());
-        claims.put("nickname", user.getNickname());
-        claims.put("grade", user.getGrade());
-
-        String accessToken = jwtProvider.getAccessToken(claims);
-        String refreshToken = jwtProvider.getRefreshToken(claims);
+        String accessToken = jwtProvider.getAccessToken(user.getId(), user.getName(), user.getGrade());
+        String refreshToken = jwtProvider.getRefreshToken(user.getId(), user.getName(), user.getGrade());
+        
         user.updateRefreshToken(refreshToken);
         userRepository.save(user);
 
@@ -79,8 +72,8 @@ public class UserService {
 
     }
 
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email)
+    public User getByUserId(Long userId) {
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("userId를 찾을 수 없습니다"));
     }
 

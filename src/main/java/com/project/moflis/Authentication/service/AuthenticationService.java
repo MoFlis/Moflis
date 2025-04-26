@@ -6,9 +6,6 @@ import com.project.moflis.user.entity.User;
 import com.project.moflis.user.service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class AuthenticationService {
 
@@ -26,22 +23,19 @@ public class AuthenticationService {
             throw new RuntimeException("유효하지 않은 토큰입니다");
         }
 
-        String userId = (String) jwtProvider.getClaims(refreshToken).get("email");
-        User user = userService.getByEmail(userId);
+        Long userId = (Long) jwtProvider.getClaims(refreshToken).get("userId");
+        User user = userService.getByUserId(userId);
 
         if (!refreshToken.equals(user.getRefreshToken())) {
             throw new RuntimeException("refreshToken이 맞지 않습니다.");
         }
 
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId());
-        claims.put("name", user.getName());
-        claims.put("grade", user.getGrade());
-
-        String newAccessToken = jwtProvider.getAccessToken(claims);
-        String newRefreshToken = jwtProvider.getRefreshToken(claims);
+        String newAccessToken = jwtProvider.getAccessToken(user.getId(), user.getName(), user.getGrade());
+        String newRefreshToken = jwtProvider.getRefreshToken(user.getId(), user.getName(), user.getGrade());
+        
         user.updateRefreshToken(newRefreshToken);
         userService.updateRefreshToken(user);
+
         return new TokenResponse(newAccessToken, newRefreshToken);
     }
 }

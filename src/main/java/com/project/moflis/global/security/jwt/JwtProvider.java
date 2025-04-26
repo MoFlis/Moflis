@@ -1,7 +1,6 @@
 package com.project.moflis.global.security.jwt;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,30 +31,27 @@ public class JwtProvider {
         return algorithm;
     }
 
-    private String generateToken(Map<String, Object> claims, int seconds) {
+    private String generateToken(Long userId, String name, String grade, int seconds) {
         Date now = new Date();
         Date expiresAt = new Date(now.getTime() + 1000L * seconds);
 
-        JWTCreator.Builder builder = JWT.create()
+        return JWT.create()
                 .withSubject("user")
-                .withIssuedAt(now)
                 .withIssuer("moflis-api")
-                .withExpiresAt(expiresAt);
-
-        // Claims 추가
-        for (Map.Entry<String, Object> entry : claims.entrySet()) {
-            builder.withClaim(entry.getKey(), entry.getValue().toString());
-        }
-
-        return builder.sign(getAlgorithm());
+                .withIssuedAt(now)
+                .withExpiresAt(expiresAt)
+                .withClaim("userId", userId)
+                .withClaim("name", name)
+                .withClaim("grade", grade)
+                .sign(getAlgorithm());
     }
 
-    public String getAccessToken(Map<String, Object> claims) {
-        return generateToken(claims, accessTokenExpireSeconds); // 1시간
+    public String getAccessToken(Long userId, String name, String grade) {
+        return generateToken(userId, name, grade, accessTokenExpireSeconds); // 1시간
     }
 
-    public String getRefreshToken(Map<String, Object> claims) {
-        return generateToken(claims, refreshTokenExpireSeconds); // 100일
+    public String getRefreshToken(Long userId, String name, String grade) {
+        return generateToken(userId, name, grade, refreshTokenExpireSeconds); // 100일
     }
 
     public boolean verify(String token) {
