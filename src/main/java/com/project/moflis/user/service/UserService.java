@@ -54,12 +54,7 @@ public class UserService {
         user.updateRefreshToken(refreshToken);
         userRepository.save(user);
 
-        return LoginUserResponse.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .accessToken(accessToken)
-                .refreshToken(refreshToken).build();
+        return LoginUserResponse.from(user, accessToken, refreshToken);
 
     }
 
