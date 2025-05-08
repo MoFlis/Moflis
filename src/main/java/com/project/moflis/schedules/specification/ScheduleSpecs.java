@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class ScheduleSpecs {
 
     //userId 필터
-    public static Specification<Schedule> hasUserId(long userId) {
+    public static Specification<Schedule> hasUserId(Long userId) {
         return (root, query, builder) -> builder.equal(root.get("user").get("id"), userId);
     }
 

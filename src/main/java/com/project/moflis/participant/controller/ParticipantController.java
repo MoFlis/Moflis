@@ -31,8 +31,8 @@ public class ParticipantController {
 
     @PostMapping("/apply")
     public ResponseEntity<ParticipantApplyResponse> applyParticipant(
-            @RequestParam long postId, @AuthenticationPrincipal CustomUserDetails user) {
-        long userId = user.getId();
+            @RequestParam Long postId, @AuthenticationPrincipal CustomUserDetails user) {
+        Long userId = user.getId();
         ApplyParticipantCommand command = new ApplyParticipantCommand(
                 postId,
                 ParticipantStatus.PENDING,
@@ -44,21 +44,21 @@ public class ParticipantController {
     }
 
     @PatchMapping("/cancel")
-    public ResponseEntity<String> cancelParticipation(@RequestParam long postId, @AuthenticationPrincipal CustomUserDetails user) {
+    public ResponseEntity<String> cancelParticipation(@RequestParam Long postId, @AuthenticationPrincipal CustomUserDetails user) {
         participantService.cancelParticipation(postId, user.getId());
         return ResponseEntity.ok("참여 신청이 취소되었습니다.");
     }
 
     @PatchMapping("{participantId}/approve")
-    public ResponseEntity<String> approve(@PathVariable long participantId, @AuthenticationPrincipal CustomUserDetails user) {
-        long userId = user.getId();
+    public ResponseEntity<String> approve(@PathVariable Long participantId, @AuthenticationPrincipal CustomUserDetails user) {
+        Long userId = user.getId();
         participantService.approve(participantId, userId);
         return ResponseEntity.ok("참여 신청이 승인되었습니다.");
     }
 
     @PatchMapping("{participantId}/reject")
-    public ResponseEntity<String> reject(@PathVariable long participantId, @AuthenticationPrincipal CustomUserDetails user) {
-        long userId = user.getId();
+    public ResponseEntity<String> reject(@PathVariable Long participantId, @AuthenticationPrincipal CustomUserDetails user) {
+        Long userId = user.getId();
         participantService.reject(participantId, userId);
         return ResponseEntity.ok("참여 신청이 거절 되었습니다.");
     }

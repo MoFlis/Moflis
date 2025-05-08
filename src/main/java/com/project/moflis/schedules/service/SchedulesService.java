@@ -32,7 +32,7 @@ public class SchedulesService {
     }
 
     @Transactional(readOnly = true)
-    public PageDTO<ScheduleSummaryResponse> getSchedules(long userId, String startDate, String endDate, int page, int size) {
+    public PageDTO<ScheduleSummaryResponse> getSchedules(Long userId, String startDate, String endDate, int page, int size) {
 
         //정렬
         Pageable pageable = PageRequest.of(page, size, Sort.by("scheduleDate").descending());
