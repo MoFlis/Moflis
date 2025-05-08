@@ -4,14 +4,12 @@ import com.project.moflis.user.command.JoinUserCommand;
 import com.project.moflis.user.enums.UserStatus;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
 public class JoinUserRequest {
 
     private Long id;
