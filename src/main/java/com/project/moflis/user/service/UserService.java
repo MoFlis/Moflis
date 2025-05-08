@@ -4,6 +4,7 @@ import com.project.moflis.global.security.jwt.JwtProvider;
 import com.project.moflis.global.security.jwt.TokenClaims;
 import com.project.moflis.user.command.JoinUserCommand;
 import com.project.moflis.user.command.LoginUserCommand;
+import com.project.moflis.user.dto.response.FindIdResponse;
 import com.project.moflis.user.dto.response.JoinUserResponse;
 import com.project.moflis.user.dto.response.LoginUserResponse;
 import com.project.moflis.user.entity.User;
@@ -68,9 +69,10 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public String findUserEmail(String name, String phone) {
-        return userRepository.findByNameAndPhone(name, phone)
-                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."))
-                .getEmail();
+    public FindIdResponse findUserEmail(String name, String phone) {
+        User user = userRepository.findByNameAndPhone(name, phone)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+        return new FindIdResponse(user.getEmail());
     }
 }

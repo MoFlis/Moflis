@@ -7,4 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FindIdResponse {
     private String email;
+
 }
