@@ -7,14 +7,11 @@ import com.project.moflis.user.command.LoginUserCommand;
 import com.project.moflis.user.dto.response.JoinUserResponse;
 import com.project.moflis.user.dto.response.LoginUserResponse;
 import com.project.moflis.user.entity.User;
-import com.project.moflis.user.enums.UserStatus;
 import com.project.moflis.user.mapper.UserMapper;
 import com.project.moflis.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Service
 public class UserService {
@@ -32,20 +29,7 @@ public class UserService {
     @Transactional
     public JoinUserResponse joinUser(JoinUserCommand command) {
         String encodedPassword = passwordEncoder.encode(command.getPassword());
-        User user = User.builder()
-                .email(command.getEmail())
-                .name(command.getName())
-                .password(encodedPassword)
-                .phone(command.getPhone())
-                .birth(command.getBirth())
-                .address(command.getAddress())
-                .nickname(command.getNickname())
-                .gender(command.isGender())
-                .kakao(command.getKakao())
-                .joinDate(LocalDateTime.now())
-                .userStatus(UserStatus.ACTIVE)
-                .grade(command.getGrade())
-                .build();
+        User user = User.toEntity(command, encodedPassword);
         return UserMapper.INSTANCE.toJoinUserCommand(userRepository.save(user));
     }
 
