@@ -8,12 +8,12 @@ import com.project.moflis.user.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthenticationService {
+public class TokenService {
 
     private final UserService userService;
     private final JwtProvider jwtProvider;
 
-    public AuthenticationService(UserService userService, JwtProvider jwtProvider) {
+    public TokenService(UserService userService, JwtProvider jwtProvider) {
         this.userService = userService;
         this.jwtProvider = jwtProvider;
     }
