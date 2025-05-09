@@ -6,6 +6,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Component
@@ -80,5 +82,17 @@ public class JwtProvider {
                 .grade(grade)
                 .email(email)
                 .build();
+    }
+
+    public LocalDateTime getRefreshTokenExpiry(String refreshToken) {
+        DecodedJWT decodedJWT = JWT.require(getAlgorithm())
+                .withIssuer("moflis-api")
+                .build()
+                .verify(refreshToken);
+
+        Date expiresAt = decodedJWT.getExpiresAt();
+        return expiresAt.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 }

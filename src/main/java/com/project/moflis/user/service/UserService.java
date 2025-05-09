@@ -1,7 +1,8 @@
 package com.project.moflis.user.service;
 
 import com.project.moflis.global.security.jwt.JwtProvider;
-import com.project.moflis.global.security.jwt.TokenClaims;
+import com.project.moflis.token.dto.response.TokenResponse;
+import com.project.moflis.token.service.TokenStoreService;
 import com.project.moflis.user.command.JoinUserCommand;
 import com.project.moflis.user.command.LoginUserCommand;
 import com.project.moflis.user.dto.response.FindIdResponse;
@@ -20,11 +21,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
+    private final TokenStoreService tokenStoreService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, TokenStoreService tokenStoreService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProvider = jwtProvider;
+        this.tokenStoreService = tokenStoreService;
     }
 
     @Transactional
@@ -43,19 +46,9 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치 하지 않습니다.");
         }
 
-        TokenClaims newClaims = TokenClaims.builder()
-                .userId(user.getId())
-                .name(user.getName())
-                .grade(user.getGrade())
-                .build();
+        TokenResponse response = tokenStoreService.generateAndStoreTokens(user);
 
-        String accessToken = jwtProvider.getAccessToken(newClaims);
-        String refreshToken = jwtProvider.getRefreshToken(newClaims);
-
-        user.updateRefreshToken(refreshToken);
-        userRepository.save(user);
-
-        return LoginUserResponse.from(user, accessToken, refreshToken);
+        return LoginUserResponse.from(user, response.getAccessToken(), response.getRefreshToken());
 
     }
 

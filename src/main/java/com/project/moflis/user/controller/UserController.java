@@ -7,6 +7,7 @@ import com.project.moflis.user.dto.response.FindIdResponse;
 import com.project.moflis.user.dto.response.JoinUserResponse;
 import com.project.moflis.user.dto.response.LoginUserResponse;
 import com.project.moflis.user.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +30,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginUserResponse> loginUser(LoginUserRequest request) {
+    public ResponseEntity<LoginUserResponse> loginUser(LoginUserRequest request, HttpServletResponse httpServletResponse) {
         LoginUserResponse response = userService.loginUser(request.toCommand());
+        httpServletResponse.setHeader("Authorization", "Bearer " + response.getAccessToken());
         return ResponseEntity.ok(response);
     }
 
