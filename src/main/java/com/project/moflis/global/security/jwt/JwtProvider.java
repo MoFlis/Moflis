@@ -34,7 +34,7 @@ public class JwtProvider {
         Date expiresAt = new Date(now.getTime() + 1000L * seconds);
 
         return JWT.create()
-                .withSubject("user")
+                .withSubject(String.valueOf(claims.getUserId()))
                 .withIssuer("moflis-api")
                 .withIssuedAt(now)
                 .withExpiresAt(expiresAt)
