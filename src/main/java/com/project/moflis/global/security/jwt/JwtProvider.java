@@ -39,7 +39,6 @@ public class JwtProvider {
                 .withIssuedAt(now)
                 .withExpiresAt(expiresAt)
                 .withClaim("userId", claims.getUserId())
-                .withClaim("name", claims.getName())
                 .withClaim("grade", claims.getGrade())
                 .sign(getAlgorithm());
     }
