@@ -1,5 +1,6 @@
 package com.project.moflis.user.controller;
 
+import com.project.moflis.token.dto.request.RefreshTokenRequest;
 import com.project.moflis.user.dto.request.FindIdRequest;
 import com.project.moflis.user.dto.request.JoinUserRequest;
 import com.project.moflis.user.dto.request.LoginUserRequest;
@@ -36,11 +37,16 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/find-id")
+    @PostMapping("/idInquiry")
     public ResponseEntity<FindIdResponse> findUserId(FindIdRequest request) {
         FindIdResponse email = userService.findUserEmail(request.getName(), request.getPhone());
         return ResponseEntity.ok(email);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(RefreshTokenRequest request) {
+        userService.logout(request.getRefreshToken());
+        return ResponseEntity.noContent().build();
+    }
 
 }

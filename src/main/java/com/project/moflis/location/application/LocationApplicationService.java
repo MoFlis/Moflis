@@ -22,5 +22,4 @@ public class LocationApplicationService {
         return locationService.locationVerify(userId, verifyLocationRequest);
     }
 
-
 }

@@ -11,15 +11,13 @@ public class LoginUserResponse {
     private String name;
     private String email;
     private String accessToken;
-    private String refreshToken;
 
-    public static LoginUserResponse from(User user, String accessToken, String refreshToken) {
+    public static LoginUserResponse from(User user, String accessToken) {
         return new LoginUserResponse(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                accessToken,
-                refreshToken
+                accessToken
         );
     }
 }

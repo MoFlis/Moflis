@@ -63,15 +63,8 @@ public class User {
     @Column
     private String grade;
 
-    @Column(name = "refresh_token", length = 512)
-    private String refreshToken;
-
     public User(long userId) {
         this.id = userId;
-    }
-
-    public void updateRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
     }
 
     public static User toEntity(JoinUserCommand command, String encodedPassword) {
@@ -88,8 +81,7 @@ public class User {
                 command.getKakao(),
                 LocalDateTime.now(),
                 UserStatus.ACTIVE,
-                command.getGrade(),
-                null
+                command.getGrade()
         );
     }
 
