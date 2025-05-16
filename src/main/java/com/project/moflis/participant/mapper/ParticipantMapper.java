@@ -3,11 +3,13 @@ package com.project.moflis.participant.mapper;
 import com.project.moflis.participant.dto.ParticipantApplyResponse;
 import com.project.moflis.participant.dto.ParticipantListItem;
 import com.project.moflis.participant.entity.Participant;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+@Mapper
 public interface ParticipantMapper {
     ParticipantMapper INSTANCE = Mappers.getMapper(ParticipantMapper.class);
 

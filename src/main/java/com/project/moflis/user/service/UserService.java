@@ -77,4 +77,9 @@ public class UserService {
         Long userId = claims.getUserId();
         refreshTokenService.deleteRefreshToken(userId);
     }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저 정보가 존재하지 않습니다. id=" + userId));
+    }
 }
