@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -24,17 +25,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .addFilterBefore(new Filter() {
-                    @Override
-                    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-                            throws IOException, ServletException {
-                        CustomUserDetails fakeUser = new CustomUserDetails(3, "devUser");
-                        var auth = new UsernamePasswordAuthenticationToken(fakeUser, null, List.of());
-                        SecurityContextHolder.getContext().setAuthentication(auth);
-                        chain.doFilter(request, response);
-                    }
-                }, UsernamePasswordAuthenticationFilter.class)
+
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/users/login", "/api/v1/users/join", "/api/v1/posts", "/api/v1/users/review").permitAll()    // 로그인, 회원가입은 허용
+                        .anyRequest().authenticated()               // 나머지는 인증 필요
+                )
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

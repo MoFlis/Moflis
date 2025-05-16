@@ -24,4 +24,19 @@ public class UserService {
         return UserMapper.INSTANCE.toUserDto(userRepository.findById(userId).get());
     }
 
+    public void logout(String refreshToken) {
+
+        if (!jwtProvider.verify(refreshToken)) {
+            throw new RuntimeException("유효하지 않은 토큰입니다");
+        }
+
+        TokenClaims claims = jwtProvider.getClaims(refreshToken);
+        Long userId = claims.getUserId();
+        refreshTokenService.deleteRefreshToken(userId);
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("해당 유저 정보가 존재하지 않습니다. id=" + userId));
+    }
 }
