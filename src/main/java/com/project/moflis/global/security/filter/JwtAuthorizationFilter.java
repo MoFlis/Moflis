@@ -2,6 +2,7 @@ package com.project.moflis.global.security.filter;
 
 import com.project.moflis.global.security.jwt.JwtProvider;
 import com.project.moflis.global.security.jwt.TokenClaims;
+import com.project.moflis.global.security.service.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -37,7 +37,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             TokenClaims claims = jwtProvider.getClaims(token);
 
             // 4. 사용자 정보로 UserDetails 가져오기
-            UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getEmail());
+            UserDetails userDetails = userDetailsService.loadUserByUserId(claims.getUserId());
 
             // 5. 인증 객체 생성 후 SecurityContext에 저장
             UsernamePasswordAuthenticationToken authentication =

@@ -42,6 +42,7 @@ public class JwtProvider {
                 .withExpiresAt(expiresAt)
                 .withClaim("userId", claims.getUserId())
                 .withClaim("grade", claims.getGrade())
+                .withClaim("email", claims.getEmail())
                 .sign(getAlgorithm());
     }
 
