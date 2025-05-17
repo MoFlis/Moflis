@@ -82,5 +82,9 @@ public class ParticipantService {
         participant.reject();
     }
 
-
+    public boolean validateReviewerAndRevieweeAreParticipants(Long postId, Long reviewerId, Long revieweeId) {
+        boolean reviewerJoined = participantRepository.existsByPostIdAndUserId(postId, reviewerId);
+        boolean revieweeJoined = participantRepository.existsByPostIdAndUserId(postId, revieweeId);
+        return reviewerJoined && revieweeJoined;
+    }
 }
