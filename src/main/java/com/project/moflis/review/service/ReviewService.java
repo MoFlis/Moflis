@@ -75,4 +75,18 @@ public class ReviewService {
 
         return reviewMapper.toReviewResponse(review);
     }
+
+    @Transactional
+    public ReviewResponse deleteReview(Long reviewId, Long userId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("리뷰를 찾을 수 없습니다"));
+
+        if (!review.getReviewer().getId().equals(userId)) {
+            throw new RuntimeException("리뷰를 삭제할 권한이 없습니다.");
+        }
+
+        review.delete();
+        
+        return reviewMapper.toReviewResponse(review);
+    }
 }
