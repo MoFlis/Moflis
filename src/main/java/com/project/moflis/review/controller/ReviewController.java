@@ -36,7 +36,7 @@ public class ReviewController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{reviewId}")
+    @PatchMapping("/{reviewId}")
     public ResponseEntity<ReviewResponse> updateReview(@AuthenticationPrincipal CustomUserDetails user,
                                                        @PathVariable Long reviewId,
                                                        ReviewUpdateRequest request) {
@@ -45,5 +45,11 @@ public class ReviewController {
         return ResponseEntity.ok(updatedReview);
     }
 
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<ReviewResponse> deleteReview(@PathVariable Long reviewId, @AuthenticationPrincipal CustomUserDetails user) {
+        Long userId = user.getId();
+        ReviewResponse deleteReview = reviewService.deleteReview(reviewId, userId);
+        return ResponseEntity.ok(deleteReview);
+    }
 
 }

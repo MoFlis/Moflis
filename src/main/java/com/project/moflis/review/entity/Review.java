@@ -59,4 +59,8 @@ public class Review {
         this.content = content;
     }
 
+    public void delete() {
+        this.status = ReviewStatus.INACTIVE;
+    }
+
 }
