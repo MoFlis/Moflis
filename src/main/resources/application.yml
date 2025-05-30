@@ -45,3 +45,4 @@ jwt:
   rawSecretKey: jaslklaskgkljdsgakljsgljksasdgahfadfgsdfhsdfgh
   access-token-expire-seconds: 3600
   refresh-token-expire-seconds: 8640000
+  issuer: ${JWT_ISSUER}
