@@ -4,11 +4,10 @@ package com.project.moflis.user.repository;
 import com.project.moflis.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 
     User findByNameAndPhone(String name, String phone);
 }

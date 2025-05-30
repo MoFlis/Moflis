@@ -37,7 +37,6 @@ public class User {
     private String phone;
 
     @Column
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birth;
 
     @Column

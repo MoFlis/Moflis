@@ -1,7 +1,9 @@
 package com.project.moflis.user.service;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.project.moflis.global.security.jwt.JwtProvider;
 import com.project.moflis.global.security.jwt.TokenClaims;
+import com.project.moflis.global.security.jwt.TokenClaimsFactory;
 import com.project.moflis.token.dto.response.TokenResponse;
 import com.project.moflis.token.service.RefreshTokenService;
 import com.project.moflis.user.command.JoinUserCommand;
@@ -38,10 +40,12 @@ public class UserService {
         return UserMapper.INSTANCE.toJoinUserCommand(userRepository.save(user));
     }
 
-
     public LoginUserResponse loginUser(LoginUserCommand command) {
-        User user = userRepository.findByEmail(command.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+        User user = userRepository.findByEmail(command.getEmail());
+        if( user != null){
+            throw new IllegalArgumentException("존재하지 않는 이메일입니다.");
+        }
+                
 
         if (!passwordEncoder.matches(command.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치 하지 않습니다.");
@@ -55,13 +59,13 @@ public class UserService {
 
     public User getByUserId(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("userId를 찾을 수 없습니다"));
+                .orElseThrow(() -> new IllegalArgumentException("요청하신 정보를 처리할 수 없습니다"));
     }
 
     public FindIdResponse findUserEmail(String name, String phone) {
         User user = userRepository.findByNameAndPhone(name, phone);
         if (user == null) {
-            throw new IllegalArgumentException("해당 이름과 전화번호로 등록된 사용자가 없습니다.");
+            throw new IllegalArgumentException("입력하신 정보로 가입된 계정을 찾을 수 없습니다");
         }
 
         return new FindIdResponse(user.getEmail());
@@ -73,7 +77,8 @@ public class UserService {
             throw new RuntimeException("유효하지 않은 토큰입니다");
         }
 
-        TokenClaims claims = jwtProvider.getClaims(refreshToken);
+        DecodedJWT jwt = jwtProvider.decode(refreshToken);
+        TokenClaims claims = TokenClaimsFactory.from(jwt);
         Long userId = claims.getUserId();
         refreshTokenService.deleteRefreshToken(userId);
     }

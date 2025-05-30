@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/idInquiry")
+    @PostMapping("/find-id")
     public ResponseEntity<FindIdResponse> findUserId(FindIdRequest request) {
         FindIdResponse email = userService.findUserEmail(request.getName(), request.getPhone());
         return ResponseEntity.ok(email);
