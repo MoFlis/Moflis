@@ -1,7 +1,9 @@
 package com.project.moflis.user.application;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.project.moflis.global.security.jwt.JwtProvider;
 import com.project.moflis.global.security.jwt.TokenClaims;
+import com.project.moflis.global.security.jwt.TokenClaimsFactory;
 import com.project.moflis.token.dto.response.TokenResponse;
 import com.project.moflis.token.entity.RefreshToken;
 import com.project.moflis.token.repository.RefreshTokenRepository;
@@ -35,11 +37,14 @@ public class UserTokenApplicationService {
             throw new RuntimeException("유효하지 않은 토큰입니다");
         }
 
-        TokenClaims claims = jwtProvider.getClaims(refreshToken);
+        DecodedJWT decodedJWT = jwtProvider.decode(refreshToken);
+        TokenClaims claims = TokenClaimsFactory.from(decodedJWT);
         Long userId = claims.getUserId();
 
-        RefreshToken tokenStore = refreshTokenRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("저장된 리프레시 토큰 없음"));
+        RefreshToken tokenStore = refreshTokenRepository.findByUserId(userId);
+        if (tokenStore == null) {
+            throw new RuntimeException("저장된 리프레시 토큰 없음");
+        }
 
         if (!tokenStore.getRefreshToken().equals(refreshToken)) {
             throw new RuntimeException("서버에 저장된 리프레시 토큰과 일치하지 않습니다");
