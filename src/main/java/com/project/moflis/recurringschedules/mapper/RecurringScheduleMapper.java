@@ -7,14 +7,12 @@ import com.project.moflis.recurringschedules.entity.RecurringSchedule;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.entity.Schedule;
 import com.project.moflis.user.entity.User;
-import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
 public interface RecurringScheduleMapper {
 
     RecurringScheduleMapper INSTANCE = Mappers.getMapper(RecurringScheduleMapper.class);

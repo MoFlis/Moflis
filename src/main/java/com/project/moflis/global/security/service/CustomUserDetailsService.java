@@ -19,12 +19,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("이 서비스에서는 이메일 기반 인증을 지원하지 않습니다.");
-    }
+        User user = userRepository.findByEmail(email);
 
-    public UserDetails loadUserByUserId(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: userId=" + userId));
+        if (user == null) {
+            throw new IllegalArgumentException("유저가 존재하지 않습니다.");
+        }
         return new CustomUserDetails(user);
     }
 }

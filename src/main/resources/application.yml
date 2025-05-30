@@ -41,3 +41,8 @@ location:
   base-longitude: ${LOCATION_BASE_LONGITUDE}
   verification-radius: ${LOCATION_VERIFICATION_RADIUS}
   earth-ladius: ${LOCATION_EARTH_RADIUS}
+jwt:
+  rawSecretKey: jaslklaskgkljdsgakljsgljksasdgahfadfgsdfhsdfgh
+  access-token-expire-seconds: 3600
+  refresh-token-expire-seconds: 8640000
+  issuer: ${JWT_ISSUER}

@@ -3,12 +3,10 @@ package com.project.moflis.location.mapper;
 import com.project.moflis.location.command.LocationCommand;
 import com.project.moflis.location.dto.LocationResponseDTO;
 import com.project.moflis.location.entity.Location;
-import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
 public interface LocationMapper {
 
     LocationMapper INSTANCE = Mappers.getMapper(LocationMapper.class);

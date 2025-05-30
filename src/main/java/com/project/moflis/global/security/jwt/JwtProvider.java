@@ -13,8 +13,7 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    @Value("${jwt.rawSecretKey}")
-    private String rawSecretKey;
+    private final Algorithm algorithm;
 
     @Value("${jwt.access-token-expire-seconds}")
     private int accessTokenExpireSeconds;
@@ -22,13 +21,12 @@ public class JwtProvider {
     @Value("${jwt.refresh-token-expire-seconds}")
     private int refreshTokenExpireSeconds;
 
-    private Algorithm algorithm;
 
-    private Algorithm getAlgorithm() {
-        if (algorithm == null) {
-            algorithm = Algorithm.HMAC256(rawSecretKey);
-        }
-        return algorithm;
+    @Value("${jwt.issuer}")
+    private String issuer;
+
+    public JwtProvider(Algorithm algorithm) {
+        this.algorithm = algorithm;
     }
 
     private String generateToken(TokenClaims claims, int seconds) {
@@ -37,27 +35,28 @@ public class JwtProvider {
 
         return JWT.create()
                 .withSubject(String.valueOf(claims.getUserId()))
-                .withIssuer("moflis-api")
+                .withIssuer(issuer)
                 .withIssuedAt(now)
                 .withExpiresAt(expiresAt)
                 .withClaim("userId", claims.getUserId())
                 .withClaim("grade", claims.getGrade())
                 .withClaim("email", claims.getEmail())
-                .sign(getAlgorithm());
+                .sign(algorithm);
     }
 
     public String getAccessToken(TokenClaims claims) {
-        return generateToken(claims, accessTokenExpireSeconds); // 1시간
+        return generateToken(claims, accessTokenExpireSeconds);
     }
 
     public String getRefreshToken(TokenClaims claims) {
-        return generateToken(claims, refreshTokenExpireSeconds); // 100일
+        return generateToken(claims, refreshTokenExpireSeconds);
+
     }
 
     public boolean verify(String token) {
         try {
-            JWT.require(getAlgorithm())
-                    .withIssuer("moflis-api")
+            JWT.require(algorithm)
+                    .withIssuer(issuer)
                     .build()
                     .verify(token);
             return true;
@@ -66,33 +65,17 @@ public class JwtProvider {
         }
     }
 
-    public TokenClaims getClaims(String token) {
-        DecodedJWT decodedJWT = JWT.require(getAlgorithm())
-                .withIssuer("moflis-api")
+    public DecodedJWT decode(String token) {
+        return JWT.require(algorithm)
+                .withIssuer(issuer)
                 .build()
                 .verify(token);
-
-        Long userId = decodedJWT.getClaim("userId").asLong();
-        String name = decodedJWT.getClaim("name").asString();
-        String grade = decodedJWT.getClaim("grade").asString();
-        String email = decodedJWT.getClaim("email").asString();
-
-        return TokenClaims.builder()
-                .userId(userId)
-                .name(name)
-                .grade(grade)
-                .email(email)
-                .build();
     }
 
     public LocalDateTime getRefreshTokenExpiry(String refreshToken) {
-        DecodedJWT decodedJWT = JWT.require(getAlgorithm())
-                .withIssuer("moflis-api")
-                .build()
-                .verify(refreshToken);
-
-        Date expiresAt = decodedJWT.getExpiresAt();
-        return expiresAt.toInstant()
+        DecodedJWT decodedJWT = decode(refreshToken);
+        return decodedJWT.getExpiresAt()
+                .toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
     }
