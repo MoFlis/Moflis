@@ -17,10 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtAuthorizationFilter jwtAuthFilter;
+    private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
-    public SecurityConfig(JwtAuthorizationFilter jwtAuthFilter) {
-        this.jwtAuthFilter = jwtAuthFilter;
+    public SecurityConfig(JwtAuthorizationFilter jwtAuthorizationFilter) {
+        this.jwtAuthorizationFilter = jwtAuthorizationFilter;
     }
 
     @Bean
@@ -32,7 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/users/login", "/api/v1/users/join", "/api/v1/posts").permitAll()    // 로그인, 회원가입은 허용
                         .anyRequest().authenticated()               // 나머지는 인증 필요
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
