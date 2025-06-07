@@ -1,6 +1,5 @@
 package com.project.moflis.user.entity;
 
-import com.project.moflis.user.command.JoinUserCommand;
 import com.project.moflis.user.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -65,24 +64,5 @@ public class User {
     public User(long userId) {
         this.id = userId;
     }
-
-    public static User toEntity(JoinUserCommand command, String encodedPassword) {
-        return new User(
-                null, // ID는 자동 생성
-                command.getName(),
-                command.getEmail(),
-                encodedPassword,
-                command.getPhone(),
-                command.getBirth(),
-                command.getAddress(),
-                command.getNickname(),
-                command.isGender(),
-                command.getKakao(),
-                LocalDateTime.now(),
-                UserStatus.ACTIVE,
-                command.getGrade()
-        );
-    }
-
 
 }

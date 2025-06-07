@@ -12,6 +12,7 @@ import com.project.moflis.user.dto.response.FindIdResponse;
 import com.project.moflis.user.dto.response.JoinUserResponse;
 import com.project.moflis.user.dto.response.LoginUserResponse;
 import com.project.moflis.user.entity.User;
+import com.project.moflis.user.factory.UserFactory;
 import com.project.moflis.user.mapper.UserMapper;
 import com.project.moflis.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,7 +37,7 @@ public class UserService {
     @Transactional
     public JoinUserResponse joinUser(JoinUserCommand command) {
         String encodedPassword = passwordEncoder.encode(command.getPassword());
-        User user = User.toEntity(command, encodedPassword);
+        User user = UserFactory.createUser(command, encodedPassword);
         return UserMapper.INSTANCE.toJoinUserCommand(userRepository.save(user));
     }
 
