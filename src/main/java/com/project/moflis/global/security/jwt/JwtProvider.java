@@ -6,6 +6,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -29,14 +30,14 @@ public class JwtProvider {
     }
 
     private String generateToken(TokenClaims claims, int seconds) {
-        Date now = new Date();
-        Date expiresAt = new Date(now.getTime() + 1000L * seconds);
+        Instant now = Instant.now();
+        Instant expiresAt = now.plusSeconds(seconds);
 
         return JWT.create()
                 .withSubject(String.valueOf(claims.getUserId()))
                 .withIssuer(issuer)
-                .withIssuedAt(now)
-                .withExpiresAt(expiresAt)
+                .withIssuedAt(Date.from(now))
+                .withExpiresAt(Date.from(expiresAt))
                 .withClaim("userId", claims.getUserId())
                 .withClaim("grade", claims.getGrade())
                 .withClaim("email", claims.getEmail())
