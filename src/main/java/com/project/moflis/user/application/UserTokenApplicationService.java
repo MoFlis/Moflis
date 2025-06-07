@@ -41,10 +41,7 @@ public class UserTokenApplicationService {
         TokenClaims claims = TokenClaimsFactory.from(decodedJWT);
         Long userId = claims.getUserId();
 
-        RefreshToken token = refreshTokenRepository.findByUserId(userId);
-        if (token == null) {
-            throw new RuntimeException("저장된 리프레시 토큰 없음");
-        }
+        RefreshToken token = refreshTokenService.getByUserId(userId);
 
         if (!token.getRefreshToken().equals(refreshToken)) {
             throw new RuntimeException("서버에 저장된 리프레시 토큰과 일치하지 않습니다");
