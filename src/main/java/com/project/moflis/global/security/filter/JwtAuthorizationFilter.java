@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +35,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         // 2. 토큰 검증
         if (token != null && jwtProvider.verify(token)) {
             // 3. 토큰에서 사용자 정보 꺼내기
-            TokenClaims claims = jwtProvider.getClaims(token);
+            TokenClaims claims = (TokenClaims) jwtProvider.decode(token);
 
             // 4. 사용자 정보로 UserDetails 가져오기
             UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getEmail());

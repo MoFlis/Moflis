@@ -3,11 +3,13 @@ package com.project.moflis.user.dto.request;
 import com.project.moflis.user.command.LoginUserCommand;
 import com.project.moflis.user.enums.UserStatus;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 public class LoginUserRequest {
 
     private Long id;

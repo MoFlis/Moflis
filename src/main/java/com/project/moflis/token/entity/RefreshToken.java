@@ -22,12 +22,12 @@ public class RefreshToken {
     private Long userId;
 
     @Lob
-    @Column(name = "refresh_token", nullable = false)
+    @Column(name = "refresh_token", columnDefinition = "TEXT", nullable = false)
     private String refreshToken;
 
     @Column(name = "expires_at", nullable = false)
     private LocalDateTime expiresAt;
-    
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

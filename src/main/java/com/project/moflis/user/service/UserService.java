@@ -42,10 +42,10 @@ public class UserService {
 
     public LoginUserResponse loginUser(LoginUserCommand command) {
         User user = userRepository.findByEmail(command.getEmail());
-        if( user != null){
+        if (user == null) {
             throw new IllegalArgumentException("존재하지 않는 이메일입니다.");
         }
-                
+
 
         if (!passwordEncoder.matches(command.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치 하지 않습니다.");
