@@ -41,18 +41,18 @@ public class UserTokenApplicationService {
         TokenClaims claims = TokenClaimsFactory.from(decodedJWT);
         Long userId = claims.getUserId();
 
-        RefreshToken tokenStore = refreshTokenRepository.findByUserId(userId);
-        if (tokenStore == null) {
+        RefreshToken token = refreshTokenRepository.findByUserId(userId);
+        if (token == null) {
             throw new RuntimeException("저장된 리프레시 토큰 없음");
         }
 
-        if (!tokenStore.getRefreshToken().equals(refreshToken)) {
+        if (!token.getRefreshToken().equals(refreshToken)) {
             throw new RuntimeException("서버에 저장된 리프레시 토큰과 일치하지 않습니다");
         }
 
         User user = userService.getByUserId(userId);
 
-        boolean generateNewRefreshToken = tokenStore.getExpiresAt().isBefore(LocalDateTime.now().plusDays(3));
+        boolean generateNewRefreshToken = token.getExpiresAt().isBefore(LocalDateTime.now().plusDays(3));
 
         if (generateNewRefreshToken) {
             refreshTokenService.generateAndStoreTokens(user);
