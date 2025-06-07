@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 
 @Component
 public class JwtProvider {
@@ -36,8 +35,8 @@ public class JwtProvider {
         return JWT.create()
                 .withSubject(String.valueOf(claims.getUserId()))
                 .withIssuer(issuer)
-                .withIssuedAt(Date.from(now))
-                .withExpiresAt(Date.from(expiresAt))
+                .withIssuedAt(now)
+                .withExpiresAt(expiresAt)
                 .withClaim("userId", claims.getUserId())
                 .withClaim("grade", claims.getGrade())
                 .withClaim("email", claims.getEmail())
@@ -73,6 +72,14 @@ public class JwtProvider {
 
     public LocalDateTime getRefreshTokenExpiry(String refreshToken) {
         DecodedJWT decodedJWT = decode(refreshToken);
+        return decodedJWT.getExpiresAt()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    public LocalDateTime getAccessTokenExpiry(String accessToken) {
+        DecodedJWT decodedJWT = decode(accessToken);
         return decodedJWT.getExpiresAt()
                 .toInstant()
                 .atZone(ZoneId.systemDefault())

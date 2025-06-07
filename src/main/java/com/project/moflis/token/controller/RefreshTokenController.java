@@ -1,6 +1,6 @@
 package com.project.moflis.token.controller;
 
-import com.project.moflis.token.dto.request.RefreshTokenRequest;
+import com.project.moflis.token.dto.request.AccessTokenRequest;
 import com.project.moflis.token.dto.response.TokenResponse;
 import com.project.moflis.user.application.UserTokenApplicationService;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +19,9 @@ public class RefreshTokenController {
     }
 
     @PostMapping("/token/refresh")
-    public ResponseEntity<TokenResponse> refreshToken(RefreshTokenRequest request) {
-        String refreshToken = request.getRefreshToken();
-        TokenResponse response = userTokenApplicationService.refreshToken(refreshToken);
+    public ResponseEntity<TokenResponse> accessToken(AccessTokenRequest request) {
+        String accessToken = request.getRefreshToken();
+        TokenResponse response = userTokenApplicationService.accessToken(accessToken);
         return ResponseEntity.ok(response);
     }
 
