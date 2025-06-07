@@ -59,6 +59,13 @@ public class User {
     @Column
     private String grade;
 
+    @Column
+    private boolean emailVerified = false;
+
+    public void isVerified() {
+        emailVerified = true;
+    }
+
     public User(long userId) {
         this.id = userId;
     }

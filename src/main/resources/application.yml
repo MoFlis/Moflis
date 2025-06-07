@@ -16,6 +16,17 @@ spring:
       leak-detection-threshold: 1795000 # (29분 55초)
       pool-name: HikariPool
       register-mbeans: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: aajj9776@gmail.com
+    password: fkfttokgnlsbllmr
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   devtools:
     restart:
       enabled: false
