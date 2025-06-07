@@ -6,7 +6,6 @@ import com.project.moflis.global.security.jwt.TokenClaims;
 import com.project.moflis.global.security.jwt.TokenClaimsFactory;
 import com.project.moflis.token.dto.response.TokenResponse;
 import com.project.moflis.token.entity.RefreshToken;
-import com.project.moflis.token.repository.RefreshTokenRepository;
 import com.project.moflis.token.service.RefreshTokenService;
 import com.project.moflis.user.entity.User;
 import com.project.moflis.user.service.UserService;
@@ -18,16 +17,13 @@ import java.time.LocalDateTime;
 public class UserTokenApplicationService {
 
     private final JwtProvider jwtProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
     private final UserService userService;
     private final RefreshTokenService refreshTokenService;
 
     public UserTokenApplicationService(JwtProvider jwtProvider,
-                                       RefreshTokenRepository refreshTokenRepository,
                                        UserService userService,
                                        RefreshTokenService refreshTokenService) {
         this.jwtProvider = jwtProvider;
-        this.refreshTokenRepository = refreshTokenRepository;
         this.userService = userService;
         this.refreshTokenService = refreshTokenService;
     }
