@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/users/login", "/api/v1/users/join", "/api/v1/posts").permitAll()    // 로그인, 회원가입은 허용
+                        .requestMatchers("/api/v1/users/login", "/api/v1/users/join", "/api/v1/posts").permitAll()    // 로그인, 회원가입, 게시글 조회는 허용
                         .anyRequest().authenticated()               // 나머지는 인증 필요
                 )
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
