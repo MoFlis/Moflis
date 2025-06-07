@@ -24,8 +24,8 @@ public class JwtProvider {
     @Value("${jwt.issuer}")
     private String issuer;
 
-    public JwtProvider(Algorithm algorithm) {
-        this.algorithm = algorithm;
+    public JwtProvider(@Value("${jwt.secret}") String secret) {
+        this.algorithm = Algorithm.HMAC512(secret);
     }
 
     private String generateToken(TokenClaims claims, int seconds) {
