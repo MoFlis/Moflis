@@ -19,6 +19,10 @@ public class PostController {
         this.postService = postService;
     }
 
+
+    //어떤 기준으로 검색, 정렬할수 있게 해야함
+    //카테고리, 텍스트 검색,
+    //Like Search & Full-Text Index & 그 외 방식
     @GetMapping
     public ResponseEntity<PostSliceResponse> getPost(
             @RequestParam(required = false) String cursor,

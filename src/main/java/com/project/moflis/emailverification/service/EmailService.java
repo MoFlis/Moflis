@@ -13,6 +13,8 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
+    // 메일 발송을 실패했을때( 우리메일 스팸, 받는 사람 방화벽)
+    //최소한 우리가 알수있는 실패는 재ㅊ
     public void sendEmail(String toEmail, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(toEmail);

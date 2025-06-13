@@ -3,9 +3,9 @@ package com.project.moflis.emailverification.controller;
 import com.project.moflis.emailverification.dto.EmailVerificationRequest;
 import com.project.moflis.emailverification.service.EmailVerificationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,8 +24,8 @@ public class EmailVerificationController {
         return ResponseEntity.ok("인증 이메일이 발송되었습니다.");
     }
 
-    @GetMapping("/verify")
-    public ResponseEntity<String> verifyEmail(String token) {
+    @PostMapping("/verify")
+    public ResponseEntity<String> verifyEmail(@RequestParam String token) {
         boolean isVerify = verificationService.verifyToken(token);
         if (isVerify) {
             return ResponseEntity.ok("이메일 인증이 완료되었습니다.");

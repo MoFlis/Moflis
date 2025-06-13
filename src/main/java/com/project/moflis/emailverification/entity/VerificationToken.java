@@ -1,5 +1,6 @@
 package com.project.moflis.emailverification.entity;
 
+import com.project.moflis.emailverification.enums.TokenStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,14 @@ public class VerificationToken {
 
     private LocalDateTime expiresAt;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TokenStatus status;
+
     public VerificationToken(String email, String token, LocalDateTime expiresAt) {
         this.email = email;
         this.token = token;
         this.expiresAt = expiresAt;
+        this.status = TokenStatus.PENDING;
     }
 }
