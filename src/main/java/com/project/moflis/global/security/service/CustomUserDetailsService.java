@@ -25,6 +25,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUserId(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: userId=" + userId));
-        return new CustomUserDetails(user);
+        return new CustomUserDetails(user.getId(), user.getName());
     }
 }

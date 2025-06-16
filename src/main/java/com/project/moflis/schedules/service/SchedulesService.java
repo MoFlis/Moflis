@@ -32,7 +32,7 @@ public class SchedulesService {
     }
 
     @Transactional(readOnly = true)
-    public PageDTO<ScheduleSummaryResponse> getSchedules(int userId, String startDate, String endDate, int page, int size) {
+    public PageDTO<ScheduleSummaryResponse> getSchedules(Long userId, String startDate, String endDate, int page, int size) {
 
         //정렬
         Pageable pageable = PageRequest.of(page, size, Sort.by("scheduleDate").descending());
@@ -75,7 +75,7 @@ public class SchedulesService {
     }
 
     @Transactional
-    public void deleteSchedules(long scheduleId) {
+    public void deleteSchedules(Long scheduleId) {
         Schedule schedule = schedulesRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다"));
         schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
@@ -90,7 +90,7 @@ public class SchedulesService {
 
     //반복일정 삭제
     @Transactional
-    public void deleteRecurringSchedules(long recurringScheduleId) {
+    public void deleteRecurringSchedules(Long recurringScheduleId) {
         List<Schedule> recurringSchedulesList = schedulesRepository.findByRecurringScheduleId(recurringScheduleId);
         for (Schedule schedule : recurringSchedulesList) {
             schedule.setSchedulesStatus(SchedulesStatus.INACTIVE);
@@ -100,7 +100,7 @@ public class SchedulesService {
 
     //반복일정 수정
     @Transactional
-    public void updateRecurringSchedules(RecurringSchedule recurringSchedules, long recurringScheduleId) {
+    public void updateRecurringSchedules(RecurringSchedule recurringSchedules, Long recurringScheduleId) {
         schedulesRepository.deleteByRecurringScheduleId(recurringScheduleId);
         List<Schedule> generatedSchedules = RecurringScheduleGenerator.generateSchedules(recurringSchedules);
         schedulesRepository.saveAll(generatedSchedules);
