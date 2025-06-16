@@ -5,7 +5,7 @@ import com.project.moflis.review.entity.Review;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ReviewMapper {
 
     @Mapping(source = "reviewer.id", target = "reviewerId")
