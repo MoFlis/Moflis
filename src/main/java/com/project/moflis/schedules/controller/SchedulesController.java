@@ -30,7 +30,7 @@ public class SchedulesController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        int userId = user.getId();
+        Long userId = user.getId();
         PageDTO<ScheduleSummaryResponse> schedulesList = schedulsService.getSchedules(userId, startDate, endDate, page, size);
         return ResponseEntity.ok(schedulesList);
     }
@@ -51,14 +51,14 @@ public class SchedulesController {
 
     //스케줄 수정
     @PatchMapping("/{scheduleId}")
-    public ResponseEntity<ScheduleResponse> patchSchedules(@PathVariable("scheduleId") long scheduleId, UpdateSchedulsRequest request) {
+    public ResponseEntity<ScheduleResponse> patchSchedules(@PathVariable("scheduleId") Long scheduleId, UpdateSchedulsRequest request) {
         ScheduleResponse response = schedulsService.updateSchedules(request.toCommand(scheduleId));
         return ResponseEntity.ok(response);
     }
 
     //스케줄 삭제
     @DeleteMapping("/{scheduleId}")
-    public ResponseEntity<Void> deleteSchedules(@PathVariable("scheduleId") long scheduleId) {
+    public ResponseEntity<Void> deleteSchedules(@PathVariable("scheduleId") Long scheduleId) {
         schedulsService.deleteSchedules(scheduleId);
         return ResponseEntity.noContent().build();
     }

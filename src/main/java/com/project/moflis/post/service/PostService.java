@@ -96,4 +96,9 @@ public class PostService {
             post.complete();
         }
     }
+
+    public Post getPostById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(
+                () -> new RuntimeException("존재 하지 않는 postId: " + postId + "입니다"));
+    }
 }

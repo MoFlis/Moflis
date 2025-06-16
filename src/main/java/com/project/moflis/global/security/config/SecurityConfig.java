@@ -29,7 +29,7 @@ public class SecurityConfig {
                     @Override
                     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
                             throws IOException, ServletException {
-                        CustomUserDetails fakeUser = new CustomUserDetails(3, "devUser");
+                        CustomUserDetails fakeUser = new CustomUserDetails(3L, "devUser");
                         var auth = new UsernamePasswordAuthenticationToken(fakeUser, null, List.of());
                         SecurityContextHolder.getContext().setAuthentication(auth);
                         chain.doFilter(request, response);

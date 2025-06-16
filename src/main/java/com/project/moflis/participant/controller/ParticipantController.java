@@ -24,15 +24,15 @@ public class ParticipantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ParticipantListItem>> getParticipants(@RequestParam long postId) {
+    public ResponseEntity<List<ParticipantListItem>> getParticipants(@RequestParam Long postId) {
         List<ParticipantListItem> participants = participantService.getParticipants(postId);
         return ResponseEntity.ok(participants);
     }
 
     @PostMapping("/apply")
     public ResponseEntity<ParticipantApplyResponse> applyParticipant(
-            @RequestParam long postId, @AuthenticationPrincipal CustomUserDetails user) {
-        int userId = user.getId();
+            @RequestParam Long postId, @AuthenticationPrincipal CustomUserDetails user) {
+        Long userId = user.getId();
         ApplyParticipantCommand command = new ApplyParticipantCommand(
                 postId,
                 ParticipantStatus.PENDING,
@@ -50,15 +50,15 @@ public class ParticipantController {
     }
 
     @PatchMapping("{participantId}/approve")
-    public ResponseEntity<String> approve(@PathVariable long participantId, @AuthenticationPrincipal CustomUserDetails user) {
-        int userId = user.getId();
+    public ResponseEntity<String> approve(@PathVariable Long participantId, @AuthenticationPrincipal CustomUserDetails user) {
+        Long userId = user.getId();
         participantService.approve(participantId, userId);
         return ResponseEntity.ok("참여 신청이 승인되었습니다.");
     }
 
     @PatchMapping("{participantId}/reject")
     public ResponseEntity<String> reject(@PathVariable long participantId, @AuthenticationPrincipal CustomUserDetails user) {
-        int userId = user.getId();
+        Long userId = user.getId();
         participantService.reject(participantId, userId);
         return ResponseEntity.ok("참여 신청이 거절 되었습니다.");
     }
