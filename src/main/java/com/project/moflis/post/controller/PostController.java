@@ -1,9 +1,6 @@
 package com.project.moflis.post.controller;
 
-import com.project.moflis.post.dto.AddPostRequest;
-import com.project.moflis.post.dto.PostResponse;
-import com.project.moflis.post.dto.PostSliceResponse;
-import com.project.moflis.post.dto.UpdatePostRequest;
+import com.project.moflis.post.dto.*;
 import com.project.moflis.post.enums.PostSort;
 import com.project.moflis.post.service.PostService;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +18,12 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<PostSliceResponse> getPost(
+            @ModelAttribute PostSearchCondition searchCondition,
             @RequestParam(required = false) String cursor,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "DATE") PostSort sortBy
     ) {
-        PostSliceResponse response = postService.getPostList(sortBy, cursor, size);
+        PostSliceResponse response = postService.getPostList(sortBy, cursor, size, searchCondition);
         return ResponseEntity.ok(response);
     }
 

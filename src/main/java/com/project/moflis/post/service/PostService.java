@@ -3,6 +3,7 @@ package com.project.moflis.post.service;
 import com.project.moflis.post.command.AddPostCommand;
 import com.project.moflis.post.command.UpdatePostCommand;
 import com.project.moflis.post.dto.PostResponse;
+import com.project.moflis.post.dto.PostSearchCondition;
 import com.project.moflis.post.dto.PostSliceResponse;
 import com.project.moflis.post.entity.Post;
 import com.project.moflis.post.enums.PostSort;
@@ -29,9 +30,9 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public PostSliceResponse getPostList(PostSort sortBy, String cursor, int size) {
+    public PostSliceResponse getPostList(PostSort sortBy, String cursor, int size, PostSearchCondition searchCondition) {
         Pageable pageable = PageRequest.of(0, size);
-        Slice<Post> postSlice = postRepository.findNextPostsBy(sortBy, cursor, pageable);
+        Slice<Post> postSlice = postRepository.findNextPostsBy(sortBy, cursor, pageable, searchCondition);
         List<PostResponse> content = PostMapper.INSTANCE.toPostResponseList(postSlice.getContent());
 
         LocalDateTime nextCursor = null;
