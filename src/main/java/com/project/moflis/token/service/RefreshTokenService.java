@@ -49,11 +49,4 @@ public class RefreshTokenService {
         refreshTokenRepository.deleteById(userId);
     }
 
-    public RefreshToken getByUserId(Long userId) {
-        RefreshToken token = refreshTokenRepository.findByUserId(userId);
-        if (token == null) {
-            throw new RuntimeException("저장된 리프레시 토큰 없음");
-        }
-        return token;
-    }
 }
