@@ -10,14 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginService {
+public class SessionService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenService refreshTokenService;
     private final TokenService tokenService;
 
-    public LoginService(UserRepository userRepository, PasswordEncoder passwordEncoder, RefreshTokenService refreshTokenService, TokenService tokenService) {
+    public SessionService(UserRepository userRepository, PasswordEncoder passwordEncoder, RefreshTokenService refreshTokenService, TokenService tokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.refreshTokenService = refreshTokenService;
@@ -25,11 +25,8 @@ public class LoginService {
     }
 
     public LoginUserResponse loginUser(LoginUserCommand command) {
-        User user = userRepository.findByEmail(command.getEmail());
-        if (user == null) {
-            throw new IllegalArgumentException("존재하지 않는 이메일입니다.");
-        }
 
+        User user = findUserByEmailOrThrow(command.getEmail());
 
         if (!passwordEncoder.matches(command.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치 하지 않습니다.");
@@ -44,5 +41,13 @@ public class LoginService {
     public void logout(String refreshToken) {
         Long userId = tokenService.parseUserId(refreshToken);
         refreshTokenService.deleteRefreshToken(userId);
+    }
+
+    private User findUserByEmailOrThrow(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("존재하지 않는 이메일입니다.");
+        }
+        return user;
     }
 }

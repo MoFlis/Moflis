@@ -20,6 +20,4 @@ public class TokenService {
         return jwtProvider.decode(refreshToken)
                 .getClaim("userId").asLong();
     }
-
-
 }

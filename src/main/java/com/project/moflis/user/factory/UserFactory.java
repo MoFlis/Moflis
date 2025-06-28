@@ -10,7 +10,7 @@ public class UserFactory {
 
     public static User createUser(JoinUserCommand command, String encodedPassword) {
         return new User(
-                null, // ID는 자동 생성
+                null,
                 command.getName(),
                 command.getEmail(),
                 encodedPassword,
