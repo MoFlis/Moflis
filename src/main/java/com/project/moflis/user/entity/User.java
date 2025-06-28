@@ -1,21 +1,22 @@
 package com.project.moflis.user.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.moflis.user.enums.UserStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Setter
 @Getter
 @Table(name = "users")
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -50,6 +51,7 @@ public class User {
     private int kakao;
 
     @Column
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime joinDate;
 
     @Enumerated(EnumType.STRING)
@@ -62,4 +64,5 @@ public class User {
     public User(long userId) {
         this.id = userId;
     }
+
 }

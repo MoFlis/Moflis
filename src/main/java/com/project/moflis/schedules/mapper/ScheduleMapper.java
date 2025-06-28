@@ -5,14 +5,12 @@ import com.project.moflis.schedules.command.AddSchedulsCommand;
 import com.project.moflis.schedules.dto.schedules.ScheduleResponse;
 import com.project.moflis.schedules.dto.schedules.ScheduleSummaryResponse;
 import com.project.moflis.schedules.entity.Schedule;
-import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
 public interface ScheduleMapper {
 
     ScheduleMapper INSTANCE = Mappers.getMapper(ScheduleMapper.class);

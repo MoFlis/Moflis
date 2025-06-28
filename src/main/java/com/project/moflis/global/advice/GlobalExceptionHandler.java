@@ -37,7 +37,6 @@ public class GlobalExceptionHandler {
         return buildErrorResponse("이미 해당 위치가 등록되어 있습니다.", HttpStatus.CONFLICT, e);
     }
 
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleUnexpectedException(Exception e) {
         return buildErrorResponse("서버에서 알 수 없는 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR, e);

@@ -1,5 +1,6 @@
 package com.project.moflis.global.security.model;
 
+import com.project.moflis.user.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,19 +11,25 @@ import java.util.Collections;
 @Getter
 public class CustomUserDetails implements UserDetails {
 
-    private final int id;
-    private final String username;
+    private final Long id;
+    private final String email;
+    private final String password;
+    private final String grade;
 
     // 필요한 경우: roles, email 등 추가 가능
 
-    public CustomUserDetails(int id, String username) {
-        this.id = id;
-        this.username = username;
+
+    public CustomUserDetails(User user) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.grade = user.getGrade(); // 예: "USER" or "ADMIN"
     }
+
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     // 비밀번호가 필요 없는 경우 null 반환 (JWT 기반이기 때문에 사용 안 함)
