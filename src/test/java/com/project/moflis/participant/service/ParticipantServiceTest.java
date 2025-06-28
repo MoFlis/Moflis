@@ -84,7 +84,6 @@ class ParticipantServiceTest {
 
         User user = new User(userId);
         Participant participant = Participant.create(fakePost, user, ParticipantStatus.PENDING);
-        participant.setId(1L);
 
         when(participantRepository.existsByPostIdAndUserId(postId, userId)).thenReturn(false);
         when(postService.getPostWithLockAndValidate(postId, userId)).thenReturn(fakePost);
@@ -192,7 +191,6 @@ class ParticipantServiceTest {
         post.setUser(postOwner);
 
         Participant participant = Participant.create(post, postOwner, ParticipantStatus.PENDING);
-        participant.setId(participantId);
 
         when(participantRepository.findById(participant.getId())).thenReturn(Optional.of(participant));
 
@@ -215,7 +213,6 @@ class ParticipantServiceTest {
         post.setUser(postOwner);
 
         Participant participant = Participant.create(post, postOwner, ParticipantStatus.PENDING);
-        participant.setId(participantId);
 
         when(participantRepository.findById(participant.getId())).thenReturn(Optional.of(participant));
 
@@ -240,7 +237,6 @@ class ParticipantServiceTest {
         post.setUser(postOwner);
 
         Participant participant = Participant.create(post, postOwner, ParticipantStatus.PENDING);
-        participant.setId(participantId);
 
         when(participantRepository.findById(participant.getId())).thenReturn(Optional.of(participant));
 
