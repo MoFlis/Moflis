@@ -30,17 +30,19 @@ public class VerificationTokenRetryScheduler {
             try {
                 emailService.sendEmail(
                         token.getEmail(),
-                        "회원가입 이메일 인증 재시도 안내",
+                        "회원가입 이메일 인증 안내",
                         """
                                 안녕하세요.
                                 
-                                MOFLIS 서비스 회원가입 이메일 인증 재시도 메일입니다.
+                                MOFLIS 서비스 회원가입을 진행해주셔서 감사합니다.
                                 
                                 인증번호: [%s]
                                 
+                                만약 회원가입을 요청하지 않으셨다면 본 이메일은 무시하셔도 됩니다.
+                                
                                 감사합니다.
                                 - MOFLIS 서비스팀 -
-                                """.formatted(token.getToken())
+                                """.formatted(token)
                 );
 
                 token.setStatus(TokenStatus.SENT);
